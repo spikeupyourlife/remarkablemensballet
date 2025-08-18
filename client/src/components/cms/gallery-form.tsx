@@ -12,12 +12,12 @@ const galleryFormSchema = z.object({
   showName: z.string().optional(), 
   venue: z.string().optional(),
   description: z.string().optional(),
-  tags: z.array(z.string()).default([]),
-  whoTags: z.array(z.string()).default([]),
-  whatTags: z.array(z.string()).default([]),
-  whenTags: z.array(z.string()).default([]),
-  whereTags: z.array(z.string()).default([]),
-  whyTags: z.array(z.string()).default([]),
+  tags: z.array(z.string()).optional(),
+  whoTags: z.array(z.string()).optional(),
+  whatTags: z.array(z.string()).optional(),
+  whenTags: z.array(z.string()).optional(),
+  whereTags: z.array(z.string()).optional(),
+  whyTags: z.array(z.string()).optional(),
   featured: z.boolean().optional(),
 });
 
@@ -44,7 +44,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const form = useForm<GalleryFormData>({
+  const form = useForm({
     resolver: zodResolver(galleryFormSchema),
     defaultValues: {
       title: photo?.title || "",
@@ -62,30 +62,24 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
     },
   });
 
-  const { fields: whoFields, append: appendWho, remove: removeWho } = useFieldArray({
-    control: form.control,
-    name: "whoTags",
-  });
+  // Custom tag management functions
+  const addTag = (tagType: keyof Pick<GalleryFormData, 'whoTags' | 'whatTags' | 'whenTags' | 'whereTags' | 'whyTags'>) => {
+    const currentTags = form.getValues(tagType) || [];
+    form.setValue(tagType, [...currentTags, ""]);
+  };
 
-  const { fields: whatFields, append: appendWhat, remove: removeWhat } = useFieldArray({
-    control: form.control,
-    name: "whatTags",
-  });
+  const removeTag = (tagType: keyof Pick<GalleryFormData, 'whoTags' | 'whatTags' | 'whenTags' | 'whereTags' | 'whyTags'>, index: number) => {
+    const currentTags = form.getValues(tagType) || [];
+    const newTags = currentTags.filter((_, i) => i !== index);
+    form.setValue(tagType, newTags);
+  };
 
-  const { fields: whenFields, append: appendWhen, remove: removeWhen } = useFieldArray({
-    control: form.control,
-    name: "whenTags",
-  });
-
-  const { fields: whereFields, append: appendWhere, remove: removeWhere } = useFieldArray({
-    control: form.control,
-    name: "whereTags",
-  });
-
-  const { fields: whyFields, append: appendWhy, remove: removeWhy } = useFieldArray({
-    control: form.control,
-    name: "whyTags",
-  });
+  const updateTag = (tagType: keyof Pick<GalleryFormData, 'whoTags' | 'whatTags' | 'whenTags' | 'whereTags' | 'whyTags'>, index: number, value: string) => {
+    const currentTags = form.getValues(tagType) || [];
+    const newTags = [...currentTags];
+    newTags[index] = value;
+    form.setValue(tagType, newTags);
+  };
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertGalleryPhoto) => {
@@ -157,11 +151,11 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
 
   const addTagField = (fieldType: 'who' | 'what' | 'when' | 'where' | 'why') => {
     switch (fieldType) {
-      case 'who': appendWho(""); break;
-      case 'what': appendWhat(""); break;
-      case 'when': appendWhen(""); break;
-      case 'where': appendWhere(""); break;
-      case 'why': appendWhy(""); break;
+      case 'who': addTag('whoTags'); break;
+      case 'what': addTag('whatTags'); break;
+      case 'when': addTag('whenTags'); break;
+      case 'where': addTag('whereTags'); break;
+      case 'why': addTag('whyTags'); break;
     }
   };
 
@@ -327,15 +321,19 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                   </Button>
                 </div>
                 <div className="space-y-2">
-                  {whoFields.map((field, index) => (
-                    <div key={field.id} className="flex items-center gap-2">
+                  {(form.watch('whoTags') || []).map((_, index) => (
+                    <div key={index} className="flex items-center gap-2">
                       <FormField
                         control={form.control}
                         name={`whoTags.${index}`}
                         render={({ field }) => (
                           <FormItem className="flex-1">
                             <FormControl>
-                              <Input placeholder="e.g., Alexander Rivera, Lead Dancers" {...field} />
+                              <Input 
+                                placeholder="e.g., Alexander Rivera, Lead Dancers" 
+                                {...field}
+                                onChange={(e) => updateTag('whoTags', index, e.target.value)}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -344,7 +342,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                         type="button"
                         size="sm"
                         variant="outline"
-                        onClick={() => removeWho(index)}
+                        onClick={() => removeTag('whoTags', index)}
                       >
                         <X className="w-3 h-3" />
                       </Button>
@@ -370,15 +368,19 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                   </Button>
                 </div>
                 <div className="space-y-2">
-                  {whatFields.map((field, index) => (
-                    <div key={field.id} className="flex items-center gap-2">
+                  {(form.watch('whatTags') || []).map((_, index) => (
+                    <div key={index} className="flex items-center gap-2">
                       <FormField
                         control={form.control}
                         name={`whatTags.${index}`}
                         render={({ field }) => (
                           <FormItem className="flex-1">
                             <FormControl>
-                              <Input placeholder="e.g., Performance, Rehearsal, Bow" {...field} />
+                              <Input 
+                                placeholder="e.g., Performance, Rehearsal, Bow" 
+                                {...field}
+                                onChange={(e) => updateTag('whatTags', index, e.target.value)}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -387,7 +389,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                         type="button"
                         size="sm"
                         variant="outline"
-                        onClick={() => removeWhat(index)}
+                        onClick={() => removeTag('whatTags', index)}
                       >
                         <X className="w-3 h-3" />
                       </Button>
@@ -413,15 +415,19 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                   </Button>
                 </div>
                 <div className="space-y-2">
-                  {whenFields.map((field, index) => (
-                    <div key={field.id} className="flex items-center gap-2">
+                  {(form.watch('whenTags') || []).map((_, index) => (
+                    <div key={index} className="flex items-center gap-2">
                       <FormField
                         control={form.control}
                         name={`whenTags.${index}`}
                         render={({ field }) => (
                           <FormItem className="flex-1">
                             <FormControl>
-                              <Input placeholder="e.g., Opening Night, Final Bow, Intermission" {...field} />
+                              <Input 
+                                placeholder="e.g., Opening Night, Final Bow, Intermission" 
+                                {...field}
+                                onChange={(e) => updateTag('whenTags', index, e.target.value)}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -430,7 +436,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                         type="button"
                         size="sm"
                         variant="outline"
-                        onClick={() => removeWhen(index)}
+                        onClick={() => removeTag('whenTags', index)}
                       >
                         <X className="w-3 h-3" />
                       </Button>
@@ -456,15 +462,19 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                   </Button>
                 </div>
                 <div className="space-y-2">
-                  {whereFields.map((field, index) => (
-                    <div key={field.id} className="flex items-center gap-2">
+                  {(form.watch('whereTags') || []).map((_, index) => (
+                    <div key={index} className="flex items-center gap-2">
                       <FormField
                         control={form.control}
                         name={`whereTags.${index}`}
                         render={({ field }) => (
                           <FormItem className="flex-1">
                             <FormControl>
-                              <Input placeholder="e.g., Main Stage, Backstage, Dressing Room" {...field} />
+                              <Input 
+                                placeholder="e.g., Main Stage, Backstage, Dressing Room" 
+                                {...field}
+                                onChange={(e) => updateTag('whereTags', index, e.target.value)}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -473,7 +483,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                         type="button"
                         size="sm"
                         variant="outline"
-                        onClick={() => removeWhere(index)}
+                        onClick={() => removeTag('whereTags', index)}
                       >
                         <X className="w-3 h-3" />
                       </Button>
@@ -499,15 +509,19 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                   </Button>
                 </div>
                 <div className="space-y-2">
-                  {whyFields.map((field, index) => (
-                    <div key={field.id} className="flex items-center gap-2">
+                  {(form.watch('whyTags') || []).map((_, index) => (
+                    <div key={index} className="flex items-center gap-2">
                       <FormField
                         control={form.control}
                         name={`whyTags.${index}`}
                         render={({ field }) => (
                           <FormItem className="flex-1">
                             <FormControl>
-                              <Input placeholder="e.g., Celebration, Behind-the-Scenes, Artistic Expression" {...field} />
+                              <Input 
+                                placeholder="e.g., Celebration, Behind-the-Scenes, Artistic Expression" 
+                                {...field}
+                                onChange={(e) => updateTag('whyTags', index, e.target.value)}
+                              />
                             </FormControl>
                           </FormItem>
                         )}
@@ -516,7 +530,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                         type="button"
                         size="sm"
                         variant="outline"
-                        onClick={() => removeWhy(index)}
+                        onClick={() => removeTag('whyTags', index)}
                       >
                         <X className="w-3 h-3" />
                       </Button>
