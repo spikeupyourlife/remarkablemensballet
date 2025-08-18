@@ -257,7 +257,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-midnight mb-1">Email</h3>
-                    <p className="text-gray-600">info@remarkablementsballet.com</p>
+                    <p className="text-gray-600">info@remarkablemensballet.com</p>
                   </div>
                 </div>
                 
