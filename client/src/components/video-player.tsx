@@ -9,11 +9,30 @@ interface VideoPlayerProps {
 }
 
 export default function VideoPlayer({ video, featured = false }: VideoPlayerProps) {
-  const playVideo = () => {
-    // Extract video ID from YouTube URL
-    const videoId = video.videoUrl.split('v=')[1]?.split('&')[0] || video.videoUrl.split('/').pop();
-    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+  // Extract video ID from YouTube URL
+  const getYouTubeVideoId = (url: string) => {
+    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+    return match ? match[1] : null;
   };
+
+  const getYouTubeThumbnail = (url: string) => {
+    const videoId = getYouTubeVideoId(url);
+    if (videoId) {
+      return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    }
+    return null;
+  };
+
+  const playVideo = () => {
+    const videoId = getYouTubeVideoId(video.videoUrl);
+    if (videoId) {
+      window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+    } else {
+      window.open(video.videoUrl, '_blank');
+    }
+  };
+
+  const thumbnailUrl = video.thumbnailUrl || getYouTubeThumbnail(video.videoUrl);
 
   if (featured) {
     return (
@@ -21,7 +40,7 @@ export default function VideoPlayer({ video, featured = false }: VideoPlayerProp
         <div className="relative">
           <div className="aspect-video bg-gradient-to-br from-magenta/20 to-midnight/80 flex items-center justify-center">
             <img 
-              src={video.thumbnailUrl || "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=675"} 
+              src={thumbnailUrl || "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=675"} 
               alt={video.title} 
               className="w-full h-full object-cover opacity-80"
             />
@@ -48,7 +67,7 @@ export default function VideoPlayer({ video, featured = false }: VideoPlayerProp
       <div className="relative">
         <div className="aspect-video bg-gray-200">
           <img 
-            src={video.thumbnailUrl || "https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"} 
+            src={thumbnailUrl || "https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"} 
             alt={video.title} 
             className="w-full h-full object-cover"
           />
