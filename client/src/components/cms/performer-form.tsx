@@ -27,6 +27,7 @@ export default function PerformerForm() {
   const { toast } = useToast();
   const [editingPerformer, setEditingPerformer] = useState<Performer | null>(null);
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const { data: performers, isLoading } = useQuery<Performer[]>({
     queryKey: ["/api/performers"],
@@ -49,7 +50,10 @@ export default function PerformerForm() {
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: InsertPerformer) => apiRequest("POST", "/api/performers", data),
+    mutationFn: (data: InsertPerformer) => {
+      console.log("CREATE MUTATION TRIGGERED with data:", data);
+      return apiRequest("POST", "/api/performers", data);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/performers"] });
       queryClient.invalidateQueries({ queryKey: ["/api/performers/featured"] });
@@ -63,8 +67,10 @@ export default function PerformerForm() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Partial<InsertPerformer> }) =>
-      apiRequest("PUT", `/api/performers/${id}`, data),
+    mutationFn: ({ id, data }: { id: string; data: Partial<InsertPerformer> }) => {
+      console.log("UPDATE MUTATION TRIGGERED for ID:", id, "with data:", data);
+      return apiRequest("PUT", `/api/performers/${id}`, data);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/performers"] });
       queryClient.invalidateQueries({ queryKey: ["/api/performers/featured"] });
@@ -134,6 +140,16 @@ export default function PerformerForm() {
   };
 
   const onSubmit = (data: InsertPerformer) => {
+    // Block submission if currently uploading
+    if (isUploading) {
+      toast({ 
+        title: "Please wait", 
+        description: "Image upload in progress. Please wait before saving.", 
+        variant: "destructive" 
+      });
+      return;
+    }
+
     // Validate required fields
     if (!data.name?.trim() || !data.role?.trim()) {
       toast({ 
@@ -159,6 +175,7 @@ export default function PerformerForm() {
       }
     }
 
+    console.log("Form submit triggered with data:", data);
     if (editingPerformer) {
       updateMutation.mutate({ id: editingPerformer.id, data });
     } else {
@@ -221,6 +238,8 @@ export default function PerformerForm() {
 
   const handleProfileImageComplete = async (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
     console.log("Upload complete result:", result);
+    setIsUploading(true);
+    
     if (result.successful && result.successful.length > 0) {
       const uploadUrl = result.successful[0].uploadURL;
       if (uploadUrl) {
@@ -228,8 +247,17 @@ export default function PerformerForm() {
           // Set ACL policy and get normalized path
           const response = await apiRequest("PUT", "/api/performer-images", { imageURL: uploadUrl });
           const data = await response.json();
-          form.setValue("imageUrl", data.objectPath, { shouldValidate: false, shouldDirty: false });
-          toast({ title: "Success", description: "Profile image uploaded - remember to save your changes" });
+          
+          console.log("Setting imageUrl value to:", data.objectPath);
+          // Just update the form field without triggering any form events
+          const imageUrlField = form.register("imageUrl");
+          form.setValue("imageUrl", data.objectPath, { 
+            shouldValidate: false, 
+            shouldDirty: false,
+            shouldTouch: false
+          });
+          
+          toast({ title: "Success", description: "Profile image uploaded - click Save to complete" });
         } catch (error) {
           console.error("Error setting image ACL:", error);
           toast({ title: "Error", description: "Failed to process uploaded image", variant: "destructive" });
@@ -240,6 +268,8 @@ export default function PerformerForm() {
       const errorMsg = result.failed[0].error || "Unknown upload error";
       toast({ title: "Upload Failed", description: errorMsg, variant: "destructive" });
     }
+    
+    setIsUploading(false);
   };
 
   const handleGalleryImageUpload = async () => {
@@ -286,8 +316,19 @@ export default function PerformerForm() {
           const data = await response.json();
           const newGalleryImages = [...galleryImages, data.objectPath];
           setGalleryImages(newGalleryImages);
-          form.setValue("galleryImages", newGalleryImages, { shouldValidate: false, shouldDirty: false });
-          toast({ title: "Success", description: "Gallery image uploaded - remember to save your changes" });
+          
+          // Prevent any automatic form submission
+          const currentValues = form.getValues();
+          form.reset({
+            ...currentValues,
+            galleryImages: newGalleryImages
+          }, { 
+            keepDefaultValues: true,
+            keepDirty: false,
+            keepTouched: false
+          });
+          
+          toast({ title: "Success", description: "Gallery image uploaded - click Save to complete" });
         } catch (error) {
           console.error("Error setting image ACL:", error);
           toast({ title: "Error", description: "Failed to process uploaded image", variant: "destructive" });
@@ -498,7 +539,7 @@ export default function PerformerForm() {
                   disabled={
                     createMutation.isPending || 
                     updateMutation.isPending || 
-                    !form.formState.isValid ||
+                    isUploading ||
                     !form.watch("name") ||
                     !form.watch("role")
                   }
