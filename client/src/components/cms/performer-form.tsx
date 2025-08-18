@@ -110,43 +110,53 @@ export default function PerformerForm() {
   };
 
   const handleProfileImageUpload = async () => {
-    const response = await apiRequest("POST", "/api/objects/upload") as { uploadURL: string };
+    const response = await apiRequest("POST", "/api/objects/upload");
     return {
       method: "PUT" as const,
-      url: response.uploadURL,
+      url: (response as any).uploadURL,
     };
   };
 
-  const handleProfileImageComplete = (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+  const handleProfileImageComplete = async (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
     if (result.successful && result.successful.length > 0) {
       const uploadUrl = result.successful[0].uploadURL;
       if (uploadUrl) {
-        // Convert the upload URL to the object path format
-        const objectPath = uploadUrl.replace(/^.*\/([^\/]+\/[^\/]+\/[^?]+).*$/, '/objects/$1');
-        form.setValue("imageUrl", objectPath);
-        toast({ title: "Success", description: "Profile image uploaded successfully" });
+        try {
+          // Set ACL policy and get normalized path
+          const response = await apiRequest("PUT", "/api/performer-images", { imageURL: uploadUrl });
+          form.setValue("imageUrl", (response as any).objectPath);
+          toast({ title: "Success", description: "Profile image uploaded successfully" });
+        } catch (error) {
+          console.error("Error setting image ACL:", error);
+          toast({ title: "Error", description: "Failed to process uploaded image", variant: "destructive" });
+        }
       }
     }
   };
 
   const handleGalleryImageUpload = async () => {
-    const response = await apiRequest("POST", "/api/objects/upload") as { uploadURL: string };
+    const response = await apiRequest("POST", "/api/objects/upload");
     return {
       method: "PUT" as const,
-      url: response.uploadURL,
+      url: (response as any).uploadURL,
     };
   };
 
-  const handleGalleryImageComplete = (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+  const handleGalleryImageComplete = async (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
     if (result.successful && result.successful.length > 0) {
       const uploadUrl = result.successful[0].uploadURL;
       if (uploadUrl) {
-        // Convert the upload URL to the object path format
-        const objectPath = uploadUrl.replace(/^.*\/([^\/]+\/[^\/]+\/[^?]+).*$/, '/objects/$1');
-        const newGalleryImages = [...galleryImages, objectPath];
-        setGalleryImages(newGalleryImages);
-        form.setValue("galleryImages", newGalleryImages);
-        toast({ title: "Success", description: "Gallery image uploaded successfully" });
+        try {
+          // Set ACL policy and get normalized path
+          const response = await apiRequest("PUT", "/api/performer-images", { imageURL: uploadUrl });
+          const newGalleryImages = [...galleryImages, (response as any).objectPath];
+          setGalleryImages(newGalleryImages);
+          form.setValue("galleryImages", newGalleryImages);
+          toast({ title: "Success", description: "Gallery image uploaded successfully" });
+        } catch (error) {
+          console.error("Error setting image ACL:", error);
+          toast({ title: "Error", description: "Failed to process uploaded image", variant: "destructive" });
+        }
       }
     }
   };
@@ -207,21 +217,27 @@ export default function PerformerForm() {
                     <FormControl>
                       <div className="space-y-4">
                         <Input placeholder="Image URL or upload below" {...field} value={field.value || ""} />
-                        <div className="flex items-center space-x-4">
-                          <ObjectUploader
-                            onGetUploadParameters={handleProfileImageUpload}
-                            onComplete={handleProfileImageComplete}
-                            buttonClassName="bg-magenta text-white hover:bg-midnight"
-                          >
-                            <Upload className="w-4 h-4 mr-2" />
-                            Upload Profile Image
-                          </ObjectUploader>
-                          {field.value && (
-                            <div className="flex items-center space-x-2">
-                              <Image className="w-4 h-4 text-green-600" />
-                              <span className="text-sm text-green-600">Image uploaded</span>
-                            </div>
-                          )}
+                        <div className="space-y-3">
+                          <div className="flex items-center space-x-4">
+                            <ObjectUploader
+                              maxFileSize={5242880} // 5MB limit
+                              onGetUploadParameters={handleProfileImageUpload}
+                              onComplete={handleProfileImageComplete}
+                              buttonClassName="bg-magenta text-white hover:bg-midnight"
+                            >
+                              <Upload className="w-4 h-4 mr-2" />
+                              Upload Profile Image
+                            </ObjectUploader>
+                            {field.value && (
+                              <div className="flex items-center space-x-2">
+                                <Image className="w-4 h-4 text-green-600" />
+                                <span className="text-sm text-green-600">Image uploaded</span>
+                              </div>
+                            )}
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            📸 Recommended: High-quality images, max 5MB. For best results, use 800x800px or larger for profile images.
+                          </p>
                         </div>
                       </div>
                     </FormControl>
@@ -238,18 +254,24 @@ export default function PerformerForm() {
                     <FormLabel>Gallery Images</FormLabel>
                     <FormControl>
                       <div className="space-y-4">
-                        <div className="flex items-center space-x-4">
-                          <ObjectUploader
-                            onGetUploadParameters={handleGalleryImageUpload}
-                            onComplete={handleGalleryImageComplete}
-                            buttonClassName="bg-midnight text-white hover:bg-magenta"
-                          >
-                            <Upload className="w-4 h-4 mr-2" />
-                            Add Gallery Image
-                          </ObjectUploader>
-                          <span className="text-sm text-gray-600">
-                            {galleryImages.length} image{galleryImages.length !== 1 ? 's' : ''} uploaded
-                          </span>
+                        <div className="space-y-3">
+                          <div className="flex items-center space-x-4">
+                            <ObjectUploader
+                              maxFileSize={5242880} // 5MB limit
+                              onGetUploadParameters={handleGalleryImageUpload}
+                              onComplete={handleGalleryImageComplete}
+                              buttonClassName="bg-midnight text-white hover:bg-magenta"
+                            >
+                              <Upload className="w-4 h-4 mr-2" />
+                              Add Gallery Image
+                            </ObjectUploader>
+                            <span className="text-sm text-gray-600">
+                              {galleryImages.length} image{galleryImages.length !== 1 ? 's' : ''} uploaded
+                            </span>
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            🎭 Gallery images showcase the performer's work. Use high-quality photos max 5MB each.
+                          </p>
                         </div>
                         {galleryImages.length > 0 && (
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
