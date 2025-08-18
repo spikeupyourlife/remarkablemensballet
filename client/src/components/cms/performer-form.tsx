@@ -33,7 +33,10 @@ export default function PerformerForm() {
   });
 
   const form = useForm<InsertPerformer>({
-    resolver: zodResolver(insertPerformerSchema),
+    resolver: zodResolver(insertPerformerSchema.extend({
+      name: insertPerformerSchema.shape.name.min(1, "Name is required"),
+      role: insertPerformerSchema.shape.role.min(1, "Role is required"),
+    })),
     defaultValues: {
       name: "",
       role: "",
@@ -42,6 +45,7 @@ export default function PerformerForm() {
       galleryImages: [],
       featured: false,
     },
+    mode: "onChange",
   });
 
   const createMutation = useMutation({
@@ -101,10 +105,10 @@ export default function PerformerForm() {
     });
     
     // Find duplicates and merge them
-    for (const [name, performerList] of nameCount.entries()) {
+    for (const [name, performerList] of Array.from(nameCount.entries())) {
       if (performerList.length > 1) {
         // Keep the most complete record (the one with the most data)
-        const bestPerformer = performerList.reduce((best, current) => {
+        const bestPerformer = performerList.reduce((best: Performer, current: Performer) => {
           const bestScore = (best.imageUrl ? 1 : 0) + (best.bio?.length || 0) + (best.galleryImages?.length || 0);
           const currentScore = (current.imageUrl ? 1 : 0) + (current.bio?.length || 0) + (current.galleryImages?.length || 0);
           return currentScore > bestScore ? current : best;
@@ -130,6 +134,31 @@ export default function PerformerForm() {
   };
 
   const onSubmit = (data: InsertPerformer) => {
+    // Validate required fields
+    if (!data.name?.trim() || !data.role?.trim()) {
+      toast({ 
+        title: "Validation Error", 
+        description: "Name and role are required fields", 
+        variant: "destructive" 
+      });
+      return;
+    }
+
+    // Check for duplicate names when creating
+    if (!editingPerformer) {
+      const existingPerformer = performers?.find(p => 
+        p.name.toLowerCase().trim() === data.name.toLowerCase().trim()
+      );
+      if (existingPerformer) {
+        toast({ 
+          title: "Duplicate Error", 
+          description: `A performer named "${data.name}" already exists. Please use a different name or edit the existing performer.`, 
+          variant: "destructive" 
+        });
+        return;
+      }
+    }
+
     if (editingPerformer) {
       updateMutation.mutate({ id: editingPerformer.id, data });
     } else {
@@ -294,9 +323,9 @@ export default function PerformerForm() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
+                      <FormLabel>Name *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Performer name" {...field} />
+                        <Input placeholder="Performer name" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -308,9 +337,9 @@ export default function PerformerForm() {
                   name="role"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Role</FormLabel>
+                      <FormLabel>Role *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Principal Dancer, Soloist, etc." {...field} />
+                        <Input placeholder="Principal Dancer, Soloist, etc." {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -466,7 +495,13 @@ export default function PerformerForm() {
                 <Button 
                   type="submit" 
                   className="bg-magenta hover:bg-magenta/80"
-                  disabled={createMutation.isPending || updateMutation.isPending}
+                  disabled={
+                    createMutation.isPending || 
+                    updateMutation.isPending || 
+                    !form.formState.isValid ||
+                    !form.watch("name") ||
+                    !form.watch("role")
+                  }
                 >
                   {createMutation.isPending || updateMutation.isPending ? "Saving..." : editingPerformer ? "Save Changes" : "Create Performer"}
                 </Button>
