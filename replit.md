@@ -39,14 +39,17 @@ Preferred communication style: Simple, everyday language.
 - **Build Output**: Client builds to `/dist/public`, server builds to `/dist`
 
 ## Content Management
-- **CMS Interface**: Admin panel for managing all content types
-- **File Storage**: Google Cloud Storage integration with Uppy for file uploads
-- **Image Handling**: URL-based image storage with fallback placeholder images
-- **Content Types**: Dynamic content management for various site sections
+- **CMS Interface**: Complete admin panel for managing performers, videos, performances, and content
+- **File Storage**: Google Cloud Storage integration with Uppy for secure file uploads (5MB limit)
+- **Image Handling**: Professional image upload system with automatic ACL policy management
+- **Content Types**: Dynamic content management with full CRUD operations
+- **Performer Management**: Complete performer profiles with image galleries and bio modals
+- **Duplicate Prevention**: Automatic duplicate performer detection and merge functionality
 
 ## Authentication & Security
-- **Current State**: No authentication system implemented
+- **Current State**: Full Replit Auth integration with SESSION_SECRET and user management
 - **Storage Layer**: Abstracted storage interface with in-memory implementation for development
+- **Object Storage**: Google Cloud Storage integration for secure file uploads with ACL policies
 - **Error Handling**: Centralized error handling with proper HTTP status codes
 
 ## Performance Features
