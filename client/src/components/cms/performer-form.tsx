@@ -110,14 +110,26 @@ export default function PerformerForm() {
   };
 
   const handleProfileImageUpload = async () => {
-    const response = await apiRequest("POST", "/api/objects/upload");
-    return {
-      method: "PUT" as const,
-      url: (response as any).uploadURL,
-    };
+    try {
+      const response = await apiRequest("POST", "/api/objects/upload");
+      console.log("Upload response:", response);
+      const uploadURL = (response as any).uploadURL;
+      if (!uploadURL) {
+        throw new Error("No upload URL received");
+      }
+      return {
+        method: "PUT" as const,
+        url: uploadURL,
+      };
+    } catch (error) {
+      console.error("Error getting upload URL:", error);
+      toast({ title: "Error", description: "Failed to get upload URL", variant: "destructive" });
+      throw error;
+    }
   };
 
   const handleProfileImageComplete = async (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+    console.log("Upload complete result:", result);
     if (result.successful && result.successful.length > 0) {
       const uploadUrl = result.successful[0].uploadURL;
       if (uploadUrl) {
@@ -131,18 +143,34 @@ export default function PerformerForm() {
           toast({ title: "Error", description: "Failed to process uploaded image", variant: "destructive" });
         }
       }
+    } else if (result.failed && result.failed.length > 0) {
+      console.error("Upload failed:", result.failed);
+      const errorMsg = result.failed[0].error || "Unknown upload error";
+      toast({ title: "Upload Failed", description: errorMsg, variant: "destructive" });
     }
   };
 
   const handleGalleryImageUpload = async () => {
-    const response = await apiRequest("POST", "/api/objects/upload");
-    return {
-      method: "PUT" as const,
-      url: (response as any).uploadURL,
-    };
+    try {
+      const response = await apiRequest("POST", "/api/objects/upload");
+      console.log("Upload response:", response);
+      const uploadURL = (response as any).uploadURL;
+      if (!uploadURL) {
+        throw new Error("No upload URL received");
+      }
+      return {
+        method: "PUT" as const,
+        url: uploadURL,
+      };
+    } catch (error) {
+      console.error("Error getting upload URL:", error);
+      toast({ title: "Error", description: "Failed to get upload URL", variant: "destructive" });
+      throw error;
+    }
   };
 
   const handleGalleryImageComplete = async (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+    console.log("Gallery upload complete result:", result);
     if (result.successful && result.successful.length > 0) {
       const uploadUrl = result.successful[0].uploadURL;
       if (uploadUrl) {
@@ -158,6 +186,10 @@ export default function PerformerForm() {
           toast({ title: "Error", description: "Failed to process uploaded image", variant: "destructive" });
         }
       }
+    } else if (result.failed && result.failed.length > 0) {
+      console.error("Gallery upload failed:", result.failed);
+      const errorMsg = result.failed[0].error || "Unknown upload error";
+      toast({ title: "Upload Failed", description: errorMsg, variant: "destructive" });
     }
   };
 

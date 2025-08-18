@@ -23,9 +23,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Object storage routes for image uploads
   app.post("/api/objects/upload", isAuthenticated, async (req, res) => {
-    const objectStorageService = new ObjectStorageService();
-    const uploadURL = await objectStorageService.getObjectEntityUploadURL();
-    res.json({ uploadURL });
+    try {
+      console.log("Upload request received from user:", (req.user as any)?.claims?.sub);
+      const objectStorageService = new ObjectStorageService();
+      const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+      console.log("Generated upload URL:", uploadURL);
+      res.json({ uploadURL });
+    } catch (error) {
+      console.error("Error generating upload URL:", error);
+      res.status(500).json({ error: "Failed to generate upload URL" });
+    }
   });
 
   app.get("/objects/:objectPath(*)", async (req, res) => {
