@@ -16,24 +16,24 @@ export function ButterflyIcon({ className = "", size = 24 }: ButterflyIconProps)
       strokeLinejoin="round"
       className={className}
     >
-      {/* Upper left wing - organic flowing shape */}
-      <path d="M12 12C10 8 6 5 3 6C1 7 1 9 2 11C4 13 8 12 12 12Z" />
+      {/* Body - vertical center line */}
+      <line x1="12" y1="6" x2="12" y2="18" />
       
-      {/* Upper right wing - organic flowing shape */}
-      <path d="M12 12C14 8 18 5 21 6C23 7 23 9 22 11C20 13 16 12 12 12Z" />
+      {/* Upper left wing */}
+      <path d="M12 9C8 6 4 6 2 9C2 11 4 12 8 12C10 12 12 10 12 9Z" />
       
-      {/* Lower left wing - organic flowing shape */}
-      <path d="M12 12C10 16 6 19 3 18C1 17 1 15 2 13C4 11 8 12 12 12Z" />
+      {/* Upper right wing */}
+      <path d="M12 9C16 6 20 6 22 9C22 11 20 12 16 12C14 12 12 10 12 9Z" />
       
-      {/* Lower right wing - organic flowing shape */}
-      <path d="M12 12C14 16 18 19 21 18C23 17 23 15 22 13C20 11 16 12 12 12Z" />
+      {/* Lower left wing */}
+      <path d="M12 15C8 18 4 18 2 15C2 13 4 12 8 12C10 12 12 14 12 15Z" />
       
-      {/* Body center dot */}
-      <circle cx="12" cy="12" r="1" fill="currentColor" />
+      {/* Lower right wing */}
+      <path d="M12 15C16 18 20 18 22 15C22 13 20 12 16 12C14 12 12 14 12 15Z" />
       
       {/* Antennae */}
-      <path d="M11 7L9 4" />
-      <path d="M13 7L15 4" />
+      <path d="M11 6L9 3" />
+      <path d="M13 6L15 3" />
     </svg>
   );
 }

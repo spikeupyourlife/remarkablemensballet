@@ -168,7 +168,7 @@ export default function ContentEditor() {
               <Button
                 key={section.key}
                 variant={selectedSection === section.key ? "default" : "outline"}
-                className={`w-full justify-start text-left h-auto py-2 px-3 ${
+                className={`w-full justify-start text-left h-auto py-3 px-4 ${
                   selectedSection === section.key 
                     ? "bg-magenta hover:bg-magenta/80 text-white" 
                     : "hover:bg-pearl"
@@ -180,8 +180,8 @@ export default function ContentEditor() {
                 }}
               >
                 <div className="w-full">
-                  <div className="font-medium text-sm leading-tight">{section.title}</div>
-                  <div className="text-xs opacity-80 leading-tight mt-1 break-words pr-2">{section.description}</div>
+                  <div className="font-medium text-sm leading-relaxed">{section.title}</div>
+                  <div className="text-xs opacity-80 leading-relaxed mt-1 whitespace-normal">{section.description}</div>
                 </div>
               </Button>
             ))}
