@@ -1,20 +1,20 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Butterfly body -->
-  <line x1="16" y1="4" x2="16" y2="28" stroke="#663399" stroke-width="2" stroke-linecap="round"/>
+  <!-- Butterfly body - vertical center line -->
+  <line x1="16" y1="6" x2="16" y2="26" stroke="#663399" stroke-width="2.5" stroke-linecap="round"/>
   
-  <!-- Left wing upper -->
-  <path d="M16 8C13 5 10 4 7 5C4 6 3 9 4 12C5 15 8 16 11 15C13 14 15 11 16 8Z" stroke="#663399" stroke-width="1.5" fill="none"/>
+  <!-- Upper left wing -->
+  <path d="M16 10C11 6 6 6 3 10C3 13 6 16 11 16C13 16 15 14 16 10Z" stroke="#663399" stroke-width="2" fill="none" stroke-linejoin="round"/>
   
-  <!-- Right wing upper -->
-  <path d="M16 8C19 5 22 4 25 5C28 6 29 9 28 12C27 15 24 16 21 15C19 14 17 11 16 8Z" stroke="#663399" stroke-width="1.5" fill="none"/>
+  <!-- Upper right wing -->
+  <path d="M16 10C21 6 26 6 29 10C29 13 26 16 21 16C19 16 17 14 16 10Z" stroke="#663399" stroke-width="2" fill="none" stroke-linejoin="round"/>
   
-  <!-- Left wing lower -->
-  <path d="M16 20C13 23 10 24 7 23C4 22 3 19 4 16C5 13 8 12 11 13C13 14 15 17 16 20Z" stroke="#663399" stroke-width="1.5" fill="none"/>
+  <!-- Lower left wing -->
+  <path d="M16 22C11 26 6 26 3 22C3 19 6 16 11 16C13 16 15 18 16 22Z" stroke="#663399" stroke-width="2" fill="none" stroke-linejoin="round"/>
   
-  <!-- Right wing lower -->
-  <path d="M16 20C19 23 22 24 25 23C28 22 29 19 28 16C27 13 24 12 21 13C19 14 17 17 16 20Z" stroke="#663399" stroke-width="1.5" fill="none"/>
+  <!-- Lower right wing -->
+  <path d="M16 22C21 26 26 26 29 22C29 19 26 16 21 16C19 16 17 18 16 22Z" stroke="#663399" stroke-width="2" fill="none" stroke-linejoin="round"/>
   
   <!-- Antennae -->
-  <path d="M14 4L12 2" stroke="#663399" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M18 4L20 2" stroke="#663399" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M14 6L11 3" stroke="#663399" stroke-width="2" stroke-linecap="round"/>
+  <path d="M18 6L21 3" stroke="#663399" stroke-width="2" stroke-linecap="round"/>
 </svg>

@@ -11,29 +11,29 @@ export function ButterflyIcon({ className = "", size = 24 }: ButterflyIconProps)
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
     >
-      {/* Butterfly body */}
-      <line x1="12" y1="2" x2="12" y2="22" />
+      {/* Butterfly body - vertical center line */}
+      <line x1="12" y1="4" x2="12" y2="20" />
       
-      {/* Left wing upper */}
-      <path d="M12 6C10 4 8 3 6 4C4 5 3 7 4 9C5 11 7 12 9 11C10 10 11 8 12 6Z" />
+      {/* Upper left wing */}
+      <path d="M12 8C8 4 4 4 2 8C2 10 4 12 8 12C10 12 11 10 12 8Z" />
       
-      {/* Right wing upper */}
-      <path d="M12 6C14 4 16 3 18 4C20 5 21 7 20 9C19 11 17 12 15 11C14 10 13 8 12 6Z" />
+      {/* Upper right wing */}
+      <path d="M12 8C16 4 20 4 22 8C22 10 20 12 16 12C14 12 13 10 12 8Z" />
       
-      {/* Left wing lower */}
-      <path d="M12 14C10 16 8 17 6 16C4 15 3 13 4 11C5 9 7 8 9 9C10 10 11 12 12 14Z" />
+      {/* Lower left wing */}
+      <path d="M12 16C8 20 4 20 2 16C2 14 4 12 8 12C10 12 11 14 12 16Z" />
       
-      {/* Right wing lower */}
-      <path d="M12 14C14 16 16 17 18 16C20 15 21 13 20 11C19 9 17 8 15 9C14 10 13 12 12 14Z" />
+      {/* Lower right wing */}
+      <path d="M12 16C16 20 20 20 22 16C22 14 20 12 16 12C14 12 13 14 12 16Z" />
       
       {/* Antennae */}
-      <path d="M10 2L8 0" />
-      <path d="M14 2L16 0" />
+      <path d="M10 4L8 2" />
+      <path d="M14 4L16 2" />
     </svg>
   );
 }
