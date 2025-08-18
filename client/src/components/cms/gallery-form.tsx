@@ -5,13 +5,20 @@ import { z } from "zod";
 import { insertGalleryPhotoSchema, type InsertGalleryPhoto, type GalleryPhoto } from "@shared/schema";
 
 // Form schema for handling string inputs that get converted to proper types
-const galleryFormSchema = insertGalleryPhotoSchema.extend({
+const galleryFormSchema = z.object({
+  title: z.string(),
+  imageUrl: z.string(),
   showDate: z.string().optional(),
+  showName: z.string().optional(), 
+  venue: z.string().optional(),
+  description: z.string().optional(),
+  tags: z.array(z.string()).default([]),
   whoTags: z.array(z.string()).default([]),
   whatTags: z.array(z.string()).default([]),
   whenTags: z.array(z.string()).default([]),
   whereTags: z.array(z.string()).default([]),
   whyTags: z.array(z.string()).default([]),
+  featured: z.boolean().optional(),
 });
 
 type GalleryFormData = z.infer<typeof galleryFormSchema>;
@@ -117,7 +124,12 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
   };
 
   const handleGetUploadParameters = async () => {
-    const response = await apiRequest("/api/objects/upload", "POST", {});
+    const response = await fetch('/api/objects/upload', { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
     const data = await response.json();
     return {
       method: "PUT" as const,
@@ -128,7 +140,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
   const handleSubmit = (data: GalleryFormData) => {
     const formattedData: InsertGalleryPhoto = {
       ...data,
-      showDate: data.showDate ? new Date(data.showDate) : null,
+      showDate: data.showDate ? data.showDate : null,
       whoTags: data.whoTags?.filter(tag => tag.trim()) || [],
       whatTags: data.whatTags?.filter(tag => tag.trim()) || [],
       whenTags: data.whenTags?.filter(tag => tag.trim()) || [],
@@ -188,7 +200,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                     <FormItem>
                       <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Describe the photo..." rows={3} {...field} />
+                        <Textarea placeholder="Describe the photo..." rows={3} {...field} value={field.value || ""} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -241,7 +253,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                         </div>
                       </div>
                       <FormControl>
-                        <Switch checked={field.value} onCheckedChange={field.onChange} />
+                        <Switch checked={field.value || false} onCheckedChange={field.onChange} />
                       </FormControl>
                     </FormItem>
                   )}
@@ -265,7 +277,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
                     <FormItem>
                       <FormLabel>Show Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., Swan Lake Reimagined" {...field} />
+                        <Input placeholder="e.g., Swan Lake Reimagined" {...field} value={field.value || ""} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
