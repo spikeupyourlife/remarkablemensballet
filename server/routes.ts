@@ -62,7 +62,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/performers/featured", async (req, res) => {
     try {
       const performers = await storage.getFeaturedPerformers();
-      res.json(performers);
+      
+      // Randomly select up to 6 featured performers
+      const shuffled = performers.sort(() => Math.random() - 0.5);
+      const selectedPerformers = shuffled.slice(0, 6);
+      
+      res.json(selectedPerformers);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch featured performers" });
     }
