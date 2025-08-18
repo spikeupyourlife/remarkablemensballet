@@ -51,7 +51,8 @@ export const galleryPhotos = pgTable("gallery_photos", {
   showName: varchar("show_name"),
   description: text("description"),
   tags: text("tags").array(),
-  whoTags: text("who_tags").array(), // Who was in the photo
+  performerIds: text("performer_ids").array(), // IDs of performers in the photo
+  whoTags: text("who_tags").array(), // Who was in the photo (non-performer names)
   whatTags: text("what_tags").array(), // What was happening
   whenTags: text("when_tags").array(), // When context (e.g., "opening night", "rehearsal")
   whereTags: text("where_tags").array(), // Where it was taken

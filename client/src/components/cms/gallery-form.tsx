@@ -1,8 +1,8 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import { insertGalleryPhotoSchema, type InsertGalleryPhoto, type GalleryPhoto } from "@shared/schema";
+import { insertGalleryPhotoSchema, type InsertGalleryPhoto, type GalleryPhoto, type Performer } from "@shared/schema";
 
 // Form schema for handling string inputs that get converted to proper types
 const galleryFormSchema = z.object({
@@ -13,6 +13,7 @@ const galleryFormSchema = z.object({
   venue: z.string().optional(),
   description: z.string().optional(),
   tags: z.array(z.string()).optional(),
+  performerIds: z.array(z.string()).optional(),
   whoTags: z.array(z.string()).optional(),
   whatTags: z.array(z.string()).optional(),
   whenTags: z.array(z.string()).optional(),
@@ -28,6 +29,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
@@ -44,6 +46,11 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
+  // Fetch all performers for selection
+  const { data: performers = [] } = useQuery<Performer[]>({
+    queryKey: ["/api/performers"],
+  });
+
   const form = useForm({
     resolver: zodResolver(galleryFormSchema),
     defaultValues: {
@@ -53,6 +60,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
       showName: photo?.showName || "",
       description: photo?.description || "",
       tags: photo?.tags || [],
+      performerIds: photo?.performerIds || [],
       whoTags: photo?.whoTags || [],
       whatTags: photo?.whatTags || [],
       whenTags: photo?.whenTags || [],
@@ -83,7 +91,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
 
   const createMutation = useMutation({
     mutationFn: async (data: InsertGalleryPhoto) => {
-      const response = await apiRequest("/api/gallery", "POST", data);
+      const response = await apiRequest("POST", "/api/gallery", data);
       return response.json();
     },
     onSuccess: () => {
@@ -96,7 +104,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
 
   const updateMutation = useMutation({
     mutationFn: async (data: InsertGalleryPhoto) => {
-      const response = await apiRequest(`/api/gallery/${photo?.id}`, "PUT", data);
+      const response = await apiRequest("PUT", `/api/gallery/${photo?.id}`, data);
       return response.json();
     },
     onSuccess: () => {
@@ -135,6 +143,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
     const formattedData: InsertGalleryPhoto = {
       ...data,
       showDate: data.showDate ? data.showDate : null,
+      performerIds: data.performerIds?.filter(id => id.trim()) || [],
       whoTags: data.whoTags?.filter(tag => tag.trim()) || [],
       whatTags: data.whatTags?.filter(tag => tag.trim()) || [],
       whenTags: data.whenTags?.filter(tag => tag.trim()) || [],
@@ -304,12 +313,65 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
+              {/* Performers Selection */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <Users className="w-4 h-4 text-purple-500" />
+                  <span className="font-medium">Performers</span>
+                  <Badge variant="outline" className="text-xs">Select performers in this photo</Badge>
+                </div>
+                <FormField
+                  control={form.control}
+                  name="performerIds"
+                  render={() => (
+                    <FormItem>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {performers.map((performer) => (
+                          <FormField
+                            key={performer.id}
+                            control={form.control}
+                            name="performerIds"
+                            render={({ field }) => {
+                              const isChecked = field.value?.includes(performer.id) || false;
+                              return (
+                                <FormItem className="flex items-center space-x-3 space-y-0 rounded-md border p-3">
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={isChecked}
+                                      onCheckedChange={(checked) => {
+                                        const currentValue = field.value || [];
+                                        if (checked) {
+                                          field.onChange([...currentValue, performer.id]);
+                                        } else {
+                                          field.onChange(currentValue.filter(id => id !== performer.id));
+                                        }
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <div className="flex-1">
+                                    <FormLabel className="text-sm font-medium cursor-pointer">
+                                      {performer.name}
+                                    </FormLabel>
+                                    <p className="text-xs text-muted-foreground">{performer.role}</p>
+                                  </div>
+                                </FormItem>
+                              );
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               {/* Who Tags */}
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <Users className="w-4 h-4 text-pink-500" />
-                  <span className="font-medium">Who</span>
-                  <Badge variant="outline" className="text-xs">People in the photo</Badge>
+                  <span className="font-medium">Other People</span>
+                  <Badge variant="outline" className="text-xs">Non-performer names</Badge>
                   <Button
                     type="button"
                     size="sm"
