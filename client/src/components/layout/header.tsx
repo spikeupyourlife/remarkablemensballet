@@ -16,7 +16,7 @@ export default function Header() {
     { name: "Performers", href: "/performers" },
     { name: "Videos", href: "/videos" },
     { name: "Performances", href: "/performances" },
-    { name: "Contact", href: "/#contact" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (

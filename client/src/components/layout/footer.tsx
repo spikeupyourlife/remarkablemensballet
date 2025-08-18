@@ -39,15 +39,16 @@ export default function Footer() {
               <li><Link href="/performers" className="text-gray-400 hover:text-white transition-colors duration-300">Our Performers</Link></li>
               <li><Link href="/videos" className="text-gray-400 hover:text-white transition-colors duration-300">Video Gallery</Link></li>
               <li><Link href="/performances" className="text-gray-400 hover:text-white transition-colors duration-300">Upcoming Shows</Link></li>
+              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors duration-300">Contact Us</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-playfair text-lg font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-3 text-gray-400">
-              <li>+1 (555) 123-4567</li>
-              <li>info@remarkablemensballett.com</li>
-              <li>123 Broadway Avenue<br />New York, NY 10001</li>
+              <li>03 000 0000</li>
+              <li>info@remarkablementsballet.com</li>
+              <li>Of no Abode<br />Queenstown, 9300</li>
             </ul>
           </div>
         </div>
