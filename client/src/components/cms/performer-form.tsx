@@ -185,6 +185,7 @@ export default function PerformerForm() {
   };
 
   const startEdit = (performer: Performer) => {
+    console.log("Starting edit for performer:", performer);
     setEditingPerformer(performer);
     const performerGallery = performer.galleryImages || [];
     setGalleryImages(performerGallery);
@@ -196,6 +197,7 @@ export default function PerformerForm() {
       galleryImages: performerGallery,
       featured: performer.featured || false,
     });
+    console.log("Edit form reset completed, editingPerformer should now be:", performer);
   };
 
   const cancelEdit = () => {
@@ -544,6 +546,7 @@ export default function PerformerForm() {
                   onClick={(e) => {
                     e.preventDefault();
                     const formData = form.getValues();
+                    console.log("Save button clicked with data:", formData);
                     onSubmit(formData);
                   }}
                   className="bg-magenta hover:bg-magenta/80"
