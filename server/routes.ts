@@ -2,8 +2,45 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema } from "@shared/schema";
+import { setupAuth, isAuthenticated } from "./replitAuth";
+import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Setup authentication
+  await setupAuth(app);
+
+  // Auth routes
+  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
+
+  // Object storage routes for image uploads
+  app.post("/api/objects/upload", isAuthenticated, async (req, res) => {
+    const objectStorageService = new ObjectStorageService();
+    const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+    res.json({ uploadURL });
+  });
+
+  app.get("/objects/:objectPath(*)", async (req, res) => {
+    const objectStorageService = new ObjectStorageService();
+    try {
+      const objectFile = await objectStorageService.getObjectEntityFile(req.path);
+      objectStorageService.downloadObject(objectFile, res);
+    } catch (error) {
+      console.error("Error checking object access:", error);
+      if (error instanceof ObjectNotFoundError) {
+        return res.sendStatus(404);
+      }
+      return res.sendStatus(500);
+    }
+  });
   // Performers routes
   app.get("/api/performers", async (req, res) => {
     try {
@@ -35,7 +72,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/performers", async (req, res) => {
+  app.post("/api/performers", isAuthenticated, async (req, res) => {
     try {
       const validatedData = insertPerformerSchema.parse(req.body);
       const performer = await storage.createPerformer(validatedData);
@@ -45,7 +82,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/performers/:id", async (req, res) => {
+  app.put("/api/performers/:id", isAuthenticated, async (req, res) => {
     try {
       const validatedData = insertPerformerSchema.partial().parse(req.body);
       const performer = await storage.updatePerformer(req.params.id, validatedData);
@@ -58,7 +95,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/performers/:id", async (req, res) => {
+  app.delete("/api/performers/:id", isAuthenticated, async (req, res) => {
     try {
       const deleted = await storage.deletePerformer(req.params.id);
       if (!deleted) {
@@ -101,7 +138,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/videos", async (req, res) => {
+  app.post("/api/videos", isAuthenticated, async (req, res) => {
     try {
       const validatedData = insertVideoSchema.parse(req.body);
       const video = await storage.createVideo(validatedData);
@@ -111,7 +148,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/videos/:id", async (req, res) => {
+  app.put("/api/videos/:id", isAuthenticated, async (req, res) => {
     try {
       const validatedData = insertVideoSchema.partial().parse(req.body);
       const video = await storage.updateVideo(req.params.id, validatedData);
@@ -124,7 +161,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/videos/:id", async (req, res) => {
+  app.delete("/api/videos/:id", isAuthenticated, async (req, res) => {
     try {
       const deleted = await storage.deleteVideo(req.params.id);
       if (!deleted) {
@@ -167,7 +204,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/performances", async (req, res) => {
+  app.post("/api/performances", isAuthenticated, async (req, res) => {
     try {
       const validatedData = insertPerformanceSchema.parse(req.body);
       const performance = await storage.createPerformance(validatedData);
@@ -177,7 +214,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/performances/:id", async (req, res) => {
+  app.put("/api/performances/:id", isAuthenticated, async (req, res) => {
     try {
       const validatedData = insertPerformanceSchema.partial().parse(req.body);
       const performance = await storage.updatePerformance(req.params.id, validatedData);
@@ -190,7 +227,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/performances/:id", async (req, res) => {
+  app.delete("/api/performances/:id", isAuthenticated, async (req, res) => {
     try {
       const deleted = await storage.deletePerformance(req.params.id);
       if (!deleted) {
@@ -224,7 +261,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/content", async (req, res) => {
+  app.post("/api/content", isAuthenticated, async (req, res) => {
     try {
       const validatedData = insertContentSchema.parse(req.body);
       const content = await storage.createOrUpdateContent(validatedData);

@@ -1,7 +1,20 @@
-import { type Performer, type InsertPerformer, type Video, type InsertVideo, type Performance, type InsertPerformance, type Content, type InsertContent } from "@shared/schema";
+import { 
+  performers, videos, performances, content, users,
+  type Performer, type InsertPerformer, 
+  type Video, type InsertVideo, 
+  type Performance, type InsertPerformance, 
+  type Content, type InsertContent,
+  type User, type UpsertUser
+} from "@shared/schema";
+import { db } from "./db";
+import { eq, gte } from "drizzle-orm";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
+  // Users
+  getUser(id: string): Promise<User | undefined>;
+  upsertUser(user: UpsertUser): Promise<User>;
+
   // Performers
   getPerformers(): Promise<Performer[]>;
   getPerformer(id: string): Promise<Performer | undefined>;
@@ -33,6 +46,23 @@ export interface IStorage {
 }
 
 export class MemStorage implements IStorage {
+  // Users (stub implementation for interface compliance)
+  async getUser(id: string): Promise<User | undefined> {
+    return undefined;
+  }
+
+  async upsertUser(user: UpsertUser): Promise<User> {
+    const newUser: User = {
+      id: user.id || randomUUID(),
+      email: user.email || null,
+      firstName: user.firstName || null,
+      lastName: user.lastName || null,
+      profileImageUrl: user.profileImageUrl || null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    return newUser;
+  }
   private performers: Map<string, Performer>;
   private videos: Map<string, Video>;
   private performances: Map<string, Performance>;
@@ -278,4 +308,149 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export class DatabaseStorage implements IStorage {
+  // Users
+  async getUser(id: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
+  }
+
+  async upsertUser(userData: UpsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(userData)
+      .onConflictDoUpdate({
+        target: users.id,
+        set: {
+          ...userData,
+          updatedAt: new Date(),
+        },
+      })
+      .returning();
+    return user;
+  }
+
+  // Performers
+  async getPerformers(): Promise<Performer[]> {
+    return await db.select().from(performers);
+  }
+
+  async getPerformer(id: string): Promise<Performer | undefined> {
+    const [performer] = await db.select().from(performers).where(eq(performers.id, id));
+    return performer;
+  }
+
+  async getFeaturedPerformers(): Promise<Performer[]> {
+    return await db.select().from(performers).where(eq(performers.featured, true));
+  }
+
+  async createPerformer(insertPerformer: InsertPerformer): Promise<Performer> {
+    const [performer] = await db.insert(performers).values(insertPerformer).returning();
+    return performer;
+  }
+
+  async updatePerformer(id: string, updateData: Partial<InsertPerformer>): Promise<Performer | undefined> {
+    const [performer] = await db.update(performers)
+      .set(updateData)
+      .where(eq(performers.id, id))
+      .returning();
+    return performer;
+  }
+
+  async deletePerformer(id: string): Promise<boolean> {
+    const result = await db.delete(performers).where(eq(performers.id, id));
+    return (result.rowCount || 0) > 0;
+  }
+
+  // Videos
+  async getVideos(): Promise<Video[]> {
+    return await db.select().from(videos);
+  }
+
+  async getVideo(id: string): Promise<Video | undefined> {
+    const [video] = await db.select().from(videos).where(eq(videos.id, id));
+    return video;
+  }
+
+  async getFeaturedVideos(): Promise<Video[]> {
+    return await db.select().from(videos).where(eq(videos.featured, true));
+  }
+
+  async createVideo(insertVideo: InsertVideo): Promise<Video> {
+    const [video] = await db.insert(videos).values(insertVideo).returning();
+    return video;
+  }
+
+  async updateVideo(id: string, updateData: Partial<InsertVideo>): Promise<Video | undefined> {
+    const [video] = await db.update(videos)
+      .set(updateData)
+      .where(eq(videos.id, id))
+      .returning();
+    return video;
+  }
+
+  async deleteVideo(id: string): Promise<boolean> {
+    const result = await db.delete(videos).where(eq(videos.id, id));
+    return (result.rowCount || 0) > 0;
+  }
+
+  // Performances
+  async getPerformances(): Promise<Performance[]> {
+    return await db.select().from(performances);
+  }
+
+  async getPerformance(id: string): Promise<Performance | undefined> {
+    const [performance] = await db.select().from(performances).where(eq(performances.id, id));
+    return performance;
+  }
+
+  async getUpcomingPerformances(): Promise<Performance[]> {
+    const now = new Date();
+    return await db.select().from(performances).where(gte(performances.date, now));
+  }
+
+  async createPerformance(insertPerformance: InsertPerformance): Promise<Performance> {
+    const [performance] = await db.insert(performances).values(insertPerformance).returning();
+    return performance;
+  }
+
+  async updatePerformance(id: string, updateData: Partial<InsertPerformance>): Promise<Performance | undefined> {
+    const [performance] = await db.update(performances)
+      .set(updateData)
+      .where(eq(performances.id, id))
+      .returning();
+    return performance;
+  }
+
+  async deletePerformance(id: string): Promise<boolean> {
+    const result = await db.delete(performances).where(eq(performances.id, id));
+    return (result.rowCount || 0) > 0;
+  }
+
+  // Content
+  async getContent(key: string): Promise<Content | undefined> {
+    const [contentItem] = await db.select().from(content).where(eq(content.key, key));
+    return contentItem;
+  }
+
+  async getAllContent(): Promise<Content[]> {
+    return await db.select().from(content);
+  }
+
+  async createOrUpdateContent(insertContent: InsertContent): Promise<Content> {
+    const [contentItem] = await db
+      .insert(content)
+      .values(insertContent)
+      .onConflictDoUpdate({
+        target: content.key,
+        set: {
+          ...insertContent,
+          updatedAt: new Date(),
+        },
+      })
+      .returning();
+    return contentItem;
+  }
+}
+
+export const storage = new DatabaseStorage();
