@@ -76,6 +76,7 @@ export default function PerformerForm() {
       queryClient.invalidateQueries({ queryKey: ["/api/performers/featured"] });
       setEditingPerformer(null);
       setGalleryImages([]);
+      setIsUploading(false);
       form.reset();
       toast({ title: "Success", description: "Performer updated successfully" });
     },
@@ -200,6 +201,7 @@ export default function PerformerForm() {
   const cancelEdit = () => {
     setEditingPerformer(null);
     setGalleryImages([]);
+    setIsUploading(false);
     form.reset();
   };
 
@@ -357,7 +359,11 @@ export default function PerformerForm() {
           </h3>
           
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" noValidate>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              console.log("Form submission prevented - use Save button instead");
+              return false;
+            }} className="space-y-6" noValidate>
               <div className="grid md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
@@ -534,7 +540,12 @@ export default function PerformerForm() {
 
               <div className="flex gap-4">
                 <Button 
-                  type="submit" 
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const formData = form.getValues();
+                    onSubmit(formData);
+                  }}
                   className="bg-magenta hover:bg-magenta/80"
                   disabled={
                     createMutation.isPending || 
