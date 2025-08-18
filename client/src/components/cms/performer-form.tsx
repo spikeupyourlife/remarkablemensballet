@@ -48,7 +48,9 @@ export default function PerformerForm() {
     mutationFn: (data: InsertPerformer) => apiRequest("POST", "/api/performers", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/performers"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/performers/featured"] });
       form.reset();
+      setGalleryImages([]);
       toast({ title: "Success", description: "Performer created successfully" });
     },
     onError: () => {
@@ -61,7 +63,9 @@ export default function PerformerForm() {
       apiRequest("PUT", `/api/performers/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/performers"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/performers/featured"] });
       setEditingPerformer(null);
+      setGalleryImages([]);
       form.reset();
       toast({ title: "Success", description: "Performer updated successfully" });
     },
@@ -74,12 +78,56 @@ export default function PerformerForm() {
     mutationFn: (id: string) => apiRequest("DELETE", `/api/performers/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/performers"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/performers/featured"] });
       toast({ title: "Success", description: "Performer deleted successfully" });
     },
     onError: () => {
       toast({ title: "Error", description: "Failed to delete performer", variant: "destructive" });
     },
   });
+
+  // Function to remove duplicate performers by name
+  const removeDuplicatePerformers = async () => {
+    if (!performers) return;
+    
+    const nameCount = new Map<string, Performer[]>();
+    
+    // Group performers by name
+    performers.forEach(performer => {
+      if (!nameCount.has(performer.name)) {
+        nameCount.set(performer.name, []);
+      }
+      nameCount.get(performer.name)!.push(performer);
+    });
+    
+    // Find duplicates and merge them
+    for (const [name, performerList] of nameCount.entries()) {
+      if (performerList.length > 1) {
+        // Keep the most complete record (the one with the most data)
+        const bestPerformer = performerList.reduce((best, current) => {
+          const bestScore = (best.imageUrl ? 1 : 0) + (best.bio?.length || 0) + (best.galleryImages?.length || 0);
+          const currentScore = (current.imageUrl ? 1 : 0) + (current.bio?.length || 0) + (current.galleryImages?.length || 0);
+          return currentScore > bestScore ? current : best;
+        });
+        
+        // Delete the others
+        for (const performer of performerList) {
+          if (performer.id !== bestPerformer.id) {
+            try {
+              await apiRequest("DELETE", `/api/performers/${performer.id}`);
+            } catch (error) {
+              console.error("Error deleting duplicate performer:", error);
+            }
+          }
+        }
+      }
+    }
+    
+    // Refresh the list
+    queryClient.invalidateQueries({ queryKey: ["/api/performers"] });
+    queryClient.invalidateQueries({ queryKey: ["/api/performers/featured"] });
+    toast({ title: "Success", description: "Duplicate performers removed successfully" });
+  };
 
   const onSubmit = (data: InsertPerformer) => {
     if (editingPerformer) {
@@ -420,7 +468,7 @@ export default function PerformerForm() {
                   className="bg-magenta hover:bg-magenta/80"
                   disabled={createMutation.isPending || updateMutation.isPending}
                 >
-                  {editingPerformer ? "Update Performer" : "Add Performer"}
+                  {createMutation.isPending || updateMutation.isPending ? "Saving..." : editingPerformer ? "Save Changes" : "Create Performer"}
                 </Button>
                 
                 {editingPerformer && (
@@ -436,7 +484,18 @@ export default function PerformerForm() {
 
       {/* Performers List */}
       <div>
-        <h3 className="font-playfair text-xl font-semibold text-midnight mb-4">Current Performers</h3>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-playfair text-xl font-semibold text-midnight">Current Performers</h3>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={removeDuplicatePerformers}
+            className="text-xs"
+          >
+            Remove Duplicates
+          </Button>
+        </div>
         {isLoading ? (
           <p>Loading performers...</p>
         ) : performers && performers.length > 0 ? (
