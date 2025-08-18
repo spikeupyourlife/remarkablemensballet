@@ -7,6 +7,7 @@ import VideoPlayer from "@/components/video-player";
 import PerformanceCard from "@/components/performance-card";
 import { Badge } from "@/components/ui/badge";
 import type { Performer, Video, Performance } from "@shared/schema";
+import heroImage from "@assets/FB_IMG_1608191733357_1755485442788.jpg";
 
 export default function Home() {
   const { data: featuredPerformers, isLoading: performersLoading } = useQuery<Performer[]>({
@@ -34,8 +35,8 @@ export default function Home() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-midnight/70 to-magenta/50 z-10"></div>
         <img 
-          src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080" 
-          alt="Professional ballet dancers in dramatic performance lighting" 
+          src={heroImage} 
+          alt="The Remarkable Mens Ballet company performers in colorful makeup and tutus" 
           className="absolute inset-0 w-full h-full object-cover"
         />
         
