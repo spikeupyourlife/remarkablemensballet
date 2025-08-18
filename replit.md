@@ -14,7 +14,7 @@ This is a full-stack web application for a ballet company called "Remarkable Men
 - Added comprehensive performer management with date ranges and visibility controls
 - Enhanced CMS content management with Privacy Policy, Terms of Service, and About page editing
 - Implemented dynamic social media links and contact information management through CMS
-- Updated logo from crown to butterfly icon throughout application and favicon
+- Updated logo from crown to flowing organic butterfly icon throughout application and favicon
 - Fixed content editor button formatting and improved JSON validation for structured content
 - Created proper routing for all legal and informational pages with dynamic content loading
 
