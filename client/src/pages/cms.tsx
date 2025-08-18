@@ -5,7 +5,7 @@ import { Users, Video, Calendar, Camera, FileText } from "lucide-react";
 import PerformerForm from "@/components/cms/performer-form";
 import VideoForm from "@/components/cms/video-form";
 import PerformanceForm from "@/components/cms/performance-form";
-import GalleryForm from "@/components/cms/gallery-form";
+import GalleryManagement from "@/components/cms/gallery-management";
 import ContentEditor from "@/components/cms/content-editor";
 
 export default function CMS() {
@@ -78,14 +78,7 @@ export default function CMS() {
             </TabsContent>
 
             <TabsContent value="gallery">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="font-playfair text-2xl text-midnight">Manage Gallery Photos</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <GalleryForm />
-                </CardContent>
-              </Card>
+              <GalleryManagement />
             </TabsContent>
 
             <TabsContent value="content">
