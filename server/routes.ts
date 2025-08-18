@@ -96,11 +96,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/performers", isAuthenticated, async (req, res) => {
     try {
+      console.log("Creating performer request body:", req.body);
+      
+      // Check current performer count first
+      const currentPerformers = await storage.getPerformers();
+      console.log(`Current performer count: ${currentPerformers.length}`);
+      
       const validatedData = insertPerformerSchema.parse(req.body);
+      console.log("Validated performer data:", validatedData);
+      
       const performer = await storage.createPerformer(validatedData);
+      console.log("Performer created successfully:", performer.id);
+      
       res.status(201).json(performer);
     } catch (error) {
-      res.status(400).json({ error: "Invalid performer data" });
+      console.error("Error creating performer:", error);
+      console.error("Error stack:", error instanceof Error ? error.stack : 'No stack trace available');
+      
+      // More specific error handling
+      if (error instanceof Error) {
+        if (error.message.includes('duplicate') || error.message.includes('unique')) {
+          res.status(409).json({ error: "A performer with this name already exists" });
+        } else if (error.message.includes('database') || error.message.includes('connection')) {
+          res.status(503).json({ error: "Database connection error. Please try again." });
+        } else if (error.message.includes('validation')) {
+          res.status(400).json({ error: "Invalid performer data: " + error.message });
+        } else {
+          res.status(500).json({ error: "Server error: " + error.message });
+        }
+      } else {
+        res.status(500).json({ error: "Unknown error occurred: " + JSON.stringify(error) });
+      }
     }
   });
 

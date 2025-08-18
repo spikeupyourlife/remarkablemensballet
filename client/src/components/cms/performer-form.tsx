@@ -74,8 +74,28 @@ export default function PerformerForm() {
       setGalleryImages([]);
       toast({ title: "Success", description: "Performer created successfully" });
     },
-    onError: () => {
-      toast({ title: "Error", description: "Failed to create performer", variant: "destructive" });
+    onError: (error: any) => {
+      console.error("Create mutation error:", error);
+      console.error("Error details:", JSON.stringify(error, null, 2));
+      
+      // Extract error message from various possible sources
+      let errorMessage = "Failed to create performer";
+      
+      if (error?.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      } else if (error?.message) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+      
+      // Add current performer count to error for debugging
+      const currentCount = performers?.length || 0;
+      toast({ 
+        title: "Error", 
+        description: `${errorMessage} (Current performers: ${currentCount})`, 
+        variant: "destructive" 
+      });
     },
   });
 

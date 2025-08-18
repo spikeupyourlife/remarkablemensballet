@@ -91,6 +91,11 @@ export const users = pgTable("users", {
 export const insertPerformerSchema = createInsertSchema(performers).omit({
   id: true,
   createdAt: true,
+}).extend({
+  // Ensure name and role have proper validation
+  name: z.string().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
+  role: z.string().min(1, "Role is required").max(200, "Role must be less than 200 characters"),
+  bio: z.string().max(2000, "Bio must be less than 2000 characters"),
 });
 
 export const insertVideoSchema = createInsertSchema(videos).omit({
