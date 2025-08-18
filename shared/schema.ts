@@ -11,6 +11,10 @@ export const performers = pgTable("performers", {
   imageUrl: text("image_url"),
   galleryImages: text("gallery_images").array().default(sql`'{}'::text[]`),
   featured: boolean("featured").default(false),
+  performingSince: timestamp("performing_since"),
+  performingUntil: timestamp("performing_until"),
+  isCurrentPerformer: boolean("is_current_performer").default(true),
+  showInCurrentList: boolean("show_in_current_list").default(true),
   createdAt: timestamp("created_at").defaultNow(),
 });
 

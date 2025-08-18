@@ -11,7 +11,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trash2, Edit, Upload, X, Image } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { Trash2, Edit, Upload, X, Image, Calendar } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -45,6 +48,10 @@ export default function PerformerForm() {
       imageUrl: "",
       galleryImages: [],
       featured: false,
+      performingSince: undefined,
+      performingUntil: undefined,
+      isCurrentPerformer: true,
+      showInCurrentList: true,
     },
     mode: "onBlur",
   });
@@ -200,6 +207,10 @@ export default function PerformerForm() {
       imageUrl: performer.imageUrl || "",
       galleryImages: performerGallery,
       featured: performer.featured || false,
+      performingSince: performer.performingSince ? new Date(performer.performingSince) : undefined,
+      performingUntil: performer.performingUntil ? new Date(performer.performingUntil) : undefined,
+      isCurrentPerformer: performer.isCurrentPerformer ?? true,
+      showInCurrentList: performer.showInCurrentList ?? true,
     });
     console.log("Edit form reset completed, using name:", fixedName);
   };
@@ -544,6 +555,128 @@ export default function PerformerForm() {
                 )}
               />
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="performingSince"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Performing Since</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={"outline"}
+                              className="w-full pl-3 text-left font-normal"
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span>Pick start date</span>
+                              )}
+                              <Calendar className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <CalendarComponent
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) =>
+                              date > new Date() || date < new Date("1900-01-01")
+                            }
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="performingUntil"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Performing Until (Optional)</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={"outline"}
+                              className="w-full pl-3 text-left font-normal"
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span>Pick end date (optional)</span>
+                              )}
+                              <Calendar className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <CalendarComponent
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) =>
+                              date < new Date("1900-01-01")
+                            }
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <FormField
+                control={form.control}
+                name="isCurrentPerformer"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Current Performer</FormLabel>
+                      <div className="text-sm text-muted-foreground">
+                        Is this person currently performing with the company?
+                      </div>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value || false}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="showInCurrentList"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Show in Current Performers List</FormLabel>
+                      <div className="text-sm text-muted-foreground">
+                        Display this performer in the current performers section
+                      </div>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value || false}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
               <div className="flex gap-4">
                 <Button 
                   type="button"
@@ -579,7 +712,7 @@ export default function PerformerForm() {
       {/* Performers List */}
       <div>
         <div className="flex justify-between items-center mb-4">
-          <h3 className="font-playfair text-xl font-semibold text-midnight">Current Performers</h3>
+          <h3 className="font-playfair text-xl font-semibold text-midnight">All Performers</h3>
           <Button
             type="button"
             variant="outline"
@@ -607,10 +740,30 @@ export default function PerformerForm() {
                         />
                       )}
                       <div>
-                        <h4 className="font-semibold text-midnight">{performer.name}</h4>
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-semibold text-midnight">{performer.name}</h4>
+                          <div className="flex gap-1">
+                            {performer.featured && (
+                              <span className="text-xs bg-gold text-midnight px-2 py-1 rounded-full">Featured</span>
+                            )}
+                            {performer.isCurrentPerformer ? (
+                              <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Current</span>
+                            ) : (
+                              <span className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full">Historic</span>
+                            )}
+                            {!performer.showInCurrentList && (
+                              <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">Hidden</span>
+                            )}
+                          </div>
+                        </div>
                         <p className="text-magenta text-sm">{performer.role}</p>
-                        {performer.featured && (
-                          <span className="text-xs bg-gold text-midnight px-2 py-1 rounded-full">Featured</span>
+                        {performer.performingSince && (
+                          <p className="text-xs text-gray-500">
+                            Since: {format(new Date(performer.performingSince), "MMM yyyy")}
+                            {performer.performingUntil && (
+                              <span> - {format(new Date(performer.performingUntil), "MMM yyyy")}</span>
+                            )}
+                          </p>
                         )}
                       </div>
                     </div>

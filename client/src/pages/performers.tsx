@@ -5,7 +5,7 @@ import type { Performer } from "@shared/schema";
 
 export default function Performers() {
   const { data: performers, isLoading } = useQuery<Performer[]>({
-    queryKey: ["/api/performers"],
+    queryKey: ["/api/performers/current"],
   });
 
   return (

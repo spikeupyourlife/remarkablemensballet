@@ -59,6 +59,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/performers/current", async (req, res) => {
+    try {
+      const performers = await storage.getCurrentPerformers();
+      res.json(performers);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch current performers" });
+    }
+  });
+
   app.get("/api/performers/featured", async (req, res) => {
     try {
       const performers = await storage.getFeaturedPerformers();

@@ -18,6 +18,7 @@ export interface IStorage {
 
   // Performers
   getPerformers(): Promise<Performer[]>;
+  getCurrentPerformers(): Promise<Performer[]>;
   getPerformer(id: string): Promise<Performer | undefined>;
   getFeaturedPerformers(): Promise<Performer[]>;
   createPerformer(performer: InsertPerformer): Promise<Performer>;
@@ -208,6 +209,10 @@ export class MemStorage implements IStorage {
     return this.performers.get(id);
   }
 
+  async getCurrentPerformers(): Promise<Performer[]> {
+    return Array.from(this.performers.values()).filter(p => p.showInCurrentList !== false);
+  }
+
   async getFeaturedPerformers(): Promise<Performer[]> {
     return Array.from(this.performers.values()).filter(p => p.featured);
   }
@@ -396,6 +401,10 @@ export class DatabaseStorage implements IStorage {
   async getPerformer(id: string): Promise<Performer | undefined> {
     const [performer] = await db.select().from(performers).where(eq(performers.id, id));
     return performer;
+  }
+
+  async getCurrentPerformers(): Promise<Performer[]> {
+    return await db.select().from(performers).where(eq(performers.showInCurrentList, true));
   }
 
   async getFeaturedPerformers(): Promise<Performer[]> {
