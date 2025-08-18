@@ -8,6 +8,7 @@ import PerformanceCard from "@/components/performance-card";
 import { Badge } from "@/components/ui/badge";
 import type { Performer, Video, Performance } from "@shared/schema";
 import heroImage from "@assets/FB_IMG_1608191733357_1755485442788.jpg";
+import artisticVisionImage from "@assets/IMG_20191125_210353_1755485986058.jpg";
 
 export default function Home() {
   const { data: featuredPerformers, isLoading: performersLoading } = useQuery<Performer[]>({
@@ -100,8 +101,8 @@ export default function Home() {
               
               <div className="relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-                  alt="Professional dance studio with mirrors and elegant lighting" 
+                  src={artisticVisionImage} 
+                  alt="Two Remarkable Mens Ballet performers laughing and enjoying a moment together during rehearsal" 
                   className="rounded-2xl shadow-2xl w-full"
                 />
                 <div className="absolute -bottom-6 -right-6 bg-gradient-to-br from-magenta to-midnight p-6 rounded-2xl text-white">
