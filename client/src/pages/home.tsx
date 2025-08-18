@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import { Play, ChevronDown, ArrowRight, Calendar, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -150,9 +151,11 @@ export default function Home() {
           )}
           
           <div className="text-center mt-12">
-            <Button className="bg-midnight text-white hover:bg-magenta transition-colors duration-300 font-medium">
-              Meet All Our Performers
-            </Button>
+            <Link href="/performers">
+              <Button className="bg-midnight text-white hover:bg-magenta transition-colors duration-300 font-medium">
+                Meet All Our Performers
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
