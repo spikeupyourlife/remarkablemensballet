@@ -20,7 +20,7 @@ export default function PerformerCard({ performer }: PerformerCardProps) {
           <img 
             src={performer.imageUrl || "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"} 
             alt={performer.name} 
-            className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-64 sm:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
           />
           {performer.featured && (
             <Badge className="absolute top-4 left-4 bg-gold text-midnight px-3 py-1 text-xs font-medium">
@@ -28,10 +28,10 @@ export default function PerformerCard({ performer }: PerformerCardProps) {
             </Badge>
           )}
         </div>
-        <CardContent className="p-6">
-          <h3 className="font-playfair text-2xl font-semibold text-midnight mb-2">{performer.name}</h3>
-          <p className="text-magenta font-medium mb-3">{performer.role}</p>
-          <p className="text-gray-600 leading-relaxed line-clamp-3 mb-4">
+        <CardContent className="p-4 sm:p-6">
+          <h3 className="font-playfair text-xl sm:text-2xl font-semibold text-midnight mb-2">{performer.name}</h3>
+          <p className="text-magenta font-medium mb-3 text-sm sm:text-base">{performer.role}</p>
+          <p className="text-gray-600 leading-relaxed line-clamp-3 mb-4 text-sm sm:text-base">
             {performer.bio}
           </p>
           <Button 
@@ -45,7 +45,7 @@ export default function PerformerCard({ performer }: PerformerCardProps) {
       </Card>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto mx-4">
           <DialogHeader>
             <DialogTitle className="font-playfair text-2xl text-midnight">
               {performer.name}

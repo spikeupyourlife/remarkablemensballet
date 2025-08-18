@@ -42,14 +42,14 @@ export default function Home() {
         />
         
         <div className="relative z-20 text-center text-white px-6 max-w-4xl mx-auto">
-          <h1 className="font-playfair text-6xl md:text-8xl font-bold mb-6 leading-tight animate-fade-in">
+          <h1 className="font-playfair text-4xl sm:text-6xl lg:text-8xl font-bold mb-6 leading-tight animate-fade-in">
             Remarkable<br />
-            <span className="text-gold font-dancing text-5xl md:text-7xl">Mens Ballet</span>
+            <span className="text-gold font-dancing text-3xl sm:text-5xl lg:text-7xl">Mens Ballet</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 font-light max-w-2xl mx-auto leading-relaxed animate-slide-up">
+          <p className="text-lg sm:text-xl lg:text-2xl mb-8 font-light max-w-2xl mx-auto leading-relaxed animate-slide-up px-4">
             Where artistry meets expression. Experience the beauty of ballet reimagined through bold performances and fearless creativity.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up px-4">
             <Button 
               onClick={() => scrollToSection('videos')}
               className="bg-magenta hover:bg-magenta/80 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105"

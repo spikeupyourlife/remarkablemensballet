@@ -54,9 +54,9 @@ export default function VideoPlayer({ video, featured = false }: VideoPlayerProp
             </div>
           </div>
         </div>
-        <CardContent className="p-6 text-white">
-          <h3 className="font-playfair text-2xl font-semibold mb-2">{video.title}</h3>
-          <p className="text-gray-300">{video.description}</p>
+        <CardContent className="p-4 sm:p-6 text-white">
+          <h3 className="font-playfair text-xl sm:text-2xl font-semibold mb-2">{video.title}</h3>
+          <p className="text-gray-300 text-sm sm:text-base">{video.description}</p>
         </CardContent>
       </Card>
     );
@@ -81,9 +81,9 @@ export default function VideoPlayer({ video, featured = false }: VideoPlayerProp
           </div>
         </div>
       </div>
-      <CardContent className="p-4">
-        <h4 className="font-playfair text-lg font-semibold text-midnight mb-1">{video.title}</h4>
-        <p className="text-gray-600 text-sm">{video.description}</p>
+      <CardContent className="p-3 sm:p-4">
+        <h4 className="font-playfair text-base sm:text-lg font-semibold text-midnight mb-1">{video.title}</h4>
+        <p className="text-gray-600 text-xs sm:text-sm">{video.description}</p>
       </CardContent>
     </Card>
   );

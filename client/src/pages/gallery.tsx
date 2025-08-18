@@ -98,17 +98,17 @@ export default function Gallery() {
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-white mb-4 font-serif">Gallery</h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6"></div>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 font-serif">Gallery</h1>
+          <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-4 sm:mb-6"></div>
+          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto px-4">
             Discover the artistry and passion behind every performance through our collection of memorable moments.
           </p>
         </div>
 
         {/* Filters and Search */}
-        <div className="mb-8 bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="mb-8 bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-slate-700">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
@@ -121,9 +121,9 @@ export default function Gallery() {
             </div>
 
             {/* Sort */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 sm:col-span-2 lg:col-span-1">
               <Select value={sortField} onValueChange={(value: SortField) => setSortField(value)}>
-                <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+                <SelectTrigger className="bg-slate-700 border-slate-600 text-white flex-1">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -137,7 +137,7 @@ export default function Gallery() {
                 variant="outline"
                 size="icon"
                 onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600 shrink-0"
               >
                 {sortOrder === 'asc' ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />}
               </Button>
@@ -172,14 +172,14 @@ export default function Gallery() {
           </div>
 
           {/* Results Count */}
-          <div className="mt-4 text-slate-400 text-sm">
+          <div className="mt-4 text-slate-400 text-xs sm:text-sm">
             Showing {filteredAndSortedPhotos.length} of {photos.length} photos
           </div>
         </div>
 
         {/* Gallery Grid */}
         {filteredAndSortedPhotos.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {filteredAndSortedPhotos.map((photo) => (
               <GalleryPhotoCard 
                 key={photo.id} 
