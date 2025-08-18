@@ -247,7 +247,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-midnight mb-1">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">03 000 0000</p>
                   </div>
                 </div>
                 
@@ -257,7 +257,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-midnight mb-1">Email</h3>
-                    <p className="text-gray-600">info@remarkablemensballett.com</p>
+                    <p className="text-gray-600">info@remarkablementsballet.com</p>
                   </div>
                 </div>
                 
@@ -266,8 +266,8 @@ export default function Home() {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-midnight mb-1">Studio Location</h3>
-                    <p className="text-gray-600">123 Broadway Avenue<br />New York, NY 10001</p>
+                    <h3 className="font-semibold text-midnight mb-1">Address</h3>
+                    <p className="text-gray-600">Of no Abode<br />Queenstown, 9300</p>
                   </div>
                 </div>
               </div>
