@@ -27,6 +27,10 @@ export default function Home() {
     queryKey: ["/api/performances/upcoming"],
   });
 
+  const { data: featuredPerformances, isLoading: featuredPerformancesLoading } = useQuery<Performance[]>({
+    queryKey: ["/api/performances/featured"],
+  });
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -54,13 +58,14 @@ export default function Home() {
             Where artistry meets expression. Experience the beauty of ballet reimagined through bold performances and fearless creativity.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up px-4">
-            <Button 
-              onClick={() => scrollToSection('videos')}
-              className="bg-magenta hover:bg-magenta/80 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105"
-            >
-              <Play className="w-5 h-5 mr-2" />
-              Watch Performances
-            </Button>
+            <Link href="/videos">
+              <Button 
+                className="bg-magenta hover:bg-magenta/80 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105"
+              >
+                <Play className="w-5 h-5 mr-2" />
+                Watch Performances
+              </Button>
+            </Link>
             <Button 
               variant="outline"
               onClick={() => scrollToSection('about')}

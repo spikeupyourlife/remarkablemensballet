@@ -37,6 +37,7 @@ export interface IStorage {
   getPerformances(): Promise<Performance[]>;
   getPerformance(id: string): Promise<Performance | undefined>;
   getUpcomingPerformances(): Promise<Performance[]>;
+  getFeaturedPerformances(): Promise<Performance[]>;
   createPerformance(performance: InsertPerformance): Promise<Performance>;
   updatePerformance(id: string, performance: Partial<InsertPerformance>): Promise<Performance | undefined>;
   deletePerformance(id: string): Promise<boolean>;
@@ -474,6 +475,10 @@ export class DatabaseStorage implements IStorage {
   async getUpcomingPerformances(): Promise<Performance[]> {
     const now = new Date();
     return await db.select().from(performances).where(gte(performances.date, now));
+  }
+
+  async getFeaturedPerformances(): Promise<Performance[]> {
+    return await db.select().from(performances).where(eq(performances.featured, true));
   }
 
   async createPerformance(insertPerformance: InsertPerformance): Promise<Performance> {

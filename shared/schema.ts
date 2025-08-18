@@ -42,6 +42,7 @@ export const performances = pgTable("performances", {
     additionalInfo?: string; // e.g., "Matinee", "Opening Night"
   }[]>().default(sql`'[]'::json`), // Array of show times
   ticketUrl: text("ticket_url"),
+  featured: boolean("featured").default(false), // New featured field
   createdAt: timestamp("created_at").defaultNow(),
 });
 

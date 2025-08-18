@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trash2, Edit, Calendar, Plus, Image, Clock } from "lucide-react";
+import { Trash2, Edit, Calendar, Plus, Image, Clock, Star } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -18,6 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ImageUpload } from "@/components/ui/image-upload";
 import type { Performance, InsertPerformance } from "@shared/schema";
 
@@ -40,6 +41,7 @@ export default function PerformanceForm() {
       posterUrl: "",
       showTimes: [{ date: new Date().toISOString().split('T')[0], time: "", additionalInfo: "" }],
       ticketUrl: "",
+      featured: false,
     },
   });
 
@@ -114,6 +116,7 @@ export default function PerformanceForm() {
       posterUrl: performance.posterUrl || "",
       showTimes: showTimes,
       ticketUrl: performance.ticketUrl || "",
+      featured: performance.featured || false,
     });
   };
 
@@ -294,23 +297,49 @@ export default function PerformanceForm() {
                 ))}
               </div>
 
-              <FormField
-                control={form.control}
-                name="ticketUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Ticket URL</FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder="https://..." 
-                        {...field} 
-                        value={field.value || ""} 
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="ticketUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Ticket URL</FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="https://..." 
+                          {...field} 
+                          value={field.value || ""} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="featured"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <div className="space-y-1 leading-none">
+                        <FormLabel className="flex items-center gap-2">
+                          <Star className="h-4 w-4 text-gold" />
+                          Featured Performance
+                        </FormLabel>
+                        <p className="text-sm text-muted-foreground">
+                          Show this performance on the home page
+                        </p>
+                      </div>
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               {/* Legacy fields for backward compatibility */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">

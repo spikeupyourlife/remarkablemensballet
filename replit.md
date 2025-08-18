@@ -17,6 +17,10 @@ This is a full-stack web application for a ballet company called "Remarkable Men
 - Updated logo from crown to flowing organic butterfly icon throughout application and favicon
 - Fixed content editor button formatting and improved JSON validation for structured content
 - Created proper routing for all legal and informational pages with dynamic content loading
+- Enhanced performer creation error handling with detailed server-side logging and validation
+- Upgraded performance system with poster images and multiple show times support
+- Added featured performance functionality with dedicated API endpoints
+- Fixed hero section "Watch Performances" link to navigate to video gallery page
 
 # User Preferences
 

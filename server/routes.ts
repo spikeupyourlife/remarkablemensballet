@@ -240,6 +240,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/performances/featured", async (req, res) => {
+    try {
+      const performances = await storage.getFeaturedPerformances();
+      res.json(performances);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch featured performances" });
+    }
+  });
+
   app.get("/api/performances/:id", async (req, res) => {
     try {
       const performance = await storage.getPerformance(req.params.id);
