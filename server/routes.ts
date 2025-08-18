@@ -300,6 +300,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.put("/api/gallery-images", isAuthenticated, async (req, res) => {
+    if (!req.body.imageURL) {
+      return res.status(400).json({ error: "imageURL is required" });
+    }
+
+    try {
+      const objectStorageService = new ObjectStorageService();
+      const objectPath = objectStorageService.normalizeObjectEntityPath(req.body.imageURL);
+
+      res.status(200).json({
+        objectPath: objectPath,
+      });
+    } catch (error) {
+      console.error("Error setting gallery image:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
   // Gallery Photos routes
   app.get("/api/gallery", async (req, res) => {
     try {
@@ -333,11 +351,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/gallery", isAuthenticated, async (req, res) => {
     try {
+      console.log("Gallery POST request body:", JSON.stringify(req.body, null, 2));
       const validatedData = insertGalleryPhotoSchema.parse(req.body);
       const photo = await storage.createGalleryPhoto(validatedData);
       res.status(201).json(photo);
     } catch (error) {
-      res.status(400).json({ error: "Invalid gallery photo data" });
+      console.error("Gallery validation error:", error);
+      res.status(400).json({ 
+        error: "Invalid gallery photo data", 
+        details: error instanceof Error ? error.message : String(error)
+      });
     }
   });
 

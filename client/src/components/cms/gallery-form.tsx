@@ -114,14 +114,30 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
     },
   });
 
-  const handleUploadComplete = (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+  const handleUploadComplete = async (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+    console.log("Upload result:", result);
     if (result.successful && result.successful.length > 0) {
       const uploadedFile = result.successful[0];
-      const imageUrl = uploadedFile.uploadURL;
-      if (imageUrl) {
-        form.setValue("imageUrl", imageUrl);
-        toast({ title: "Image uploaded successfully" });
+      const uploadUrl = uploadedFile.uploadURL as string;
+      console.log("Upload URL:", uploadUrl);
+      
+      if (uploadUrl) {
+        try {
+          // Set ACL policy and get normalized path like performer images
+          const response = await apiRequest("PUT", "/api/gallery-images", { imageURL: uploadUrl });
+          const data = await response.json();
+          form.setValue("imageUrl", data.objectPath);
+          toast({ title: "Image uploaded successfully" });
+          console.log("Set image URL to:", data.objectPath);
+        } catch (error) {
+          console.error("Error setting image ACL:", error);
+          toast({ title: "Error", description: "Failed to process uploaded image", variant: "destructive" });
+        }
       }
+    } else if (result.failed && result.failed.length > 0) {
+      console.error("Upload failed:", result.failed);
+      const errorMsg = result.failed[0].error || "Unknown upload error";
+      toast({ title: "Upload Failed", description: errorMsg, variant: "destructive" });
     }
   };
 
@@ -140,6 +156,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
   };
 
   const handleSubmit = (data: GalleryFormData) => {
+    console.log("Form data before formatting:", data);
     const formattedData: InsertGalleryPhoto = {
       ...data,
       showDate: data.showDate ? data.showDate : null,
@@ -150,6 +167,7 @@ export default function GalleryForm({ photo, onSubmit }: GalleryFormProps) {
       whereTags: data.whereTags?.filter(tag => tag.trim()) || [],
       whyTags: data.whyTags?.filter(tag => tag.trim()) || [],
     };
+    console.log("Formatted data to send:", formattedData);
 
     if (photo) {
       updateMutation.mutate(formattedData);
