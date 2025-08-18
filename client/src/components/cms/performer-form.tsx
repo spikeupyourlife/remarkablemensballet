@@ -111,15 +111,29 @@ export default function PerformerForm() {
 
   const handleProfileImageUpload = async () => {
     try {
-      const response = await apiRequest("POST", "/api/objects/upload");
-      console.log("Upload response:", response);
-      const uploadURL = (response as any).uploadURL;
-      if (!uploadURL) {
+      console.log("Requesting upload URL...");
+      const response = await fetch("/api/objects/upload", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log("Upload response:", data);
+      
+      if (!data.uploadURL) {
         throw new Error("No upload URL received");
       }
+      
       return {
         method: "PUT" as const,
-        url: uploadURL,
+        url: data.uploadURL,
       };
     } catch (error) {
       console.error("Error getting upload URL:", error);
@@ -136,7 +150,8 @@ export default function PerformerForm() {
         try {
           // Set ACL policy and get normalized path
           const response = await apiRequest("PUT", "/api/performer-images", { imageURL: uploadUrl });
-          form.setValue("imageUrl", (response as any).objectPath);
+          const data = await response.json();
+          form.setValue("imageUrl", data.objectPath);
           toast({ title: "Success", description: "Profile image uploaded successfully" });
         } catch (error) {
           console.error("Error setting image ACL:", error);
@@ -152,15 +167,29 @@ export default function PerformerForm() {
 
   const handleGalleryImageUpload = async () => {
     try {
-      const response = await apiRequest("POST", "/api/objects/upload");
-      console.log("Upload response:", response);
-      const uploadURL = (response as any).uploadURL;
-      if (!uploadURL) {
+      console.log("Requesting gallery upload URL...");
+      const response = await fetch("/api/objects/upload", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log("Gallery upload response:", data);
+      
+      if (!data.uploadURL) {
         throw new Error("No upload URL received");
       }
+      
       return {
         method: "PUT" as const,
-        url: uploadURL,
+        url: data.uploadURL,
       };
     } catch (error) {
       console.error("Error getting upload URL:", error);
@@ -177,7 +206,8 @@ export default function PerformerForm() {
         try {
           // Set ACL policy and get normalized path
           const response = await apiRequest("PUT", "/api/performer-images", { imageURL: uploadUrl });
-          const newGalleryImages = [...galleryImages, (response as any).objectPath];
+          const data = await response.json();
+          const newGalleryImages = [...galleryImages, data.objectPath];
           setGalleryImages(newGalleryImages);
           form.setValue("galleryImages", newGalleryImages);
           toast({ title: "Success", description: "Gallery image uploaded successfully" });
