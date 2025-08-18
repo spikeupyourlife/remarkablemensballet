@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema } from "@shared/schema";
+import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema, insertGalleryPhotoSchema } from "@shared/schema";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 
@@ -297,6 +297,72 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error setting performer image:", error);
       res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Gallery Photos routes
+  app.get("/api/gallery", async (req, res) => {
+    try {
+      const photos = await storage.getGalleryPhotos();
+      res.json(photos);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch gallery photos" });
+    }
+  });
+
+  app.get("/api/gallery/featured", async (req, res) => {
+    try {
+      const photos = await storage.getFeaturedGalleryPhotos();
+      res.json(photos);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch featured gallery photos" });
+    }
+  });
+
+  app.get("/api/gallery/:id", async (req, res) => {
+    try {
+      const photo = await storage.getGalleryPhoto(req.params.id);
+      if (!photo) {
+        return res.status(404).json({ error: "Gallery photo not found" });
+      }
+      res.json(photo);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch gallery photo" });
+    }
+  });
+
+  app.post("/api/gallery", isAuthenticated, async (req, res) => {
+    try {
+      const validatedData = insertGalleryPhotoSchema.parse(req.body);
+      const photo = await storage.createGalleryPhoto(validatedData);
+      res.status(201).json(photo);
+    } catch (error) {
+      res.status(400).json({ error: "Invalid gallery photo data" });
+    }
+  });
+
+  app.put("/api/gallery/:id", isAuthenticated, async (req, res) => {
+    try {
+      const validatedData = insertGalleryPhotoSchema.partial().parse(req.body);
+      const photo = await storage.updateGalleryPhoto(req.params.id, validatedData);
+      if (!photo) {
+        return res.status(404).json({ error: "Gallery photo not found" });
+      }
+      res.json(photo);
+    } catch (error) {
+      res.status(400).json({ error: "Invalid gallery photo data" });
+    }
+  });
+
+  app.delete("/api/gallery/:id", isAuthenticated, async (req, res) => {
+    try {
+      const deleted = await storage.deleteGalleryPhoto(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Gallery photo not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete gallery photo" });
     }
   });
 

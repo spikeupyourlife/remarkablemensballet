@@ -43,6 +43,24 @@ export const content = pgTable("content", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+export const galleryPhotos = pgTable("gallery_photos", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: varchar("title").notNull(),
+  imageUrl: varchar("image_url").notNull(),
+  showDate: timestamp("show_date"),
+  showName: varchar("show_name"),
+  description: text("description"),
+  tags: text("tags").array(),
+  whoTags: text("who_tags").array(), // Who was in the photo
+  whatTags: text("what_tags").array(), // What was happening
+  whenTags: text("when_tags").array(), // When context (e.g., "opening night", "rehearsal")
+  whereTags: text("where_tags").array(), // Where it was taken
+  whyTags: text("why_tags").array(), // Why context (e.g., "celebration", "behind-scenes")
+  featured: boolean("featured").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Session storage table for Replit Auth
 export const sessions = pgTable(
   "sessions",
@@ -85,6 +103,14 @@ export const insertContentSchema = createInsertSchema(content).omit({
   updatedAt: true,
 });
 
+export const insertGalleryPhotoSchema = createInsertSchema(galleryPhotos).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  showDate: z.string().optional().nullable(),
+});
+
 export type InsertPerformer = z.infer<typeof insertPerformerSchema>;
 export type Performer = typeof performers.$inferSelect;
 
@@ -96,6 +122,9 @@ export type Performance = typeof performances.$inferSelect;
 
 export type InsertContent = z.infer<typeof insertContentSchema>;
 export type Content = typeof content.$inferSelect;
+
+export type InsertGalleryPhoto = z.infer<typeof insertGalleryPhotoSchema>;
+export type GalleryPhoto = typeof galleryPhotos.$inferSelect;
 
 export const upsertUserSchema = createInsertSchema(users).omit({
   createdAt: true,

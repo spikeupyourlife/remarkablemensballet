@@ -11,6 +11,7 @@ import Home from "@/pages/home";
 import Performers from "@/pages/performers";
 import Videos from "@/pages/videos";
 import Performances from "@/pages/performances";
+import Gallery from "@/pages/gallery";
 import Contact from "@/pages/contact";
 import CMS from "@/pages/cms";
 import NotFound from "@/pages/not-found";
@@ -35,6 +36,7 @@ function AuthenticatedRouter() {
       <Route path="/performers" component={Performers} />
       <Route path="/videos" component={Videos} />
       <Route path="/performances" component={Performances} />
+      <Route path="/gallery" component={Gallery} />
       <Route path="/contact" component={Contact} />
       {isAuthenticated ? (
         <Route path="/cms" component={CMS} />

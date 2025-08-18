@@ -1,10 +1,11 @@
 import { 
-  performers, videos, performances, content, users,
+  performers, videos, performances, content, users, galleryPhotos,
   type Performer, type InsertPerformer, 
   type Video, type InsertVideo, 
   type Performance, type InsertPerformance, 
   type Content, type InsertContent,
-  type User, type UpsertUser
+  type User, type UpsertUser,
+  type GalleryPhoto, type InsertGalleryPhoto
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, gte } from "drizzle-orm";
@@ -43,6 +44,14 @@ export interface IStorage {
   getContent(key: string): Promise<Content | undefined>;
   getAllContent(): Promise<Content[]>;
   createOrUpdateContent(content: InsertContent): Promise<Content>;
+
+  // Gallery Photos
+  getGalleryPhotos(): Promise<GalleryPhoto[]>;
+  getGalleryPhoto(id: string): Promise<GalleryPhoto | undefined>;
+  getFeaturedGalleryPhotos(): Promise<GalleryPhoto[]>;
+  createGalleryPhoto(photo: InsertGalleryPhoto): Promise<GalleryPhoto>;
+  updateGalleryPhoto(id: string, photo: Partial<InsertGalleryPhoto>): Promise<GalleryPhoto | undefined>;
+  deleteGalleryPhoto(id: string): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
@@ -67,12 +76,14 @@ export class MemStorage implements IStorage {
   private videos: Map<string, Video>;
   private performances: Map<string, Performance>;
   private content: Map<string, Content>;
+  private galleryPhotos: Map<string, GalleryPhoto>;
 
   constructor() {
     this.performers = new Map();
     this.videos = new Map();
     this.performances = new Map();
     this.content = new Map();
+    this.galleryPhotos = new Map();
     this.seedData();
   }
 
@@ -84,6 +95,7 @@ export class MemStorage implements IStorage {
       role: "Principal Dancer",
       bio: "A classically trained dancer with over 12 years of experience, Alexander brings elegance and power to every performance. His background in both classical and contemporary styles makes him a versatile artist who continues to push the boundaries of traditional ballet.",
       imageUrl: "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500",
+      galleryImages: [],
       featured: true,
       createdAt: new Date(),
     };
@@ -94,6 +106,7 @@ export class MemStorage implements IStorage {
       role: "Artistic Director",
       bio: "Visionary choreographer and performer who founded the company to push the boundaries of traditional ballet. Sebastian's innovative approach combines classical technique with contemporary expression, creating performances that challenge and inspire.",
       imageUrl: "https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500",
+      galleryImages: [],
       featured: true,
       createdAt: new Date(),
     };
@@ -104,6 +117,7 @@ export class MemStorage implements IStorage {
       role: "Premier Soloist",
       bio: "Known for his graceful technique and emotional depth, Dante captivates audiences with every movement. His performances are characterized by a unique blend of athleticism and artistry that brings stories to life on stage.",
       imageUrl: "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500",
+      galleryImages: [],
       featured: true,
       createdAt: new Date(),
     };
@@ -306,6 +320,50 @@ export class MemStorage implements IStorage {
     this.content.set(insertContent.key, content);
     return content;
   }
+
+  // Gallery Photos
+  async getGalleryPhotos(): Promise<GalleryPhoto[]> {
+    return Array.from(this.galleryPhotos.values()).sort((a, b) => 
+      new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    );
+  }
+
+  async getGalleryPhoto(id: string): Promise<GalleryPhoto | undefined> {
+    return this.galleryPhotos.get(id);
+  }
+
+  async getFeaturedGalleryPhotos(): Promise<GalleryPhoto[]> {
+    return Array.from(this.galleryPhotos.values()).filter(p => p.featured);
+  }
+
+  async createGalleryPhoto(insertPhoto: InsertGalleryPhoto): Promise<GalleryPhoto> {
+    const id = randomUUID();
+    const photo: GalleryPhoto = { 
+      ...insertPhoto, 
+      id, 
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    this.galleryPhotos.set(id, photo);
+    return photo;
+  }
+
+  async updateGalleryPhoto(id: string, updateData: Partial<InsertGalleryPhoto>): Promise<GalleryPhoto | undefined> {
+    const photo = this.galleryPhotos.get(id);
+    if (!photo) return undefined;
+    
+    const updated = { 
+      ...photo, 
+      ...updateData,
+      updatedAt: new Date()
+    };
+    this.galleryPhotos.set(id, updated);
+    return updated;
+  }
+
+  async deleteGalleryPhoto(id: string): Promise<boolean> {
+    return this.galleryPhotos.delete(id);
+  }
 }
 
 export class DatabaseStorage implements IStorage {
@@ -450,6 +508,38 @@ export class DatabaseStorage implements IStorage {
       })
       .returning();
     return contentItem;
+  }
+
+  // Gallery Photos
+  async getGalleryPhotos(): Promise<GalleryPhoto[]> {
+    return await db.select().from(galleryPhotos).orderBy(galleryPhotos.createdAt);
+  }
+
+  async getGalleryPhoto(id: string): Promise<GalleryPhoto | undefined> {
+    const [photo] = await db.select().from(galleryPhotos).where(eq(galleryPhotos.id, id));
+    return photo;
+  }
+
+  async getFeaturedGalleryPhotos(): Promise<GalleryPhoto[]> {
+    return await db.select().from(galleryPhotos).where(eq(galleryPhotos.featured, true));
+  }
+
+  async createGalleryPhoto(insertPhoto: InsertGalleryPhoto): Promise<GalleryPhoto> {
+    const [photo] = await db.insert(galleryPhotos).values(insertPhoto).returning();
+    return photo;
+  }
+
+  async updateGalleryPhoto(id: string, updateData: Partial<InsertGalleryPhoto>): Promise<GalleryPhoto | undefined> {
+    const [photo] = await db.update(galleryPhotos)
+      .set({ ...updateData, updatedAt: new Date() })
+      .where(eq(galleryPhotos.id, id))
+      .returning();
+    return photo;
+  }
+
+  async deleteGalleryPhoto(id: string): Promise<boolean> {
+    const result = await db.delete(galleryPhotos).where(eq(galleryPhotos.id, id));
+    return (result.rowCount || 0) > 0;
   }
 }
 
