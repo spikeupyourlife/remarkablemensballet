@@ -352,7 +352,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/gallery", isAuthenticated, async (req, res) => {
     try {
       console.log("Gallery POST request body:", JSON.stringify(req.body, null, 2));
-      const validatedData = insertGalleryPhotoSchema.parse(req.body);
+      
+      // Parse showDate string to Date if provided
+      const requestData = { ...req.body };
+      if (requestData.showDate && typeof requestData.showDate === 'string') {
+        requestData.showDate = new Date(requestData.showDate);
+      }
+      
+      const validatedData = insertGalleryPhotoSchema.parse(requestData);
       const photo = await storage.createGalleryPhoto(validatedData);
       res.status(201).json(photo);
     } catch (error) {
@@ -366,7 +373,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.put("/api/gallery/:id", isAuthenticated, async (req, res) => {
     try {
-      const validatedData = insertGalleryPhotoSchema.partial().parse(req.body);
+      // Parse showDate string to Date if provided
+      const requestData = { ...req.body };
+      if (requestData.showDate && typeof requestData.showDate === 'string') {
+        requestData.showDate = new Date(requestData.showDate);
+      }
+      
+      const validatedData = insertGalleryPhotoSchema.partial().parse(requestData);
       const photo = await storage.updateGalleryPhoto(req.params.id, validatedData);
       if (!photo) {
         return res.status(404).json({ error: "Gallery photo not found" });

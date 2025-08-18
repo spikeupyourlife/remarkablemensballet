@@ -108,8 +108,6 @@ export const insertGalleryPhotoSchema = createInsertSchema(galleryPhotos).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-}).extend({
-  showDate: z.string().optional().nullable(),
 });
 
 export type InsertPerformer = z.infer<typeof insertPerformerSchema>;
