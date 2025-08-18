@@ -6,13 +6,17 @@ This is a full-stack web application for a ballet company called "Remarkable Men
 - Implemented comprehensive gallery management system with search, sort, and filter capabilities
 - Fixed gallery photo upload issues with proper image URL normalization
 - Added performer linking to gallery photos with cross-referencing functionality  
-- Removed Easy Content Management section from home page for production deployment
 - Enhanced CMS with full gallery CRUD operations and media management
 - Added automatic YouTube thumbnail extraction for video content
 - Implemented public gallery filtering with search, sort, and performer filters
 - Created lightbox modal for full-size image viewing with detailed photo information
 - Enhanced video player with real YouTube thumbnails instead of placeholders
-- Production deployment with persistent data protection
+- Added comprehensive performer management with date ranges and visibility controls
+- Enhanced CMS content management with Privacy Policy, Terms of Service, and About page editing
+- Implemented dynamic social media links and contact information management through CMS
+- Updated logo from crown to butterfly icon throughout application and favicon
+- Fixed content editor button formatting and improved JSON validation for structured content
+- Created proper routing for all legal and informational pages with dynamic content loading
 
 # User Preferences
 

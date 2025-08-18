@@ -1,4 +1,5 @@
-import { Crown, Instagram, Facebook, Youtube, Twitter } from "lucide-react";
+import { Instagram, Facebook, Youtube, Twitter } from "lucide-react";
+import { ButterflyIcon } from "@/components/ui/butterfly-icon";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import type { Content } from "@shared/schema";
@@ -46,7 +47,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-magenta to-gold rounded-full flex items-center justify-center">
-                <Crown className="text-white text-xl" />
+                <ButterflyIcon className="text-white" size={28} />
               </div>
               <div>
                 <h3 className="font-playfair text-2xl font-bold">Remarkable</h3>

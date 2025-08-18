@@ -1,5 +1,6 @@
 import { Link, useLocation } from "wouter";
-import { Crown, Menu, X, LogOut, Settings } from "lucide-react";
+import { Menu, X, LogOut, Settings } from "lucide-react";
+import { ButterflyIcon } from "@/components/ui/butterfly-icon";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,7 @@ export default function Header() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-gradient-to-br from-magenta to-midnight rounded-full flex items-center justify-center">
-              <Crown className="text-white text-xl" />
+              <ButterflyIcon className="text-white" size={28} />
             </div>
             <div>
               <h1 className="font-playfair text-2xl font-bold text-midnight">Remarkable</h1>
