@@ -2,6 +2,13 @@
 
 This is a full-stack web application for a ballet company called "Remarkable Mens Ballet". The application serves as a professional website featuring performer profiles, video galleries, upcoming performances, and a content management system. Built with React, TypeScript, Express.js, and PostgreSQL, it provides both a public-facing website and administrative capabilities for managing content.
 
+## Recent Changes (August 2025)
+- Implemented comprehensive gallery management system with search, sort, and filter capabilities
+- Fixed gallery photo upload issues with proper image URL normalization
+- Added performer linking to gallery photos with cross-referencing functionality  
+- Removed Easy Content Management section from home page for production deployment
+- Enhanced CMS with full gallery CRUD operations and media management
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.

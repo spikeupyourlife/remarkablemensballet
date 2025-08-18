@@ -228,44 +228,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CMS Features Section */}
-      <section className="py-20 bg-gradient-to-r from-midnight to-magenta text-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-playfair text-4xl font-bold mb-6">Easy Content Management</h2>
-            <p className="text-xl mb-12 opacity-90">
-              Our integrated CMS makes it simple to update performances, manage performer bios, and showcase new content.
-            </p>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <i className="fas fa-edit text-2xl"></i>
-                </div>
-                <h3 className="font-playfair text-xl font-semibold mb-2">Easy Editing</h3>
-                <p className="opacity-80">Update content with our intuitive editor</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <i className="fas fa-video text-2xl"></i>
-                </div>
-                <h3 className="font-playfair text-xl font-semibold mb-2">Media Management</h3>
-                <p className="opacity-80">Upload and organize videos and photos</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <Calendar className="text-2xl" />
-                </div>
-                <h3 className="font-playfair text-xl font-semibold mb-2">Event Scheduling</h3>
-                <p className="opacity-80">Manage performances and bookings</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-pearl">
         <div className="container mx-auto px-6">
