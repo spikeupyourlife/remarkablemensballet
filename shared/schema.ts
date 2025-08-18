@@ -33,8 +33,14 @@ export const performances = pgTable("performances", {
   title: text("title").notNull(),
   description: text("description"),
   venue: text("venue").notNull(),
-  date: timestamp("date").notNull(),
-  time: text("time").notNull(),
+  date: timestamp("date").notNull(), // Keep original date field for backwards compatibility
+  time: text("time").notNull(), // Keep original time field for backwards compatibility
+  posterUrl: text("poster_url"), // New poster image field
+  showTimes: json("show_times").$type<{
+    date: string; // ISO date string
+    time: string;
+    additionalInfo?: string; // e.g., "Matinee", "Opening Night"
+  }[]>().default(sql`'[]'::json`), // Array of show times
   ticketUrl: text("ticket_url"),
   createdAt: timestamp("created_at").defaultNow(),
 });
@@ -106,6 +112,15 @@ export const insertVideoSchema = createInsertSchema(videos).omit({
 export const insertPerformanceSchema = createInsertSchema(performances).omit({
   id: true,
   createdAt: true,
+}).extend({
+  title: z.string().min(1, "Title is required").max(200, "Title must be less than 200 characters"),
+  venue: z.string().min(1, "Venue is required").max(200, "Venue must be less than 200 characters"),
+  description: z.string().max(2000, "Description must be less than 2000 characters").optional(),
+  showTimes: z.array(z.object({
+    date: z.string(),
+    time: z.string(),
+    additionalInfo: z.string().optional(),
+  })).min(1, "At least one show time is required").optional(),
 });
 
 export const insertContentSchema = createInsertSchema(content).omit({

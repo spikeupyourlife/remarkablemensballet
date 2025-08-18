@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { insertPerformanceSchema } from "@shared/schema";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trash2, Edit, Calendar } from "lucide-react";
+import { Trash2, Edit, Calendar, Plus, Image, Clock } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -18,6 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ImageUpload } from "@/components/ui/image-upload";
 import type { Performance, InsertPerformance } from "@shared/schema";
 
 export default function PerformanceForm() {
@@ -36,8 +37,15 @@ export default function PerformanceForm() {
       venue: "",
       date: new Date(),
       time: "",
+      posterUrl: "",
+      showTimes: [{ date: new Date().toISOString().split('T')[0], time: "", additionalInfo: "" }],
       ticketUrl: "",
     },
+  });
+
+  const { fields: showTimeFields, append: addShowTime, remove: removeShowTime } = useFieldArray({
+    control: form.control,
+    name: "showTimes",
   });
 
   const createMutation = useMutation({
@@ -47,8 +55,10 @@ export default function PerformanceForm() {
       form.reset();
       toast({ title: "Success", description: "Performance created successfully" });
     },
-    onError: () => {
-      toast({ title: "Error", description: "Failed to create performance", variant: "destructive" });
+    onError: (error: any) => {
+      console.error("Create performance error:", error);
+      const errorMessage = error?.response?.data?.error || "Failed to create performance";
+      toast({ title: "Error", description: errorMessage, variant: "destructive" });
     },
   });
 
@@ -61,8 +71,10 @@ export default function PerformanceForm() {
       form.reset();
       toast({ title: "Success", description: "Performance updated successfully" });
     },
-    onError: () => {
-      toast({ title: "Error", description: "Failed to update performance", variant: "destructive" });
+    onError: (error: any) => {
+      console.error("Update performance error:", error);
+      const errorMessage = error?.response?.data?.error || "Failed to update performance";
+      toast({ title: "Error", description: errorMessage, variant: "destructive" });
     },
   });
 
@@ -87,12 +99,20 @@ export default function PerformanceForm() {
 
   const startEdit = (performance: Performance) => {
     setEditingPerformance(performance);
+    const showTimes = performance.showTimes || [{ 
+      date: new Date(performance.date).toISOString().split('T')[0], 
+      time: performance.time, 
+      additionalInfo: "" 
+    }];
+    
     form.reset({
       title: performance.title,
       description: performance.description || "",
       venue: performance.venue,
       date: new Date(performance.date),
       time: performance.time,
+      posterUrl: performance.posterUrl || "",
+      showTimes: showTimes,
       ticketUrl: performance.ticketUrl || "",
     });
   };
@@ -106,54 +126,45 @@ export default function PerformanceForm() {
     return date.toISOString().split('T')[0];
   };
 
+  if (isLoading) {
+    return <div>Loading performances...</div>;
+  }
+
   return (
-    <div className="space-y-8">
-      {/* Form */}
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold">Manage Performances</h2>
+      
       <Card>
         <CardContent className="p-6">
-          <h3 className="font-playfair text-xl font-semibold text-midnight mb-4">
+          <h3 className="text-lg font-semibold mb-4">
             {editingPerformance ? "Edit Performance" : "Add New Performance"}
           </h3>
           
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Performance title" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="grid md:grid-cols-2 gap-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
-                  name="venue"
+                  name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Venue</FormLabel>
+                      <FormLabel>Performance Title *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Performance venue" {...field} />
+                        <Input placeholder="Enter performance title" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-
+                
                 <FormField
                   control={form.control}
-                  name="time"
+                  name="venue"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Time</FormLabel>
+                      <FormLabel>Venue *</FormLabel>
                       <FormControl>
-                        <Input placeholder="8:00 PM" {...field} />
+                        <Input placeholder="Enter venue name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -163,21 +174,125 @@ export default function PerformanceForm() {
 
               <FormField
                 control={form.control}
-                name="date"
+                name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Date</FormLabel>
+                    <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="date" 
-                        value={formatDateForInput(field.value)}
-                        onChange={(e) => field.onChange(new Date(e.target.value))}
+                      <Textarea 
+                        placeholder="Enter performance description" 
+                        {...field} 
+                        value={field.value || ""} 
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="posterUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Poster Image</FormLabel>
+                    <FormControl>
+                      <ImageUpload
+                        value={field.value || ""}
+                        onChange={field.onChange}
+                        placeholder="Upload poster image"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Show Times Section */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <FormLabel className="text-base font-medium">Show Times *</FormLabel>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => addShowTime({ 
+                      date: new Date().toISOString().split('T')[0], 
+                      time: "", 
+                      additionalInfo: "" 
+                    })}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Show Time
+                  </Button>
+                </div>
+
+                {showTimeFields.map((field, index) => (
+                  <Card key={field.id} className="p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <h4 className="font-medium">Show Time {index + 1}</h4>
+                      {showTimeFields.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeShowTime(index)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <FormField
+                        control={form.control}
+                        name={`showTimes.${index}.date`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Date *</FormLabel>
+                            <FormControl>
+                              <Input type="date" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name={`showTimes.${index}.time`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Time *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="e.g., 7:30 PM" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name={`showTimes.${index}.additionalInfo`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Additional Info</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="e.g., Matinee, Opening Night" 
+                                {...field} 
+                                value={field.value || ""} 
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </Card>
+                ))}
+              </div>
 
               <FormField
                 control={form.control}
@@ -186,24 +301,10 @@ export default function PerformanceForm() {
                   <FormItem>
                     <FormLabel>Ticket URL</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://tickets.example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Description</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder="Performance description..." 
-                        rows={3}
+                      <Input 
+                        placeholder="https://..." 
                         {...field} 
+                        value={field.value || ""} 
                       />
                     </FormControl>
                     <FormMessage />
@@ -211,15 +312,45 @@ export default function PerformanceForm() {
                 )}
               />
 
-              <div className="flex gap-4">
-                <Button 
-                  type="submit" 
-                  className="bg-magenta hover:bg-magenta/80"
-                  disabled={createMutation.isPending || updateMutation.isPending}
-                >
-                  {editingPerformance ? "Update Performance" : "Add Performance"}
-                </Button>
+              {/* Legacy fields for backward compatibility */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
+                <FormField
+                  control={form.control}
+                  name="date"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Legacy Date (for compatibility)</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="date"
+                          value={formatDateForInput(field.value)}
+                          onChange={(e) => field.onChange(new Date(e.target.value))}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 
+                <FormField
+                  control={form.control}
+                  name="time"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Legacy Time (for compatibility)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 7:30 PM" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="flex gap-2">
+                <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending}>
+                  {editingPerformance ? "Update Performance" : "Create Performance"}
+                </Button>
                 {editingPerformance && (
                   <Button type="button" variant="outline" onClick={cancelEdit}>
                     Cancel
@@ -231,54 +362,57 @@ export default function PerformanceForm() {
         </CardContent>
       </Card>
 
-      {/* Performances List */}
-      <div>
-        <h3 className="font-playfair text-xl font-semibold text-midnight mb-4">Current Performances</h3>
-        {isLoading ? (
-          <p>Loading performances...</p>
-        ) : performances && performances.length > 0 ? (
-          <div className="grid gap-4">
-            {performances.map((performance) => (
-              <Card key={performance.id}>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="text-center min-w-[60px]">
-                        <Calendar className="w-8 h-8 text-magenta mx-auto mb-1" />
-                        <div className="text-xs text-gray-500">
-                          {new Date(performance.date).toLocaleDateString()}
-                        </div>
+      {/* Existing Performances */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Existing Performances</h3>
+        {performances && performances.length > 0 ? (
+          performances.map((performance) => (
+            <Card key={performance.id}>
+              <CardContent className="p-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h4 className="font-semibold">{performance.title}</h4>
+                    <p className="text-sm text-gray-600">{performance.venue}</p>
+                    <p className="text-sm text-gray-500">
+                      {new Date(performance.date).toLocaleDateString()} at {performance.time}
+                    </p>
+                    {performance.showTimes && performance.showTimes.length > 0 && (
+                      <div className="mt-2">
+                        <p className="text-sm font-medium">Additional Show Times:</p>
+                        {performance.showTimes.map((showTime, index) => (
+                          <p key={index} className="text-sm text-gray-600">
+                            {new Date(showTime.date).toLocaleDateString()} at {showTime.time}
+                            {showTime.additionalInfo && ` (${showTime.additionalInfo})`}
+                          </p>
+                        ))}
                       </div>
-                      <div>
-                        <h4 className="font-semibold text-midnight">{performance.title}</h4>
-                        <p className="text-gray-600 text-sm">{performance.venue} • {performance.time}</p>
-                        <p className="text-gray-500 text-xs">{performance.description}</p>
-                      </div>
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => startEdit(performance)}
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => deleteMutation.mutate(performance.id)}
-                        disabled={deleteMutation.isPending}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
+                    )}
+                    {performance.description && (
+                      <p className="text-sm text-gray-600 mt-2">{performance.description}</p>
+                    )}
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  <div className="flex items-center gap-2 ml-4">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => startEdit(performance)}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => deleteMutation.mutate(performance.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))
         ) : (
-          <p className="text-gray-500">No performances found.</p>
+          <p className="text-gray-500">No performances created yet.</p>
         )}
       </div>
     </div>

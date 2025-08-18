@@ -254,11 +254,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/performances", isAuthenticated, async (req, res) => {
     try {
+      console.log("Creating performance request body:", req.body);
+      
       const validatedData = insertPerformanceSchema.parse(req.body);
+      console.log("Validated performance data:", validatedData);
+      
       const performance = await storage.createPerformance(validatedData);
+      console.log("Performance created successfully:", performance.id);
+      
       res.status(201).json(performance);
     } catch (error) {
-      res.status(400).json({ error: "Invalid performance data" });
+      console.error("Error creating performance:", error);
+      console.error("Error stack:", error instanceof Error ? error.stack : 'No stack trace available');
+      
+      if (error instanceof Error) {
+        if (error.message.includes('validation')) {
+          res.status(400).json({ error: "Validation error: " + error.message });
+        } else if (error.message.includes('database') || error.message.includes('connection')) {
+          res.status(503).json({ error: "Database connection error. Please try again." });
+        } else {
+          res.status(500).json({ error: "Server error: " + error.message });
+        }
+      } else {
+        res.status(500).json({ error: "Unknown error occurred: " + JSON.stringify(error) });
+      }
     }
   });
 
