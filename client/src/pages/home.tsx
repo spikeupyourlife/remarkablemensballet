@@ -13,6 +13,9 @@ import artisticVisionImage from "@assets/IMG_20191125_210353_1755485986058.jpg";
 export default function Home() {
   const { data: featuredPerformers, isLoading: performersLoading } = useQuery<Performer[]>({
     queryKey: ["/api/performers/featured"],
+    staleTime: 0, // Always refresh to see random selection
+    gcTime: 30000, // Cache for 30 seconds only
+    refetchOnMount: true,
   });
 
   const { data: featuredVideos, isLoading: videosLoading } = useQuery<Video[]>({
