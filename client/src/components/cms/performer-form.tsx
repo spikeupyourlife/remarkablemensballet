@@ -45,7 +45,7 @@ export default function PerformerForm() {
       galleryImages: [],
       featured: false,
     },
-    mode: "onChange",
+    mode: "onBlur",
   });
 
   const createMutation = useMutation({
@@ -228,8 +228,8 @@ export default function PerformerForm() {
           // Set ACL policy and get normalized path
           const response = await apiRequest("PUT", "/api/performer-images", { imageURL: uploadUrl });
           const data = await response.json();
-          form.setValue("imageUrl", data.objectPath);
-          toast({ title: "Success", description: "Profile image uploaded successfully" });
+          form.setValue("imageUrl", data.objectPath, { shouldValidate: false, shouldDirty: false });
+          toast({ title: "Success", description: "Profile image uploaded - remember to save your changes" });
         } catch (error) {
           console.error("Error setting image ACL:", error);
           toast({ title: "Error", description: "Failed to process uploaded image", variant: "destructive" });
@@ -286,8 +286,8 @@ export default function PerformerForm() {
           const data = await response.json();
           const newGalleryImages = [...galleryImages, data.objectPath];
           setGalleryImages(newGalleryImages);
-          form.setValue("galleryImages", newGalleryImages);
-          toast({ title: "Success", description: "Gallery image uploaded successfully" });
+          form.setValue("galleryImages", newGalleryImages, { shouldValidate: false, shouldDirty: false });
+          toast({ title: "Success", description: "Gallery image uploaded - remember to save your changes" });
         } catch (error) {
           console.error("Error setting image ACL:", error);
           toast({ title: "Error", description: "Failed to process uploaded image", variant: "destructive" });
@@ -303,7 +303,7 @@ export default function PerformerForm() {
   const removeGalleryImage = (index: number) => {
     const newGalleryImages = galleryImages.filter((_, i) => i !== index);
     setGalleryImages(newGalleryImages);
-    form.setValue("galleryImages", newGalleryImages);
+    form.setValue("galleryImages", newGalleryImages, { shouldValidate: false, shouldDirty: false });
   };
 
   return (
@@ -316,7 +316,7 @@ export default function PerformerForm() {
           </h3>
           
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" noValidate>
               <div className="grid md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
