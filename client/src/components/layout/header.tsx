@@ -1,12 +1,14 @@
 import { Link, useLocation } from "wouter";
-import { Crown, Menu, X } from "lucide-react";
+import { Crown, Menu, X, LogOut, Settings } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export default function Header() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isAuthenticated, user } = useAuth();
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -48,11 +50,30 @@ export default function Header() {
           </div>
           
           <div className="flex items-center space-x-4">
-            <Link href="/cms" className="hidden md:block">
-              <Button className="bg-midnight text-white hover:bg-magenta transition-colors duration-300">
-                CMS Login
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <div className="hidden md:flex items-center space-x-4">
+                <Link href="/cms">
+                  <Button variant="outline" className="border-midnight text-midnight hover:bg-midnight hover:text-white">
+                    <Settings className="w-4 h-4 mr-2" />
+                    CMS
+                  </Button>
+                </Link>
+                <Button 
+                  onClick={() => window.location.href = '/api/logout'}
+                  variant="ghost"
+                  className="text-midnight hover:text-magenta"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <Link href="/cms" className="hidden md:block">
+                <Button className="bg-midnight text-white hover:bg-magenta transition-colors duration-300">
+                  CMS Login
+                </Button>
+              </Link>
+            )}
             
             {/* Mobile Menu Button */}
             <Button

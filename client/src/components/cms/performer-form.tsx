@@ -5,12 +5,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { insertPerformerSchema } from "@shared/schema";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { ObjectUploader } from "@/components/ObjectUploader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trash2, Edit } from "lucide-react";
+import { Trash2, Edit, Upload, X, Image } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -20,10 +21,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import type { Performer, InsertPerformer } from "@shared/schema";
+import type { UploadResult } from "@uppy/core";
 
 export default function PerformerForm() {
   const { toast } = useToast();
   const [editingPerformer, setEditingPerformer] = useState<Performer | null>(null);
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
 
   const { data: performers, isLoading } = useQuery<Performer[]>({
     queryKey: ["/api/performers"],
@@ -36,6 +39,7 @@ export default function PerformerForm() {
       role: "",
       bio: "",
       imageUrl: "",
+      galleryImages: [],
       featured: false,
     },
   });
@@ -87,18 +91,70 @@ export default function PerformerForm() {
 
   const startEdit = (performer: Performer) => {
     setEditingPerformer(performer);
+    const performerGallery = performer.galleryImages || [];
+    setGalleryImages(performerGallery);
     form.reset({
       name: performer.name,
       role: performer.role,
       bio: performer.bio,
       imageUrl: performer.imageUrl || "",
+      galleryImages: performerGallery,
       featured: performer.featured || false,
     });
   };
 
   const cancelEdit = () => {
     setEditingPerformer(null);
+    setGalleryImages([]);
     form.reset();
+  };
+
+  const handleProfileImageUpload = async () => {
+    const response = await apiRequest("POST", "/api/objects/upload") as { uploadURL: string };
+    return {
+      method: "PUT" as const,
+      url: response.uploadURL,
+    };
+  };
+
+  const handleProfileImageComplete = (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+    if (result.successful && result.successful.length > 0) {
+      const uploadUrl = result.successful[0].uploadURL;
+      if (uploadUrl) {
+        // Convert the upload URL to the object path format
+        const objectPath = uploadUrl.replace(/^.*\/([^\/]+\/[^\/]+\/[^?]+).*$/, '/objects/$1');
+        form.setValue("imageUrl", objectPath);
+        toast({ title: "Success", description: "Profile image uploaded successfully" });
+      }
+    }
+  };
+
+  const handleGalleryImageUpload = async () => {
+    const response = await apiRequest("POST", "/api/objects/upload") as { uploadURL: string };
+    return {
+      method: "PUT" as const,
+      url: response.uploadURL,
+    };
+  };
+
+  const handleGalleryImageComplete = (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+    if (result.successful && result.successful.length > 0) {
+      const uploadUrl = result.successful[0].uploadURL;
+      if (uploadUrl) {
+        // Convert the upload URL to the object path format
+        const objectPath = uploadUrl.replace(/^.*\/([^\/]+\/[^\/]+\/[^?]+).*$/, '/objects/$1');
+        const newGalleryImages = [...galleryImages, objectPath];
+        setGalleryImages(newGalleryImages);
+        form.setValue("galleryImages", newGalleryImages);
+        toast({ title: "Success", description: "Gallery image uploaded successfully" });
+      }
+    }
+  };
+
+  const removeGalleryImage = (index: number) => {
+    const newGalleryImages = galleryImages.filter((_, i) => i !== index);
+    setGalleryImages(newGalleryImages);
+    form.setValue("galleryImages", newGalleryImages);
   };
 
   return (
@@ -147,9 +203,88 @@ export default function PerformerForm() {
                 name="imageUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Image URL</FormLabel>
+                    <FormLabel>Profile Image</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://example.com/image.jpg" {...field} />
+                      <div className="space-y-4">
+                        <Input placeholder="Image URL or upload below" {...field} value={field.value || ""} />
+                        <div className="flex items-center space-x-4">
+                          <ObjectUploader
+                            onGetUploadParameters={handleProfileImageUpload}
+                            onComplete={handleProfileImageComplete}
+                            buttonClassName="bg-magenta text-white hover:bg-midnight"
+                          >
+                            <Upload className="w-4 h-4 mr-2" />
+                            Upload Profile Image
+                          </ObjectUploader>
+                          {field.value && (
+                            <div className="flex items-center space-x-2">
+                              <Image className="w-4 h-4 text-green-600" />
+                              <span className="text-sm text-green-600">Image uploaded</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="galleryImages"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>Gallery Images</FormLabel>
+                    <FormControl>
+                      <div className="space-y-4">
+                        <div className="flex items-center space-x-4">
+                          <ObjectUploader
+                            onGetUploadParameters={handleGalleryImageUpload}
+                            onComplete={handleGalleryImageComplete}
+                            buttonClassName="bg-midnight text-white hover:bg-magenta"
+                          >
+                            <Upload className="w-4 h-4 mr-2" />
+                            Add Gallery Image
+                          </ObjectUploader>
+                          <span className="text-sm text-gray-600">
+                            {galleryImages.length} image{galleryImages.length !== 1 ? 's' : ''} uploaded
+                          </span>
+                        </div>
+                        {galleryImages.length > 0 && (
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {galleryImages.map((imageUrl, index) => (
+                              <div key={index} className="relative group">
+                                <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                                  <img 
+                                    src={imageUrl} 
+                                    alt={`Gallery image ${index + 1}`}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                      const target = e.currentTarget as HTMLImageElement;
+                                      target.style.display = 'none';
+                                      const sibling = target.nextElementSibling as HTMLElement;
+                                      if (sibling) sibling.style.display = 'flex';
+                                    }}
+                                  />
+                                  <div className="hidden w-full h-full items-center justify-center">
+                                    <Image className="w-8 h-8 text-gray-400" />
+                                  </div>
+                                </div>
+                                <Button
+                                  type="button"
+                                  variant="destructive"
+                                  size="sm"
+                                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                                  onClick={() => removeGalleryImage(index)}
+                                >
+                                  <X className="w-3 h-3" />
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -187,7 +322,7 @@ export default function PerformerForm() {
                     </div>
                     <FormControl>
                       <Switch
-                        checked={field.value}
+                        checked={field.value || false}
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>

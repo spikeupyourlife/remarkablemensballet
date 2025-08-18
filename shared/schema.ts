@@ -9,6 +9,7 @@ export const performers = pgTable("performers", {
   role: text("role").notNull(),
   bio: text("bio").notNull(),
   imageUrl: text("image_url"),
+  galleryImages: text("gallery_images").array().default(sql`'{}'::text[]`),
   featured: boolean("featured").default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });
