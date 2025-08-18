@@ -59,7 +59,13 @@ export default function PerformerForm() {
   const createMutation = useMutation({
     mutationFn: (data: InsertPerformer) => {
       console.log("CREATE MUTATION TRIGGERED with data:", data);
-      return apiRequest("POST", "/api/performers", data);
+      // Convert dates to ISO strings for the API
+      const apiData = {
+        ...data,
+        performingSince: data.performingSince ? data.performingSince.toISOString() : data.performingSince,
+        performingUntil: data.performingUntil ? data.performingUntil.toISOString() : data.performingUntil,
+      };
+      return apiRequest("POST", "/api/performers", apiData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/performers"] });
@@ -76,7 +82,13 @@ export default function PerformerForm() {
   const updateMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<InsertPerformer> }) => {
       console.log("UPDATE MUTATION TRIGGERED for ID:", id, "with data:", data);
-      return apiRequest("PUT", `/api/performers/${id}`, data);
+      // Convert dates to ISO strings for the API
+      const apiData = {
+        ...data,
+        performingSince: data.performingSince ? data.performingSince.toISOString() : data.performingSince,
+        performingUntil: data.performingUntil ? data.performingUntil.toISOString() : data.performingUntil,
+      };
+      return apiRequest("PUT", `/api/performers/${id}`, apiData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/performers"] });
@@ -87,8 +99,10 @@ export default function PerformerForm() {
       form.reset();
       toast({ title: "Success", description: "Performer updated successfully" });
     },
-    onError: () => {
-      toast({ title: "Error", description: "Failed to update performer", variant: "destructive" });
+    onError: (error: any) => {
+      console.error("Update mutation error:", error);
+      const errorMessage = error?.message || "Failed to update performer";
+      toast({ title: "Error", description: errorMessage, variant: "destructive" });
     },
   });
 
@@ -581,7 +595,7 @@ export default function PerformerForm() {
                         <PopoverContent className="w-auto p-0" align="start">
                           <CalendarComponent
                             mode="single"
-                            selected={field.value}
+                            selected={field.value || undefined}
                             onSelect={field.onChange}
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
@@ -620,7 +634,7 @@ export default function PerformerForm() {
                         <PopoverContent className="w-auto p-0" align="start">
                           <CalendarComponent
                             mode="single"
-                            selected={field.value}
+                            selected={field.value || undefined}
                             onSelect={field.onChange}
                             disabled={(date) =>
                               date < new Date("1900-01-01")
