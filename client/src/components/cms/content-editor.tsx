@@ -26,26 +26,43 @@ const contentSections = [
     key: "about",
     title: "About Section",
     description: "Main about section content on the homepage",
+    type: "text"
   },
   {
     key: "hero-subtitle",
-    title: "Hero Subtitle",
+    title: "Hero Subtitle", 
     description: "Subtitle text displayed in the hero section",
+    type: "text"
   },
   {
     key: "company-mission",
     title: "Company Mission",
     description: "Mission statement and company values",
+    type: "text"
   },
   {
     key: "contact-info",
     title: "Contact Information",
-    description: "Phone, email, and address information",
+    description: "Phone, email, and address information (JSON format)",
+    type: "json"
   },
   {
     key: "social-media",
-    title: "Social Media",
-    description: "Social media links and handles",
+    title: "Social Media Links",
+    description: "Social media URLs and handles (JSON format)",
+    type: "json"
+  },
+  {
+    key: "privacy-policy",
+    title: "Privacy Policy",
+    description: "Privacy policy content for legal compliance",
+    type: "text"
+  },
+  {
+    key: "terms-of-service", 
+    title: "Terms of Service",
+    description: "Terms of service agreement content",
+    type: "text"
   },
 ];
 
@@ -86,6 +103,19 @@ export default function ContentEditor() {
   });
 
   const onSubmit = (data: InsertContent) => {
+    // Validate JSON for JSON type fields
+    if (isJsonType) {
+      try {
+        JSON.parse(data.content || "{}");
+      } catch (error) {
+        toast({ 
+          title: "Invalid JSON", 
+          description: "Please enter valid JSON format. Check your syntax.", 
+          variant: "destructive" 
+        });
+        return;
+      }
+    }
     updateMutation.mutate({ ...data, key: selectedSection });
   };
 
@@ -104,6 +134,28 @@ export default function ContentEditor() {
   };
 
   const selectedSectionInfo = contentSections.find(section => section.key === selectedSection);
+  const isJsonType = selectedSectionInfo?.type === "json";
+  
+  const getPlaceholderText = () => {
+    if (selectedSection === "contact-info") {
+      return `{
+  "phone": "+1-555-0123",
+  "email": "info@remarkablemens.ballet",
+  "address": "123 Dance Street, Arts District, NY 10001",
+  "hours": "Mon-Fri 9AM-6PM"
+}`;
+    }
+    if (selectedSection === "social-media") {
+      return `{
+  "facebook": "https://facebook.com/remarkablemens",
+  "instagram": "https://instagram.com/remarkablemens", 
+  "twitter": "https://twitter.com/remarkablemens",
+  "youtube": "https://youtube.com/@remarkablemens",
+  "tiktok": "https://tiktok.com/@remarkablemens"
+}`;
+    }
+    return "Enter your content here...";
+  };
 
   return (
     <div className="space-y-8">
@@ -170,7 +222,7 @@ export default function ContentEditor() {
                         <FormItem>
                           <FormLabel>Section Title</FormLabel>
                           <FormControl>
-                            <Input placeholder="Enter section title..." {...field} />
+                            <Input placeholder="Enter section title..." {...field} value={field.value || ""} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -182,15 +234,20 @@ export default function ContentEditor() {
                       name="content"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Content</FormLabel>
+                          <FormLabel>Content {isJsonType && "(JSON Format)"}</FormLabel>
                           <FormControl>
                             <Textarea 
-                              placeholder="Enter content..." 
-                              rows={12}
-                              className="resize-none"
+                              placeholder={getPlaceholderText()} 
+                              rows={isJsonType ? 8 : 12}
+                              className="resize-none font-mono text-sm"
                               {...field} 
                             />
                           </FormControl>
+                          {isJsonType && (
+                            <div className="text-xs text-gray-500">
+                              Enter valid JSON format. Use the placeholder as a template.
+                            </div>
+                          )}
                           <FormMessage />
                         </FormItem>
                       )}
@@ -230,7 +287,7 @@ export default function ContentEditor() {
                         </div>
                       </div>
                       <div className="text-xs text-gray-500">
-                        Last updated: {new Date(currentContent.updatedAt).toLocaleDateString()}
+                        Last updated: {currentContent.updatedAt ? new Date(currentContent.updatedAt).toLocaleDateString() : "Unknown"}
                       </div>
                     </>
                   ) : (

@@ -13,6 +13,9 @@ import Videos from "@/pages/videos";
 import Performances from "@/pages/performances";
 import Gallery from "@/pages/gallery";
 import Contact from "@/pages/contact";
+import About from "@/pages/about";
+import PrivacyPolicy from "@/pages/privacy-policy";
+import TermsOfService from "@/pages/terms-of-service";
 import CMS from "@/pages/cms";
 import NotFound from "@/pages/not-found";
 
@@ -38,6 +41,9 @@ function AuthenticatedRouter() {
       <Route path="/performances" component={Performances} />
       <Route path="/gallery" component={Gallery} />
       <Route path="/contact" component={Contact} />
+      <Route path="/about" component={About} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/terms-of-service" component={TermsOfService} />
       {isAuthenticated ? (
         <Route path="/cms" component={CMS} />
       ) : (

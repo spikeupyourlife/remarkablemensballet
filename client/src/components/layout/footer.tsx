@@ -1,7 +1,44 @@
-import { Crown, Instagram, Facebook, Youtube } from "lucide-react";
+import { Crown, Instagram, Facebook, Youtube, Twitter } from "lucide-react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
+import type { Content } from "@shared/schema";
 
 export default function Footer() {
+  const { data: socialMediaContent } = useQuery<Content>({
+    queryKey: ["/api/content/social-media"],
+  });
+
+  const { data: contactContent } = useQuery<Content>({
+    queryKey: ["/api/content/contact-info"],
+  });
+
+  const getSocialLinks = () => {
+    try {
+      return socialMediaContent?.content ? JSON.parse(socialMediaContent.content) : {};
+    } catch {
+      return {};
+    }
+  };
+
+  const getContactInfo = () => {
+    try {
+      return contactContent?.content ? JSON.parse(contactContent.content) : {
+        phone: "03 000 0000",
+        email: "info@remarkablementsballet.com",
+        address: "Of no Abode\nQueenstown, 9300"
+      };
+    } catch {
+      return {
+        phone: "03 000 0000",
+        email: "info@remarkablementsballet.com",
+        address: "Of no Abode\nQueenstown, 9300"
+      };
+    }
+  };
+
+  const socialLinks = getSocialLinks();
+  const contactInfo = getContactInfo();
+
   return (
     <footer className="bg-midnight text-white py-12">
       <div className="container mx-auto px-6">
@@ -20,25 +57,37 @@ export default function Footer() {
               Redefining the art of ballet through bold expression, classical technique, and fearless creativity. Experience the extraordinary.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-magenta transition-colors duration-300">
-                <Instagram className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-magenta transition-colors duration-300">
-                <Facebook className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-magenta transition-colors duration-300">
-                <Youtube className="w-6 h-6" />
-              </a>
+              {socialLinks.instagram && (
+                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-magenta transition-colors duration-300">
+                  <Instagram className="w-6 h-6" />
+                </a>
+              )}
+              {socialLinks.facebook && (
+                <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-magenta transition-colors duration-300">
+                  <Facebook className="w-6 h-6" />
+                </a>
+              )}
+              {socialLinks.youtube && (
+                <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-magenta transition-colors duration-300">
+                  <Youtube className="w-6 h-6" />
+                </a>
+              )}
+              {socialLinks.twitter && (
+                <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-magenta transition-colors duration-300">
+                  <Twitter className="w-6 h-6" />
+                </a>
+              )}
             </div>
           </div>
           
           <div>
             <h4 className="font-playfair text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-3">
-              <li><Link href="/#about" className="text-gray-400 hover:text-white transition-colors duration-300">About Us</Link></li>
+              <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors duration-300">About Us</Link></li>
               <li><Link href="/performers" className="text-gray-400 hover:text-white transition-colors duration-300">Our Performers</Link></li>
               <li><Link href="/videos" className="text-gray-400 hover:text-white transition-colors duration-300">Video Gallery</Link></li>
               <li><Link href="/performances" className="text-gray-400 hover:text-white transition-colors duration-300">Upcoming Shows</Link></li>
+              <li><Link href="/gallery" className="text-gray-400 hover:text-white transition-colors duration-300">Photo Gallery</Link></li>
               <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors duration-300">Contact Us</Link></li>
             </ul>
           </div>
@@ -46,9 +95,9 @@ export default function Footer() {
           <div>
             <h4 className="font-playfair text-lg font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-3 text-gray-400">
-              <li>03 000 0000</li>
-              <li>info@remarkablementsballet.com</li>
-              <li>Of no Abode<br />Queenstown, 9300</li>
+              <li>{contactInfo.phone}</li>
+              <li>{contactInfo.email}</li>
+              <li dangerouslySetInnerHTML={{ __html: contactInfo.address?.replace(/\n/g, '<br />') || '' }} />
             </ul>
           </div>
         </div>
@@ -56,8 +105,8 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
           <p className="text-gray-400">
             &copy; 2024 Remarkable Mens Ballet. All rights reserved. | 
-            <a href="#" className="hover:text-magenta transition-colors duration-300 ml-1">Privacy Policy</a> | 
-            <a href="#" className="hover:text-magenta transition-colors duration-300 ml-1">Terms of Service</a>
+            <Link href="/privacy-policy" className="hover:text-magenta transition-colors duration-300 ml-1">Privacy Policy</Link> | 
+            <Link href="/terms-of-service" className="hover:text-magenta transition-colors duration-300 ml-1">Terms of Service</Link>
           </p>
         </div>
       </div>
