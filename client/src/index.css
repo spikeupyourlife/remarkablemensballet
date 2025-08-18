@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 25%, 7.8431%);
+  --card: hsl(240, 4.8%, 95.9%);
+  --card-foreground: hsl(210, 25%, 7.8431%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 25%, 7.8431%);
+  --primary: hsl(340, 82%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(203, 23%, 10%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(240, 4.8%, 95.9%);
+  --muted-foreground: hsl(215, 13.8%, 34.1%);
+  --accent: hsl(286, 38%, 89%);
+  --accent-foreground: hsl(340, 82%, 52%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(214, 31.8%, 91.4%);
+  --input: hsl(214, 31.8%, 91.4%);
+  --ring: hsl(340, 82%, 52%);
+  --radius: 0.75rem;
+  
+  /* Custom ballet theme colors */
+  --midnight: hsl(249, 47%, 14%);
+  --magenta: hsl(340, 82%, 52%);
+  --gold: hsl(51, 100%, 50%);
+  --lavender: hsl(286, 38%, 89%);
+  --pearl: hsl(60, 9%, 96%);
+  
+  /* Font families */
+  --font-playfair: 'Playfair Display', serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-dancing: 'Dancing Script', cursive;
+}
+
+.dark {
+  --background: hsl(249, 47%, 14%);
+  --foreground: hsl(200, 6.6667%, 91.1765%);
+  --card: hsl(249, 47%, 12%);
+  --card-foreground: hsl(0, 0%, 85.0980%);
+  --popover: hsl(249, 47%, 14%);
+  --popover-foreground: hsl(200, 6.6667%, 91.1765%);
+  --primary: hsl(340, 82%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(340, 82%, 52%);
+  --secondary-foreground: hsl(249, 47%, 14%);
+  --muted: hsl(249, 47%, 10%);
+  --muted-foreground: hsl(215, 13.8%, 34.1%);
+  --accent: hsl(249, 47%, 16%);
+  --accent-foreground: hsl(340, 82%, 52%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(249, 47%, 18%);
+  --input: hsl(249, 47%, 18%);
+  --ring: hsl(340, 82%, 52%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair);
+  }
+
+  .font-playfair {
+    font-family: var(--font-playfair);
+  }
+
+  .font-inter {
+    font-family: var(--font-inter);
+  }
+
+  .font-dancing {
+    font-family: var(--font-dancing);
+  }
+}
+
+@layer components {
+  .ballet-gradient {
+    background: linear-gradient(135deg, var(--midnight) 0%, var(--magenta) 100%);
+  }
+
+  .text-midnight {
+    color: var(--midnight);
+  }
+
+  .text-magenta {
+    color: var(--magenta);
+  }
+
+  .text-gold {
+    color: var(--gold);
+  }
+
+  .text-lavender {
+    color: var(--lavender);
+  }
+
+  .bg-midnight {
+    background-color: var(--midnight);
+  }
+
+  .bg-magenta {
+    background-color: var(--magenta);
+  }
+
+  .bg-gold {
+    background-color: var(--gold);
+  }
+
+  .bg-lavender {
+    background-color: var(--lavender);
+  }
+
+  .bg-pearl {
+    background-color: var(--pearl);
+  }
+
+  .border-midnight {
+    border-color: var(--midnight);
+  }
+
+  .border-magenta {
+    border-color: var(--magenta);
+  }
+
+  .hover\:bg-magenta:hover {
+    background-color: var(--magenta);
+  }
+
+  .hover\:text-magenta:hover {
+    color: var(--magenta);
+  }
+
+  .hover\:border-magenta:hover {
+    border-color: var(--magenta);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

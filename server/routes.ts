@@ -1,0 +1,239 @@
+import type { Express } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "./storage";
+import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema } from "@shared/schema";
+
+export async function registerRoutes(app: Express): Promise<Server> {
+  // Performers routes
+  app.get("/api/performers", async (req, res) => {
+    try {
+      const performers = await storage.getPerformers();
+      res.json(performers);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch performers" });
+    }
+  });
+
+  app.get("/api/performers/featured", async (req, res) => {
+    try {
+      const performers = await storage.getFeaturedPerformers();
+      res.json(performers);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch featured performers" });
+    }
+  });
+
+  app.get("/api/performers/:id", async (req, res) => {
+    try {
+      const performer = await storage.getPerformer(req.params.id);
+      if (!performer) {
+        return res.status(404).json({ error: "Performer not found" });
+      }
+      res.json(performer);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch performer" });
+    }
+  });
+
+  app.post("/api/performers", async (req, res) => {
+    try {
+      const validatedData = insertPerformerSchema.parse(req.body);
+      const performer = await storage.createPerformer(validatedData);
+      res.status(201).json(performer);
+    } catch (error) {
+      res.status(400).json({ error: "Invalid performer data" });
+    }
+  });
+
+  app.put("/api/performers/:id", async (req, res) => {
+    try {
+      const validatedData = insertPerformerSchema.partial().parse(req.body);
+      const performer = await storage.updatePerformer(req.params.id, validatedData);
+      if (!performer) {
+        return res.status(404).json({ error: "Performer not found" });
+      }
+      res.json(performer);
+    } catch (error) {
+      res.status(400).json({ error: "Invalid performer data" });
+    }
+  });
+
+  app.delete("/api/performers/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deletePerformer(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Performer not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete performer" });
+    }
+  });
+
+  // Videos routes
+  app.get("/api/videos", async (req, res) => {
+    try {
+      const videos = await storage.getVideos();
+      res.json(videos);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch videos" });
+    }
+  });
+
+  app.get("/api/videos/featured", async (req, res) => {
+    try {
+      const videos = await storage.getFeaturedVideos();
+      res.json(videos);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch featured videos" });
+    }
+  });
+
+  app.get("/api/videos/:id", async (req, res) => {
+    try {
+      const video = await storage.getVideo(req.params.id);
+      if (!video) {
+        return res.status(404).json({ error: "Video not found" });
+      }
+      res.json(video);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch video" });
+    }
+  });
+
+  app.post("/api/videos", async (req, res) => {
+    try {
+      const validatedData = insertVideoSchema.parse(req.body);
+      const video = await storage.createVideo(validatedData);
+      res.status(201).json(video);
+    } catch (error) {
+      res.status(400).json({ error: "Invalid video data" });
+    }
+  });
+
+  app.put("/api/videos/:id", async (req, res) => {
+    try {
+      const validatedData = insertVideoSchema.partial().parse(req.body);
+      const video = await storage.updateVideo(req.params.id, validatedData);
+      if (!video) {
+        return res.status(404).json({ error: "Video not found" });
+      }
+      res.json(video);
+    } catch (error) {
+      res.status(400).json({ error: "Invalid video data" });
+    }
+  });
+
+  app.delete("/api/videos/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteVideo(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Video not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete video" });
+    }
+  });
+
+  // Performances routes
+  app.get("/api/performances", async (req, res) => {
+    try {
+      const performances = await storage.getPerformances();
+      res.json(performances);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch performances" });
+    }
+  });
+
+  app.get("/api/performances/upcoming", async (req, res) => {
+    try {
+      const performances = await storage.getUpcomingPerformances();
+      res.json(performances);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch upcoming performances" });
+    }
+  });
+
+  app.get("/api/performances/:id", async (req, res) => {
+    try {
+      const performance = await storage.getPerformance(req.params.id);
+      if (!performance) {
+        return res.status(404).json({ error: "Performance not found" });
+      }
+      res.json(performance);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch performance" });
+    }
+  });
+
+  app.post("/api/performances", async (req, res) => {
+    try {
+      const validatedData = insertPerformanceSchema.parse(req.body);
+      const performance = await storage.createPerformance(validatedData);
+      res.status(201).json(performance);
+    } catch (error) {
+      res.status(400).json({ error: "Invalid performance data" });
+    }
+  });
+
+  app.put("/api/performances/:id", async (req, res) => {
+    try {
+      const validatedData = insertPerformanceSchema.partial().parse(req.body);
+      const performance = await storage.updatePerformance(req.params.id, validatedData);
+      if (!performance) {
+        return res.status(404).json({ error: "Performance not found" });
+      }
+      res.json(performance);
+    } catch (error) {
+      res.status(400).json({ error: "Invalid performance data" });
+    }
+  });
+
+  app.delete("/api/performances/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deletePerformance(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Performance not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete performance" });
+    }
+  });
+
+  // Content routes
+  app.get("/api/content", async (req, res) => {
+    try {
+      const content = await storage.getAllContent();
+      res.json(content);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch content" });
+    }
+  });
+
+  app.get("/api/content/:key", async (req, res) => {
+    try {
+      const content = await storage.getContent(req.params.key);
+      if (!content) {
+        return res.status(404).json({ error: "Content not found" });
+      }
+      res.json(content);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch content" });
+    }
+  });
+
+  app.post("/api/content", async (req, res) => {
+    try {
+      const validatedData = insertContentSchema.parse(req.body);
+      const content = await storage.createOrUpdateContent(validatedData);
+      res.json(content);
+    } catch (error) {
+      res.status(400).json({ error: "Invalid content data" });
+    }
+  });
+
+  const httpServer = createServer(app);
+  return httpServer;
+}
