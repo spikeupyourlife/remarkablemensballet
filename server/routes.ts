@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema, insertGalleryPhotoSchema } from "@shared/schema";
+import { z } from "zod";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 
@@ -265,7 +266,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       console.log("Creating performance request body:", req.body);
       
-      const validatedData = insertPerformanceSchema.parse(req.body);
+      // Transform date string to Date object if needed
+      const processedData = {
+        ...req.body,
+        date: req.body.date ? new Date(req.body.date) : new Date(),
+      };
+      
+      console.log("Processed data before validation:", processedData);
+      
+      const validatedData = insertPerformanceSchema.parse(processedData);
       console.log("Validated performance data:", validatedData);
       
       const performance = await storage.createPerformance(validatedData);
@@ -276,10 +285,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error creating performance:", error);
       console.error("Error stack:", error instanceof Error ? error.stack : 'No stack trace available');
       
-      if (error instanceof Error) {
-        if (error.message.includes('validation')) {
-          res.status(400).json({ error: "Validation error: " + error.message });
-        } else if (error.message.includes('database') || error.message.includes('connection')) {
+      if (error instanceof z.ZodError) {
+        console.error("Validation errors:", error.errors);
+        res.status(400).json({ 
+          error: "Validation failed",
+          details: error.errors.map((err: any) => ({
+            field: err.path.join('.'),
+            message: err.message,
+            received: err.received
+          }))
+        });
+      } else if (error instanceof Error) {
+        if (error.message.includes('database') || error.message.includes('connection')) {
           res.status(503).json({ error: "Database connection error. Please try again." });
         } else {
           res.status(500).json({ error: "Server error: " + error.message });
@@ -292,14 +309,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.put("/api/performances/:id", isAuthenticated, async (req, res) => {
     try {
-      const validatedData = insertPerformanceSchema.partial().parse(req.body);
+      // Transform date string to Date object if needed
+      const processedData = {
+        ...req.body,
+        ...(req.body.date && { date: new Date(req.body.date) }),
+      };
+      
+      const validatedData = insertPerformanceSchema.partial().parse(processedData);
       const performance = await storage.updatePerformance(req.params.id, validatedData);
       if (!performance) {
         return res.status(404).json({ error: "Performance not found" });
       }
       res.json(performance);
     } catch (error) {
-      res.status(400).json({ error: "Invalid performance data" });
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          error: "Validation failed",
+          details: error.errors 
+        });
+      } else {
+        res.status(500).json({ error: "Failed to update performance" });
+      }
     }
   });
 
