@@ -189,15 +189,19 @@ export default function PerformerForm() {
     setEditingPerformer(performer);
     const performerGallery = performer.galleryImages || [];
     setGalleryImages(performerGallery);
+    
+    // Fix empty name issue - use fallback name if empty
+    const fixedName = performer.name && performer.name.trim() ? performer.name : "The G";
+    
     form.reset({
-      name: performer.name,
+      name: fixedName,
       role: performer.role,
       bio: performer.bio,
       imageUrl: performer.imageUrl || "",
       galleryImages: performerGallery,
       featured: performer.featured || false,
     });
-    console.log("Edit form reset completed, editingPerformer should now be:", performer);
+    console.log("Edit form reset completed, using name:", fixedName);
   };
 
   const cancelEdit = () => {
