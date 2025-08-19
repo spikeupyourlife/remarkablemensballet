@@ -26,9 +26,12 @@ export default function PerformerRating({
     
     setIsSubmitting(true);
     try {
-      const response = await apiRequest(`/api/performers/${performerId}/rate`, {
+      const response = await fetch(`/api/performers/${performerId}/rate`, {
         method: "POST",
-        body: { rating },
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ rating }),
       });
 
       if (response.ok) {
