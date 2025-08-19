@@ -230,7 +230,7 @@ export default function Gallery() {
         {/* Lightbox Modal */}
         {selectedPhoto && (
           <Dialog open={!!selectedPhoto} onOpenChange={() => setSelectedPhoto(null)}>
-            <DialogContent className="max-w-4xl bg-slate-900 border-slate-700 p-0">
+            <DialogContent className="max-w-4xl bg-slate-900 border-slate-700 p-0" aria-describedby="photo-description">
               <div className="relative">
                 <img 
                   src={selectedPhoto.imageUrl} 
@@ -261,7 +261,7 @@ export default function Gallery() {
                 </DialogHeader>
 
                 {selectedPhoto.description && (
-                  <p className="text-slate-300 mb-4">
+                  <p id="photo-description" className="text-slate-300 mb-4">
                     {selectedPhoto.description}
                   </p>
                 )}

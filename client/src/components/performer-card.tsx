@@ -55,7 +55,7 @@ export default function PerformerCard({ performer }: PerformerCardProps) {
       </Card>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto mx-4">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto mx-4" aria-describedby="performer-bio">
           <DialogHeader>
             <DialogTitle className="font-playfair text-2xl text-midnight">
               {performer.name}
@@ -94,7 +94,7 @@ export default function PerformerCard({ performer }: PerformerCardProps) {
                 </div>
                 
                 <div className="prose prose-gray max-w-none">
-                  <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                  <p id="performer-bio" className="text-gray-700 leading-relaxed whitespace-pre-line">
                     {performer.bio}
                   </p>
                 </div>

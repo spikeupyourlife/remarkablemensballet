@@ -2,8 +2,10 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { db } from "./db";
+import { galleryPhotos, performers, performerRatings } from "@shared/schema";
 import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema, insertGalleryPhotoSchema, insertPerformerRatingSchema } from "@shared/schema";
 import { z } from "zod";
+import { eq, avg, count, sql } from "drizzle-orm";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 
@@ -504,16 +506,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Track gallery photo views
   app.post("/api/gallery/:id/view", async (req, res) => {
     try {
-      const { rows } = await db.execute(`
-        UPDATE gallery_photos 
-        SET views = COALESCE(views, 0) + 1 
-        WHERE id = $1 
-        RETURNING views
-      `, [req.params.id]);
+      await db.update(galleryPhotos)
+        .set({ views: sql`COALESCE(views, 0) + 1` })
+        .where(eq(galleryPhotos.id, req.params.id));
+      
+      const result = await db.select({ views: galleryPhotos.views })
+        .from(galleryPhotos)
+        .where(eq(galleryPhotos.id, req.params.id));
       
       res.status(200).json({ 
         success: true, 
-        views: rows[0]?.views || 0 
+        views: result[0]?.views || 0 
       });
     } catch (error) {
       console.error("Error tracking photo view:", error);
@@ -534,27 +537,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = (req.user as any)?.claims?.sub || null;
       const sessionId = req.session?.id || `anon-${Date.now()}`;
 
-      // Insert rating
-      await db.execute(`
-        INSERT INTO performer_ratings (performer_id, user_id, session_id, rating)
-        VALUES ($1, $2, $3, $4)
-      `, [performerId, userId, sessionId, rating]);
+      // Insert rating using raw SQL to avoid Drizzle issues
+      await db.execute(
+        `INSERT INTO performer_ratings (performer_id, user_id, session_id, rating) 
+         VALUES ('${performerId}', ${userId ? `'${userId}'` : 'NULL'}, '${sessionId}', ${rating})`
+      );
 
-      // Update performer average rating
-      const { rows } = await db.execute(`
-        UPDATE performers 
-        SET 
-          rating = (SELECT AVG(rating)::decimal(3,2) FROM performer_ratings WHERE performer_id = $1),
-          rating_count = (SELECT COUNT(*) FROM performer_ratings WHERE performer_id = $1)
-        WHERE id = $1
-        RETURNING rating, rating_count
-      `, [performerId]);
+      // Calculate new average and count
+      const avgResult = await db.execute(
+        `SELECT AVG(rating)::decimal(3,2) as avg_rating, COUNT(*) as rating_count 
+         FROM performer_ratings 
+         WHERE performer_id = '${performerId}'`
+      );
 
-      const updatedPerformer = rows[0] as any;
+      const stats = avgResult.rows[0] as any;
+      const avgRating = parseFloat(stats?.avg_rating || 0);
+      const ratingCount = parseInt(stats?.rating_count || 0);
+
+      // Update performer average rating using raw SQL
+      await db.execute(
+        `UPDATE performers SET rating = ${avgRating}, rating_count = ${ratingCount} WHERE id = '${performerId}'`
+      );
       
       res.json({
-        averageRating: parseFloat(updatedPerformer?.rating || 0),
-        ratingCount: parseInt(updatedPerformer?.rating_count || 0),
+        averageRating: avgRating,
+        ratingCount: ratingCount,
       });
     } catch (error) {
       console.error("Error rating performer:", error);
