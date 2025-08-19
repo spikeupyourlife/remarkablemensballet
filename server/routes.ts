@@ -106,7 +106,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const currentPerformers = await storage.getPerformers();
       console.log(`Current performer count: ${currentPerformers.length}`);
       
-      const validatedData = insertPerformerSchema.parse(req.body);
+      // Transform date strings to Date objects if needed
+      const processedData = {
+        ...req.body,
+        performingSince: req.body.performingSince ? new Date(req.body.performingSince) : undefined,
+        performingUntil: req.body.performingUntil ? new Date(req.body.performingUntil) : undefined,
+      };
+      
+      const validatedData = insertPerformerSchema.parse(processedData);
       console.log("Validated performer data:", validatedData);
       
       const performer = await storage.createPerformer(validatedData);
@@ -136,7 +143,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.put("/api/performers/:id", isAuthenticated, async (req, res) => {
     try {
-      const validatedData = insertPerformerSchema.partial().parse(req.body);
+      // Transform date strings to Date objects if needed
+      const processedData = {
+        ...req.body,
+        performingSince: req.body.performingSince ? new Date(req.body.performingSince) : undefined,
+        performingUntil: req.body.performingUntil ? new Date(req.body.performingUntil) : undefined,
+      };
+      
+      const validatedData = insertPerformerSchema.partial().parse(processedData);
       const performer = await storage.updatePerformer(req.params.id, validatedData);
       if (!performer) {
         return res.status(404).json({ error: "Performer not found" });
