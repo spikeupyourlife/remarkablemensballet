@@ -1,7 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema, insertGalleryPhotoSchema } from "@shared/schema";
+import { db } from "./db";
+import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema, insertGalleryPhotoSchema, insertPerformerRatingSchema } from "@shared/schema";
 import { z } from "zod";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
@@ -497,6 +498,67 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(204).send();
     } catch (error) {
       res.status(500).json({ error: "Failed to delete gallery photo" });
+    }
+  });
+
+  // Track gallery photo views
+  app.post("/api/gallery/:id/view", async (req, res) => {
+    try {
+      const { rows } = await db.execute(`
+        UPDATE gallery_photos 
+        SET views = COALESCE(views, 0) + 1 
+        WHERE id = $1 
+        RETURNING views
+      `, [req.params.id]);
+      
+      res.status(200).json({ 
+        success: true, 
+        views: rows[0]?.views || 0 
+      });
+    } catch (error) {
+      console.error("Error tracking photo view:", error);
+      res.status(500).json({ error: "Failed to track view" });
+    }
+  });
+
+  // Rate performer
+  app.post("/api/performers/:id/rate", async (req, res) => {
+    try {
+      const { rating } = req.body;
+      
+      if (!rating || rating < 1 || rating > 5) {
+        return res.status(400).json({ error: "Rating must be between 1 and 5" });
+      }
+
+      const performerId = req.params.id;
+      const userId = (req.user as any)?.claims?.sub || null;
+      const sessionId = req.session?.id || `anon-${Date.now()}`;
+
+      // Insert rating
+      await db.execute(`
+        INSERT INTO performer_ratings (performer_id, user_id, session_id, rating)
+        VALUES ($1, $2, $3, $4)
+      `, [performerId, userId, sessionId, rating]);
+
+      // Update performer average rating
+      const { rows } = await db.execute(`
+        UPDATE performers 
+        SET 
+          rating = (SELECT AVG(rating)::decimal(3,2) FROM performer_ratings WHERE performer_id = $1),
+          rating_count = (SELECT COUNT(*) FROM performer_ratings WHERE performer_id = $1)
+        WHERE id = $1
+        RETURNING rating, rating_count
+      `, [performerId]);
+
+      const updatedPerformer = rows[0] as any;
+      
+      res.json({
+        averageRating: parseFloat(updatedPerformer?.rating || 0),
+        ratingCount: parseInt(updatedPerformer?.rating_count || 0),
+      });
+    } catch (error) {
+      console.error("Error rating performer:", error);
+      res.status(500).json({ error: "Failed to submit rating" });
     }
   });
 

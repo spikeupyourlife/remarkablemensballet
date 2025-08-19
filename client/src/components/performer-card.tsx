@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import type { Performer } from "@shared/schema";
+import PerformerRating from "./performer-rating";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface PerformerCardProps {
   performer: Performer;
@@ -12,6 +14,14 @@ interface PerformerCardProps {
 
 export default function PerformerCard({ performer }: PerformerCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+  const handleRatingUpdate = (newRating: number, newCount: number) => {
+    // Invalidate performers cache to refresh the data
+    queryClient.invalidateQueries({ queryKey: ["/api/performers"] });
+    queryClient.invalidateQueries({ queryKey: ["/api/performers/current"] });
+    queryClient.invalidateQueries({ queryKey: ["/api/performers/featured"] });
+  };
 
   return (
     <>
@@ -72,6 +82,15 @@ export default function PerformerCard({ performer }: PerformerCardProps) {
                       Featured Performer
                     </Badge>
                   )}
+                </div>
+                
+                <div className="mb-4">
+                  <PerformerRating
+                    performerId={performer.id}
+                    currentRating={(performer as any).rating || 0}
+                    ratingCount={(performer as any).ratingCount || 0}
+                    onRatingUpdate={handleRatingUpdate}
+                  />
                 </div>
                 
                 <div className="prose prose-gray max-w-none">

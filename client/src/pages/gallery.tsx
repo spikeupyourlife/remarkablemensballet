@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Calendar, MapPin, Users, Eye, Search, Filter, X, Star, SortAsc, SortDesc } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import type { GalleryPhoto, Performer } from "@shared/schema";
+import GalleryPhotoViews, { useTrackPhotoView } from "@/components/gallery-photo-views";
 
 type SortField = 'title' | 'showDate' | 'createdAt' | 'featured';
 type SortOrder = 'asc' | 'desc';
@@ -19,6 +20,15 @@ export default function Gallery() {
   const [filterFeatured, setFilterFeatured] = useState<string>("all");
   const [selectedPerformer, setSelectedPerformer] = useState<string>("all");
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryPhoto | null>(null);
+  
+  const trackPhotoView = useTrackPhotoView(selectedPhoto?.id || "");
+
+  // Track view when photo modal opens
+  useEffect(() => {
+    if (selectedPhoto?.id) {
+      trackPhotoView();
+    }
+  }, [selectedPhoto?.id]);
 
   const { data: photos = [], isLoading } = useQuery<GalleryPhoto[]>({
     queryKey: ["/api/gallery"],
@@ -255,6 +265,13 @@ export default function Gallery() {
                     {selectedPhoto.description}
                   </p>
                 )}
+
+                <div className="flex items-center mb-4">
+                  <GalleryPhotoViews 
+                    views={(selectedPhoto as any).views || 0} 
+                    className="bg-slate-800 text-slate-300"
+                  />
+                </div>
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   {selectedPhoto.showName && (

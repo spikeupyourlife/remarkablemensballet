@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, boolean, json, index } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, boolean, json, index, integer, real } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -25,6 +25,8 @@ export const videos = pgTable("videos", {
   videoUrl: text("video_url").notNull(),
   thumbnailUrl: text("thumbnail_url"),
   featured: boolean("featured").default(false),
+  rating: real("rating").default(0), // Average rating 0-5
+  ratingCount: integer("rating_count").default(0), // Number of ratings received
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -69,6 +71,7 @@ export const galleryPhotos = pgTable("gallery_photos", {
   whereTags: text("where_tags").array(), // Where it was taken
   whyTags: text("why_tags").array(), // Why context (e.g., "celebration", "behind-scenes")
   featured: boolean("featured").default(false),
+  views: integer("views").default(0), // Views count for gallery photos
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -93,6 +96,16 @@ export const users = pgTable("users", {
   profileImageUrl: varchar("profile_image_url"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Performer ratings table for individual ratings
+export const performerRatings = pgTable("performer_ratings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  performerId: varchar("performer_id").notNull(),
+  userId: varchar("user_id"), // Can be null for anonymous ratings
+  sessionId: varchar("session_id"), // For anonymous users
+  rating: integer("rating").notNull(), // 1-5 rating
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
 export const insertPerformerSchema = createInsertSchema(performers).omit({
@@ -135,6 +148,11 @@ export const insertGalleryPhotoSchema = createInsertSchema(galleryPhotos).omit({
   updatedAt: true,
 });
 
+export const insertPerformerRatingSchema = createInsertSchema(performerRatings).omit({
+  id: true,
+  createdAt: true,
+});
+
 export type InsertPerformer = z.infer<typeof insertPerformerSchema>;
 export type Performer = typeof performers.$inferSelect;
 
@@ -149,6 +167,9 @@ export type Content = typeof content.$inferSelect;
 
 export type InsertGalleryPhoto = z.infer<typeof insertGalleryPhotoSchema>;
 export type GalleryPhoto = typeof galleryPhotos.$inferSelect;
+
+export type InsertPerformerRating = z.infer<typeof insertPerformerRatingSchema>;
+export type PerformerRating = typeof performerRatings.$inferSelect;
 
 export const upsertUserSchema = createInsertSchema(users).omit({
   createdAt: true,
