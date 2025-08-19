@@ -24,7 +24,7 @@ export default function CMS() {
             <TabsList className="grid w-full grid-cols-5 lg:w-fit lg:grid-cols-5 mx-auto">
               <TabsTrigger value="performers" className="flex items-center space-x-2">
                 <Users className="w-4 h-4" />
-                <span>Performers</span>
+                <span>Team</span>
               </TabsTrigger>
               <TabsTrigger value="videos" className="flex items-center space-x-2">
                 <Video className="w-4 h-4" />
@@ -47,7 +47,7 @@ export default function CMS() {
             <TabsContent value="performers">
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-playfair text-2xl text-midnight">Manage Performers</CardTitle>
+                  <CardTitle className="font-playfair text-2xl text-midnight">Manage Team Members</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <PerformerForm />

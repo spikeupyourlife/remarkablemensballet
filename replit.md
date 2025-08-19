@@ -32,6 +32,12 @@ This is a full-stack web application for a ballet company called "Remarkable Men
   - Added star rating displays on performer thumbnail cards showing average rating and count
   - Implemented spam protection for ratings (checks for existing ratings by user/session)
   - Fixed performer ID mismatches and ensured proper database updates for rating calculations
+- **Enhanced person management with comprehensive categorization system**
+  - Added personType field supporting categories: Performer, Choreographer, Makeup Artist, Personal Assistant, Fan, Rookie, Director, Producer, Costume Designer, Musician, Other
+  - Updated database schema and CMS form with person type dropdown selection and filtering capabilities
+  - Changed navigation from "Performers" to "Our Team" in main navigation and CMS to be more inclusive of all team members
+  - Added comprehensive filtering system to team page allowing users to filter by person types
+  - Enhanced performer cards to display person type badges for non-performers with visual distinction
 
 # User Preferences
 
