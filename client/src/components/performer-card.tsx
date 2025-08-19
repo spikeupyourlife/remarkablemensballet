@@ -40,7 +40,14 @@ export default function PerformerCard({ performer }: PerformerCardProps) {
         </div>
         <CardContent className="p-4 sm:p-6">
           <h3 className="font-playfair text-xl sm:text-2xl font-semibold text-midnight mb-2">{performer.name}</h3>
-          <p className="text-magenta font-medium mb-3 text-sm sm:text-base">{performer.role}</p>
+          <div className="flex items-center gap-2 mb-3">
+            <p className="text-magenta font-medium text-sm sm:text-base">{performer.role}</p>
+            {(performer as any).personType && (performer as any).personType !== "performer" && (
+              <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full capitalize">
+                {(performer as any).personType}
+              </span>
+            )}
+          </div>
           
           {/* Star Rating Display */}
           {((performer as any).rating > 0 || (performer as any).ratingCount > 0) && (

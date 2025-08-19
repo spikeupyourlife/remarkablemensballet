@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
@@ -52,6 +53,7 @@ export default function PerformerForm() {
       performingUntil: undefined,
       isCurrentPerformer: true,
       showInCurrentList: true,
+      personType: "performer",
     },
     mode: "onBlur",
   });
@@ -245,6 +247,7 @@ export default function PerformerForm() {
       performingUntil: performer.performingUntil ? new Date(performer.performingUntil) : undefined,
       isCurrentPerformer: performer.isCurrentPerformer ?? true,
       showInCurrentList: performer.showInCurrentList ?? true,
+      personType: (performer as any).personType || "performer",
     });
     console.log("Edit form reset completed, using name:", fixedName);
   };
@@ -415,7 +418,7 @@ export default function PerformerForm() {
               console.log("Form submission prevented - use Save button instead");
               return false;
             }} className="space-y-6" noValidate>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-3 gap-6">
                 <FormField
                   control={form.control}
                   name="name"
@@ -439,6 +442,37 @@ export default function PerformerForm() {
                       <FormControl>
                         <Input placeholder="Principal Dancer, Soloist, etc." {...field} required />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="personType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Person Type</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select person type" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="performer">Performer</SelectItem>
+                          <SelectItem value="choreographer">Choreographer</SelectItem>
+                          <SelectItem value="makeup">Makeup Artist</SelectItem>
+                          <SelectItem value="assistant">Personal Assistant</SelectItem>
+                          <SelectItem value="fan">Fan</SelectItem>
+                          <SelectItem value="rookie">Rookie</SelectItem>
+                          <SelectItem value="director">Director</SelectItem>
+                          <SelectItem value="producer">Producer</SelectItem>
+                          <SelectItem value="costume">Costume Designer</SelectItem>
+                          <SelectItem value="musician">Musician</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}

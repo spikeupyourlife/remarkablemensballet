@@ -15,6 +15,7 @@ export const performers = pgTable("performers", {
   performingUntil: timestamp("performing_until"),
   isCurrentPerformer: boolean("is_current_performer").default(true),
   showInCurrentList: boolean("show_in_current_list").default(true),
+  personType: text("person_type").default("performer"), // "performer", "choreographer", "makeup", "assistant", "fan", "rookie", etc.
   rating: real("rating").default(0), // Average rating 0-5
   ratingCount: integer("rating_count").default(0), // Number of ratings received
   createdAt: timestamp("created_at").defaultNow(),
