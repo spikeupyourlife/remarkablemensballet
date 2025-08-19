@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trash2, Edit, Calendar, Plus, Image, Clock, Star } from "lucide-react";
+import { Trash2, Edit, Calendar, Plus, Image, Clock } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -18,7 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { ImageUpload } from "@/components/ui/image-upload";
 import type { Performance, InsertPerformance } from "@shared/schema";
 
@@ -320,22 +320,19 @@ export default function PerformanceForm() {
                   control={form.control}
                   name="featured"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                      <div className="space-y-0.5">
+                        <FormLabel className="text-base">Featured Performance</FormLabel>
+                        <div className="text-sm text-muted-foreground">
+                          Show this performance on the home page
+                        </div>
+                      </div>
                       <FormControl>
-                        <Checkbox
-                          checked={field.value}
+                        <Switch
+                          checked={field.value || false}
                           onCheckedChange={field.onChange}
                         />
                       </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel className="flex items-center gap-2">
-                          <Star className="h-4 w-4 text-gold" />
-                          Featured Performance
-                        </FormLabel>
-                        <p className="text-sm text-muted-foreground">
-                          Show this performance on the home page
-                        </p>
-                      </div>
                     </FormItem>
                   )}
                 />
