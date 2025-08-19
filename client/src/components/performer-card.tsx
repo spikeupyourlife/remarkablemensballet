@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -41,6 +41,28 @@ export default function PerformerCard({ performer }: PerformerCardProps) {
         <CardContent className="p-4 sm:p-6">
           <h3 className="font-playfair text-xl sm:text-2xl font-semibold text-midnight mb-2">{performer.name}</h3>
           <p className="text-magenta font-medium mb-3 text-sm sm:text-base">{performer.role}</p>
+          
+          {/* Star Rating Display */}
+          {((performer as any).rating > 0 || (performer as any).ratingCount > 0) && (
+            <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    className={`w-4 h-4 ${
+                      star <= Math.round((performer as any).rating || 0)
+                        ? "text-yellow-500 fill-yellow-500"
+                        : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm text-gray-600">
+                {((performer as any).rating || 0).toFixed(1)} ({(performer as any).ratingCount || 0})
+              </span>
+            </div>
+          )}
+          
           <p className="text-gray-600 leading-relaxed line-clamp-3 mb-4 text-sm sm:text-base">
             {performer.bio}
           </p>

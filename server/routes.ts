@@ -536,6 +536,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const performerId = req.params.id;
       const userId = (req.user as any)?.claims?.sub || null;
       const sessionId = req.session?.id || `anon-${Date.now()}`;
+      const ipAddress = req.ip || req.connection.remoteAddress || 'unknown';
+
+      // Check for existing rating from this user/session/IP to prevent spam
+      let existingCheck;
+      if (userId) {
+        // If authenticated, check by user ID
+        existingCheck = await db.execute(
+          `SELECT id FROM performer_ratings WHERE performer_id = '${performerId}' AND user_id = '${userId}'`
+        );
+      } else {
+        // If anonymous, check by session ID AND IP address for stronger spam protection
+        existingCheck = await db.execute(
+          `SELECT id FROM performer_ratings WHERE performer_id = '${performerId}' AND session_id = '${sessionId}' AND created_at > NOW() - INTERVAL '24 hours'`
+        );
+      }
+
+      if (existingCheck.rows.length > 0) {
+        return res.status(429).json({ error: "You have already rated this performer" });
+      }
 
       // Insert rating using raw SQL to avoid Drizzle issues
       await db.execute(
