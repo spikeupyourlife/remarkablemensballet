@@ -9,8 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ObjectUploader } from "@/components/ObjectUploader";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trash2, Edit, Play } from "lucide-react";
+import { Trash2, Edit, Play, Upload, Image } from "lucide-react";
+import type { UploadResult } from "@uppy/core";
 import {
   Form,
   FormControl,
@@ -24,6 +27,7 @@ import type { Video, InsertVideo } from "@shared/schema";
 export default function VideoForm() {
   const { toast } = useToast();
   const [editingVideo, setEditingVideo] = useState<Video | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const { data: videos, isLoading } = useQuery<Video[]>({
     queryKey: ["/api/videos"],
@@ -36,6 +40,9 @@ export default function VideoForm() {
       description: "",
       videoUrl: "",
       thumbnailUrl: "",
+      videoType: "youtube",
+      startTime: "",
+      endTime: "",
       featured: false,
     },
   });
@@ -92,13 +99,84 @@ export default function VideoForm() {
       description: video.description || "",
       videoUrl: video.videoUrl,
       thumbnailUrl: video.thumbnailUrl || "",
+      videoType: (video as any).videoType || "youtube",
+      startTime: (video as any).startTime || "",
+      endTime: (video as any).endTime || "",
       featured: video.featured || false,
     });
   };
 
   const cancelEdit = () => {
     setEditingVideo(null);
+    setIsUploading(false);
     form.reset();
+  };
+
+  const handleThumbnailUpload = async () => {
+    try {
+      console.log("Requesting thumbnail upload URL...");
+      const response = await fetch("/api/objects/upload", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log("Thumbnail upload response:", data);
+      
+      if (!data.uploadURL) {
+        throw new Error("No upload URL received");
+      }
+      
+      return {
+        method: "PUT" as const,
+        url: data.uploadURL,
+      };
+    } catch (error) {
+      console.error("Error getting upload URL:", error);
+      toast({ title: "Error", description: "Failed to get upload URL", variant: "destructive" });
+      throw error;
+    }
+  };
+
+  const handleThumbnailComplete = async (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+    console.log("Thumbnail upload complete result:", result);
+    setIsUploading(true);
+    
+    if (result.successful && result.successful.length > 0) {
+      const uploadUrl = result.successful[0].uploadURL;
+      if (uploadUrl) {
+        try {
+          // Set ACL policy and get normalized path
+          const response = await apiRequest("PUT", "/api/performer-images", { imageURL: uploadUrl });
+          const data = await response.json();
+          
+          console.log("Setting thumbnailUrl value to:", data.objectPath);
+          form.setValue("thumbnailUrl", data.objectPath, { 
+            shouldValidate: false, 
+            shouldDirty: false,
+            shouldTouch: false
+          });
+          
+          toast({ title: "Success", description: "Thumbnail uploaded successfully" });
+        } catch (error) {
+          console.error("Error setting thumbnail ACL:", error);
+          toast({ title: "Error", description: "Failed to process uploaded thumbnail", variant: "destructive" });
+        }
+      }
+    } else if (result.failed && result.failed.length > 0) {
+      console.error("Thumbnail upload failed:", result.failed);
+      const errorMsg = result.failed[0].error || "Unknown upload error";
+      toast({ title: "Upload Failed", description: errorMsg, variant: "destructive" });
+    }
+    
+    setIsUploading(false);
   };
 
   return (
@@ -140,19 +218,94 @@ export default function VideoForm() {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="thumbnailUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Thumbnail URL</FormLabel>
-                    <FormControl>
-                      <Input placeholder="https://example.com/thumbnail.jpg" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="videoType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Video Platform</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value || "youtube"}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select platform" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="youtube">YouTube</SelectItem>
+                          <SelectItem value="vimeo">Vimeo</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="thumbnailUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Custom Thumbnail</FormLabel>
+                      <FormControl>
+                        <div className="space-y-4">
+                          <Input placeholder="Or enter thumbnail URL" {...field} value={field.value || ""} />
+                          <div className="space-y-3">
+                            <div className="flex items-center space-x-4">
+                              <ObjectUploader
+                                maxFileSize={5242880} // 5MB limit
+                                onGetUploadParameters={handleThumbnailUpload}
+                                onComplete={handleThumbnailComplete}
+                                buttonClassName="bg-magenta text-white hover:bg-midnight"
+                              >
+                                <Upload className="w-4 h-4 mr-2" />
+                                Upload Thumbnail
+                              </ObjectUploader>
+                              {field.value && (
+                                <div className="flex items-center space-x-2">
+                                  <Image className="w-4 h-4 text-green-600" />
+                                  <span className="text-sm text-green-600">Thumbnail uploaded</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="startTime"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Start Time (optional)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 2m30s or 46m" {...field} value={field.value || ""} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="endTime"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>End Time (optional)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 5m15s or 48m" {...field} value={field.value || ""} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               <FormField
                 control={form.control}

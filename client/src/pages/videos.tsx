@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import VideoPlayer from "@/components/video-player";
+import VideoEmbed from "@/components/video-embed";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Video } from "@shared/schema";
 
@@ -49,7 +49,7 @@ export default function Videos() {
                 <h2 className="font-playfair text-3xl font-semibold text-midnight mb-8 text-center">Featured Performances</h2>
                 <div className="space-y-8">
                   {featuredVideos.map((video) => (
-                    <VideoPlayer key={video.id} video={video} featured={true} />
+                    <VideoEmbed key={video.id} video={video} featured={true} />
                   ))}
                 </div>
               </div>
@@ -61,7 +61,7 @@ export default function Videos() {
                 <h2 className="font-playfair text-3xl font-semibold text-midnight mb-8 text-center">All Videos</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {regularVideos.map((video) => (
-                    <VideoPlayer key={video.id} video={video} />
+                    <VideoEmbed key={video.id} video={video} />
                   ))}
                 </div>
               </div>

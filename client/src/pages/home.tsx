@@ -4,7 +4,7 @@ import { Play, ChevronDown, ArrowRight, Calendar, Phone, Mail, MapPin } from "lu
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PerformerCard from "@/components/performer-card";
-import VideoPlayer from "@/components/video-player";
+import VideoEmbed from "@/components/video-embed";
 import PerformanceCard from "@/components/performance-card";
 import { Badge } from "@/components/ui/badge";
 import type { Performer, Video, Performance } from "@shared/schema";
@@ -179,7 +179,7 @@ export default function Home() {
             {/* Featured Video */}
             {featuredVideos && featuredVideos.length > 0 && (
               <div className="mb-12">
-                <VideoPlayer video={featuredVideos[0]} featured={true} />
+                <VideoEmbed video={featuredVideos[0]} featured={true} />
               </div>
             )}
             
@@ -197,7 +197,7 @@ export default function Home() {
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {featuredVideos?.slice(1).map((video) => (
-                  <VideoPlayer key={video.id} video={video} />
+                  <VideoEmbed key={video.id} video={video} />
                 ))}
               </div>
             )}

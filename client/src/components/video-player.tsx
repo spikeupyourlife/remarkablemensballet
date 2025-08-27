@@ -15,6 +15,12 @@ export default function VideoPlayer({ video, featured = false }: VideoPlayerProp
     return match ? match[1] : null;
   };
 
+  // Extract video ID from Vimeo URL
+  const getVimeoVideoId = (url: string) => {
+    const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    return match ? match[1] : null;
+  };
+
   const getYouTubeThumbnail = (url: string) => {
     const videoId = getYouTubeVideoId(url);
     if (videoId) {
@@ -23,13 +29,62 @@ export default function VideoPlayer({ video, featured = false }: VideoPlayerProp
     return null;
   };
 
-  const playVideo = () => {
-    const videoId = getYouTubeVideoId(video.videoUrl);
-    if (videoId) {
-      window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
-    } else {
-      window.open(video.videoUrl, '_blank');
+  const getVideoType = () => {
+    if ((video as any).videoType) {
+      return (video as any).videoType;
     }
+    // Auto-detect based on URL
+    if (video.videoUrl.includes('vimeo.com')) {
+      return 'vimeo';
+    }
+    return 'youtube';
+  };
+
+  const buildVideoUrl = () => {
+    const videoType = getVideoType();
+    const startTime = (video as any).startTime;
+    const endTime = (video as any).endTime;
+
+    if (videoType === 'vimeo') {
+      const videoId = getVimeoVideoId(video.videoUrl);
+      if (videoId) {
+        let url = `https://player.vimeo.com/video/${videoId}`;
+        if (startTime) {
+          url += `#t=${startTime}`;
+        }
+        return url;
+      }
+    } else {
+      const videoId = getYouTubeVideoId(video.videoUrl);
+      if (videoId) {
+        let url = `https://www.youtube.com/watch?v=${videoId}`;
+        if (startTime) {
+          // Convert time format for YouTube (e.g., "2m30s" to "150")
+          const timeInSeconds = parseTimeToSeconds(startTime);
+          if (timeInSeconds > 0) {
+            url += `&t=${timeInSeconds}s`;
+          }
+        }
+        return url;
+      }
+    }
+    return video.videoUrl;
+  };
+
+  const parseTimeToSeconds = (timeStr: string): number => {
+    if (!timeStr) return 0;
+    const match = timeStr.match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
+    if (!match) return 0;
+    
+    const hours = parseInt(match[1] || '0');
+    const minutes = parseInt(match[2] || '0');
+    const seconds = parseInt(match[3] || '0');
+    
+    return hours * 3600 + minutes * 60 + seconds;
+  };
+
+  const playVideo = () => {
+    window.open(buildVideoUrl(), '_blank');
   };
 
   const thumbnailUrl = video.thumbnailUrl || getYouTubeThumbnail(video.videoUrl);

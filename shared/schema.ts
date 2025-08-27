@@ -27,6 +27,9 @@ export const videos = pgTable("videos", {
   description: text("description"),
   videoUrl: text("video_url").notNull(),
   thumbnailUrl: text("thumbnail_url"),
+  videoType: text("video_type").default("youtube"), // "youtube" or "vimeo"
+  startTime: text("start_time"), // Format: "46m" or "2m30s" for start time
+  endTime: text("end_time"), // Format: "48m" or "5m15s" for end time
   featured: boolean("featured").default(false),
   rating: real("rating").default(0), // Average rating 0-5
   ratingCount: integer("rating_count").default(0), // Number of ratings received
