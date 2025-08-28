@@ -552,45 +552,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const sessionId = req.session?.id || `anon-${Date.now()}`;
       const ipAddress = req.ip || req.connection.remoteAddress || 'unknown';
 
-      // Check for existing rating from this user/session/IP to prevent spam
+      // Check for existing rating from this user/session to prevent spam
       let existingCheck;
       if (userId) {
         // If authenticated, check by user ID
-        existingCheck = await db.execute(
-          `SELECT id FROM performer_ratings WHERE performer_id = '${performerId}' AND user_id = '${userId}'`
-        );
+        existingCheck = await db.select({ id: performerRatings.id })
+          .from(performerRatings)
+          .where(sql`${performerRatings.performerId} = ${performerId} AND ${performerRatings.userId} = ${userId}`);
       } else {
-        // If anonymous, check by session ID AND IP address for stronger spam protection
-        existingCheck = await db.execute(
-          `SELECT id FROM performer_ratings WHERE performer_id = '${performerId}' AND session_id = '${sessionId}' AND created_at > NOW() - INTERVAL '24 hours'`
-        );
+        // If anonymous, check by session ID within 24 hours for spam protection
+        existingCheck = await db.select({ id: performerRatings.id })
+          .from(performerRatings)
+          .where(sql`${performerRatings.performerId} = ${performerId} AND ${performerRatings.sessionId} = ${sessionId} AND ${performerRatings.createdAt} > NOW() - INTERVAL '24 hours'`);
       }
 
-      if (existingCheck.rows.length > 0) {
+      if (existingCheck.length > 0) {
         return res.status(429).json({ error: "You have already rated this performer" });
       }
 
-      // Insert rating using raw SQL to avoid Drizzle issues
-      await db.execute(
-        `INSERT INTO performer_ratings (performer_id, user_id, session_id, rating) 
-         VALUES ('${performerId}', ${userId ? `'${userId}'` : 'NULL'}, '${sessionId}', ${rating})`
-      );
+      // Insert rating using Drizzle with proper parameterization
+      await db.insert(performerRatings).values({
+        performerId,
+        userId: userId || null,
+        sessionId,
+        rating,
+      });
 
-      // Calculate new average and count
-      const avgResult = await db.execute(
-        `SELECT AVG(rating)::decimal(3,2) as avg_rating, COUNT(*) as rating_count 
-         FROM performer_ratings 
-         WHERE performer_id = '${performerId}'`
-      );
+      // Calculate new average and count using Drizzle aggregation
+      const avgResult = await db.select({
+        avgRating: avg(performerRatings.rating),
+        ratingCount: count(performerRatings.rating)
+      })
+      .from(performerRatings)
+      .where(eq(performerRatings.performerId, performerId));
 
-      const stats = avgResult.rows[0] as any;
-      const avgRating = parseFloat(stats?.avg_rating || 0);
-      const ratingCount = parseInt(stats?.rating_count || 0);
+      const stats = avgResult[0];
+      const avgRating = parseFloat(stats?.avgRating || "0");
+      const ratingCount = parseInt(stats?.ratingCount?.toString() || "0");
 
-      // Update performer average rating using raw SQL
-      await db.execute(
-        `UPDATE performers SET rating = ${avgRating}, rating_count = ${ratingCount} WHERE id = '${performerId}'`
-      );
+      // Update performer average rating using Drizzle
+      await db.update(performers)
+        .set({ 
+          rating: avgRating,
+          ratingCount: ratingCount 
+        })
+        .where(eq(performers.id, performerId));
       
       res.json({
         averageRating: avgRating,
