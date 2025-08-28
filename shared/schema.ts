@@ -126,6 +126,7 @@ export const pressArticles = pgTable("press_articles", {
   publishedDate: timestamp("published_date"), // When the article was originally published
   featured: boolean("featured").default(false),
   tags: text("tags").array().default(sql`'{}'::text[]`), // Categories like "review", "interview", "news"
+  performerIds: text("performer_ids").array().default(sql`'{}'::text[]`), // IDs of performers mentioned in the article
   imageUrl: text("image_url"), // Associated image or screenshot
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),

@@ -11,10 +11,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { format } from "date-fns";
-import { Trash2, Edit, Upload, X, Image, Calendar, ExternalLink, FileText } from "lucide-react";
+import { Trash2, Edit, Upload, X, Image, Calendar, ExternalLink, FileText, Users } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -23,7 +25,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import type { PressArticle, InsertPressArticle } from "@shared/schema";
+import type { PressArticle, InsertPressArticle, Performer } from "@shared/schema";
 import type { UploadResult } from "@uppy/core";
 
 export default function PressForm() {
@@ -33,6 +35,11 @@ export default function PressForm() {
 
   const { data: articles, isLoading } = useQuery<PressArticle[]>({
     queryKey: ["/api/press"],
+  });
+
+  // Fetch performers for selection
+  const { data: performers = [] } = useQuery<Performer[]>({
+    queryKey: ["/api/performers"],
   });
 
   const form = useForm<InsertPressArticle>({
@@ -50,6 +57,7 @@ export default function PressForm() {
       publishedDate: undefined,
       featured: false,
       tags: [],
+      performerIds: [],
       imageUrl: "",
     },
     mode: "onBlur",
@@ -151,6 +159,7 @@ export default function PressForm() {
       publishedDate: article.publishedDate ? new Date(article.publishedDate) : undefined,
       featured: article.featured || false,
       tags: article.tags || [],
+      performerIds: article.performerIds || [],
       imageUrl: article.imageUrl || "",
     });
   };
@@ -427,6 +436,60 @@ export default function PressForm() {
                   Add Tag
                 </Button>
               </div>
+            </div>
+
+            {/* Performers Selection */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-purple-500" />
+                <FormLabel>Performers Featured</FormLabel>
+                <Badge variant="outline" className="text-xs">Select performers mentioned in this article</Badge>
+              </div>
+              <FormField
+                control={form.control}
+                name="performerIds"
+                render={() => (
+                  <FormItem>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {performers.map((performer) => (
+                        <FormField
+                          key={performer.id}
+                          control={form.control}
+                          name="performerIds"
+                          render={({ field }) => {
+                            const isChecked = field.value?.includes(performer.id) || false;
+                            return (
+                              <FormItem className="flex items-center space-x-3 space-y-0 rounded-md border p-3">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={isChecked}
+                                    onCheckedChange={(checked) => {
+                                      const currentValue = field.value || [];
+                                      if (checked) {
+                                        field.onChange([...currentValue, performer.id]);
+                                      } else {
+                                        field.onChange(currentValue.filter(id => id !== performer.id));
+                                      }
+                                    }}
+                                    data-testid={`checkbox-performer-${performer.id}`}
+                                  />
+                                </FormControl>
+                                <div className="flex-1">
+                                  <FormLabel className="text-sm font-medium cursor-pointer">
+                                    {performer.name}
+                                  </FormLabel>
+                                  <p className="text-xs text-muted-foreground">{performer.role}</p>
+                                </div>
+                              </FormItem>
+                            );
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             <FormField

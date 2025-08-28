@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Calendar, ExternalLink, User, Search, Filter, X, Star, SortAsc, SortDesc, FileText, Clock } from "lucide-react";
+import { Calendar, ExternalLink, User, Search, Filter, X, Star, SortAsc, SortDesc, FileText, Clock, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import type { PressArticle } from "@shared/schema";
+import type { PressArticle, Performer } from "@shared/schema";
 
 type SortField = 'title' | 'publishedDate' | 'createdAt' | 'featured';
 type SortOrder = 'asc' | 'desc';
@@ -22,6 +22,11 @@ export default function Press() {
 
   const { data: articles = [], isLoading } = useQuery<PressArticle[]>({
     queryKey: ["/api/press"],
+  });
+
+  // Fetch performers for display
+  const { data: performers = [] } = useQuery<Performer[]>({
+    queryKey: ["/api/performers"],
   });
 
   // Get all unique tags from articles
@@ -293,6 +298,28 @@ export default function Press() {
                         {tag}
                       </Badge>
                     ))}
+                  </div>
+                </div>
+              )}
+
+              {selectedArticle.performerIds && selectedArticle.performerIds.length > 0 && (
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Users className="w-4 h-4 text-purple-400" />
+                    <span className="text-slate-300 font-medium">Featured Performers</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedArticle.performerIds.map((performerId) => {
+                      const performer = performers.find(p => p.id === performerId);
+                      return performer ? (
+                        <Badge 
+                          key={performerId} 
+                          className="bg-purple-600/20 border-purple-600/50 text-purple-300 hover:bg-purple-600/30"
+                        >
+                          {performer.name}
+                        </Badge>
+                      ) : null;
+                    })}
                   </div>
                 </div>
               )}
