@@ -65,9 +65,10 @@ export default function VideoEmbed({ video, featured = false, showTitle = true }
     if (videoType === 'vimeo') {
       const videoId = getVimeoVideoId(video.videoUrl);
       if (videoId) {
-        let url = `https://player.vimeo.com/video/${videoId}?autoplay=1`;
+        let url = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479`;
         if (startTime) {
-          url += `#t=${startTime}`;
+          const startSeconds = parseTimeToSeconds(startTime);
+          url += `#t=${startSeconds}s`;
         }
         return url;
       }
@@ -196,10 +197,11 @@ export default function VideoEmbed({ video, featured = false, showTitle = true }
                   width="100%"
                   height="100%"
                   frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
+                  allow="autoplay; fullscreen; picture-in-picture; web-share; accelerometer; clipboard-write; encrypted-media; gyroscope"
                   allowFullScreen
                   className="rounded-lg"
                   title={video.title}
+                  loading="lazy"
                 />
               )}
             </div>
