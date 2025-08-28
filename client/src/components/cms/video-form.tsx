@@ -51,11 +51,20 @@ export default function VideoForm() {
     mutationFn: (data: InsertVideo) => apiRequest("POST", "/api/videos", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/videos"] });
-      form.reset();
-      toast({ title: "Success", description: "Video created successfully" });
+      form.reset({
+        title: "",
+        description: "",
+        videoUrl: "",
+        thumbnailUrl: "",
+        videoType: "youtube",
+        startTime: "",
+        endTime: "",
+        featured: false,
+      });
+      toast({ title: "Success", description: "Video saved successfully" });
     },
     onError: () => {
-      toast({ title: "Error", description: "Failed to create video", variant: "destructive" });
+      toast({ title: "Error", description: "Failed to save video", variant: "destructive" });
     },
   });
 
@@ -65,7 +74,16 @@ export default function VideoForm() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/videos"] });
       setEditingVideo(null);
-      form.reset();
+      form.reset({
+        title: "",
+        description: "",
+        videoUrl: "",
+        thumbnailUrl: "",
+        videoType: "youtube",
+        startTime: "",
+        endTime: "",
+        featured: false,
+      });
       toast({ title: "Success", description: "Video updated successfully" });
     },
     onError: () => {
@@ -85,6 +103,18 @@ export default function VideoForm() {
   });
 
   const onSubmit = (data: InsertVideo) => {
+    console.log("Form submitted with data:", data);
+    
+    // Ensure we have the required fields
+    if (!data.title || !data.videoUrl) {
+      toast({ 
+        title: "Missing Information", 
+        description: "Please provide at least a title and video URL", 
+        variant: "destructive" 
+      });
+      return;
+    }
+    
     if (editingVideo) {
       updateMutation.mutate({ id: editingVideo.id, data });
     } else {
@@ -109,7 +139,16 @@ export default function VideoForm() {
   const cancelEdit = () => {
     setEditingVideo(null);
     setIsUploading(false);
-    form.reset();
+    form.reset({
+      title: "",
+      description: "",
+      videoUrl: "",
+      thumbnailUrl: "",
+      videoType: "youtube",
+      startTime: "",
+      endTime: "",
+      featured: false,
+    });
   };
 
   const handleThumbnailUpload = async () => {
@@ -190,7 +229,11 @@ export default function VideoForm() {
           </h3>
           
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              console.log("Form submit event triggered");
+              form.handleSubmit(onSubmit)(e);
+            }} className="space-y-6">
               <FormField
                 control={form.control}
                 name="title"
@@ -198,7 +241,16 @@ export default function VideoForm() {
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Video title" {...field} />
+                      <Input 
+                        placeholder="Video title" 
+                        {...field} 
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            console.log("Enter pressed in title field - prevented submission");
+                          }
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -212,7 +264,16 @@ export default function VideoForm() {
                   <FormItem>
                     <FormLabel>Video URL</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://www.youtube.com/watch?v=..." {...field} />
+                      <Input 
+                        placeholder="https://www.youtube.com/watch?v=... or https://vimeo.com/655686235" 
+                        {...field}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            console.log("Enter pressed in URL field - prevented submission");
+                          }
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -250,7 +311,17 @@ export default function VideoForm() {
                       <FormLabel>Custom Thumbnail</FormLabel>
                       <FormControl>
                         <div className="space-y-4">
-                          <Input placeholder="Or enter thumbnail URL" {...field} value={field.value || ""} />
+                          <Input 
+                            placeholder="Or enter thumbnail URL" 
+                            {...field} 
+                            value={field.value || ""} 
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                console.log("Enter pressed in thumbnail URL field - prevented submission");
+                              }
+                            }}
+                          />
                           <div className="space-y-3">
                             <div className="flex items-center space-x-4">
                               <ObjectUploader
@@ -297,7 +368,17 @@ export default function VideoForm() {
                     <FormItem>
                       <FormLabel>Start Time (optional)</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., 2m30s or 46m" {...field} value={field.value || ""} />
+                        <Input 
+                          placeholder="e.g., 2m30s or 46m" 
+                          {...field} 
+                          value={field.value || ""} 
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              console.log("Enter pressed in start time field - prevented submission");
+                            }
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -311,7 +392,17 @@ export default function VideoForm() {
                     <FormItem>
                       <FormLabel>End Time (optional)</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., 5m15s or 48m" {...field} value={field.value || ""} />
+                        <Input 
+                          placeholder="e.g., 5m15s or 48m" 
+                          {...field} 
+                          value={field.value || ""} 
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              console.log("Enter pressed in end time field - prevented submission");
+                            }
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

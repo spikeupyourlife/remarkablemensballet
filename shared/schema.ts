@@ -127,6 +127,8 @@ export const insertPerformerSchema = createInsertSchema(performers).omit({
 export const insertVideoSchema = createInsertSchema(videos).omit({
   id: true,
   createdAt: true,
+  rating: true,
+  ratingCount: true,
 });
 
 export const insertPerformanceSchema = createInsertSchema(performances).omit({
