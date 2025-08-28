@@ -256,7 +256,7 @@ export default function Press() {
                   <img 
                     src={selectedArticle.imageUrl} 
                     alt={selectedArticle.title}
-                    className="w-full h-64 object-cover rounded-lg"
+                    className="w-full max-h-96 object-contain rounded-lg"
                   />
                 </div>
               )}
