@@ -188,6 +188,7 @@ export const insertPressArticleSchema = createInsertSchema(pressArticles).omit({
   content: z.string().min(1, "Content is required"),
   sourceName: z.string().max(200, "Source name must be less than 200 characters").optional(),
   author: z.string().max(200, "Author name must be less than 200 characters").optional(),
+  publishedDate: z.union([z.date(), z.string().transform((str) => new Date(str))]).optional(),
 });
 
 export type InsertPerformer = z.infer<typeof insertPerformerSchema>;
