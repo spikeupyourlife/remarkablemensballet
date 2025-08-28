@@ -271,10 +271,14 @@ export default function PressForm() {
             form.setValue("imageUrl", data.objectPath);
             console.log("Set image URL to:", data.objectPath);
           } else {
-            // If not JSON, fall back to using the upload URL directly but make it public
-            const publicUrl = uploadUrl.replace('/.private/', '/public/');
-            form.setValue("imageUrl", publicUrl);
-            console.log("Fallback: Set image URL to:", publicUrl);
+            // If not JSON, fall back to converting to /objects/ format like gallery images
+            const urlObj = new URL(uploadUrl);
+            const pathParts = urlObj.pathname.split('/');
+            // Find the upload ID (last part of the path)
+            const uploadId = pathParts[pathParts.length - 1];
+            const objectPath = `/objects/uploads/${uploadId}`;
+            form.setValue("imageUrl", objectPath);
+            console.log("Fallback: Set image URL to:", objectPath);
           }
           
           setIsUploading(false);
@@ -284,15 +288,18 @@ export default function PressForm() {
           });
         } catch (error) {
           console.error("Error setting image ACL:", error);
-          // Fallback: use public URL format
-          const publicUrl = uploadUrl.replace('/.private/', '/public/');
-          form.setValue("imageUrl", publicUrl);
+          // Fallback: convert to /objects/ format like gallery images
+          const urlObj = new URL(uploadUrl);
+          const pathParts = urlObj.pathname.split('/');
+          const uploadId = pathParts[pathParts.length - 1];
+          const objectPath = `/objects/uploads/${uploadId}`;
+          form.setValue("imageUrl", objectPath);
           setIsUploading(false);
           toast({
             title: "Success",
             description: "Image uploaded (using fallback processing)",
           });
-          console.log("Error fallback: Set image URL to:", publicUrl);
+          console.log("Error fallback: Set image URL to:", objectPath);
         }
       }
     } else if (result.failed && result.failed.length > 0) {
