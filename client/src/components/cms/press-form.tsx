@@ -422,7 +422,7 @@ export default function PressForm() {
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
                         <EnhancedDatePicker
-                          selected={field.value}
+                          selected={field.value || undefined}
                           onSelect={field.onChange}
                         />
                       </PopoverContent>
@@ -493,11 +493,8 @@ export default function PressForm() {
                 <ObjectUploader
                   onGetUploadParameters={handleImageUpload}
                   onComplete={handleImageComplete}
-                  onUploadStart={() => setIsUploading(true)}
-                  onUploadError={() => setIsUploading(false)}
                   maxFileSize={5 * 1024 * 1024} // 5MB
                   buttonClassName="bg-magenta text-white hover:bg-midnight"
-                  disabled={isUploading}
                 >
                   <Upload className="w-4 h-4 mr-2" />
                   {isUploading ? "Uploading..." : "Upload Image"}
@@ -518,7 +515,7 @@ export default function PressForm() {
               {form.watch("imageUrl") && (
                 <div className="relative w-32 h-32 rounded-lg overflow-hidden border">
                   <img
-                    src={form.watch("imageUrl")}
+                    src={form.watch("imageUrl") || ""}
                     alt="Preview"
                     className="w-full h-full object-cover"
                   />
