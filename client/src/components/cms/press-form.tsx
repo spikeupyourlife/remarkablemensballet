@@ -260,14 +260,26 @@ export default function PressForm() {
       console.log("Upload URL:", uploadUrl);
       
       if (uploadUrl) {
-        // Use the uploaded URL directly for press images
-        form.setValue("imageUrl", uploadUrl);
-        setIsUploading(false);
-        toast({
-          title: "Success",
-          description: "Image uploaded successfully",
-        });
-        console.log("Set image URL to:", uploadUrl);
+        try {
+          // Set ACL policy and get normalized path for press images
+          const response = await apiRequest("PUT", "/api/press-images", { imageURL: uploadUrl });
+          const data = await response.json();
+          form.setValue("imageUrl", data.objectPath);
+          setIsUploading(false);
+          toast({
+            title: "Success",
+            description: "Image uploaded successfully",
+          });
+          console.log("Set image URL to:", data.objectPath);
+        } catch (error) {
+          console.error("Error setting image ACL:", error);
+          toast({ 
+            title: "Error", 
+            description: "Failed to process uploaded image", 
+            variant: "destructive" 
+          });
+          setIsUploading(false);
+        }
       }
     } else if (result.failed && result.failed.length > 0) {
       console.error("Upload failed:", result.failed);
