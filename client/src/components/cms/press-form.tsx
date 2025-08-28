@@ -243,11 +243,13 @@ export default function PressForm() {
     form.reset();
   };
 
-  const handleImageUpload = () => {
-    return apiRequest("POST", "/api/objects/upload").then((response: any) => ({
+  const handleImageUpload = async () => {
+    const response = await apiRequest("POST", "/api/objects/upload");
+    const data = await response.json();
+    return {
       method: "PUT" as const,
-      url: response.uploadURL,
-    }));
+      url: data.uploadURL,
+    };
   };
 
   const handleImageComplete = (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
