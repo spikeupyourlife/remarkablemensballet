@@ -38,6 +38,15 @@ This is a full-stack web application for a ballet company called "Remarkable Men
   - Changed navigation from "Performers" to "Our Team" in main navigation and CMS to be more inclusive of all team members
   - Added comprehensive filtering system to team page allowing users to filter by person types
   - Enhanced performer cards to display person type badges for non-performers with visual distinction
+- **Comprehensive video system enhancement with Vimeo support and custom thumbnails**
+  - Added full Vimeo embed support alongside existing YouTube functionality with proper iframe embedding
+  - Implemented video platform selection (YouTube/Vimeo) in CMS with auto-detection fallback
+  - Added start/end time controls supporting formats like "2m30s", "46m" for both platforms
+  - Created custom thumbnail upload system with 5MB limit and object storage integration
+  - Replaced VideoPlayer with enhanced VideoEmbed component featuring modal playback
+  - Added visual indicators for video type, start/end times, and upload status
+  - Improved form validation and save behavior to prevent duplicate video creation during thumbnail uploads
+  - Enhanced accessibility with proper dialog titles and ARIA labels for video player modals
 
 # User Preferences
 

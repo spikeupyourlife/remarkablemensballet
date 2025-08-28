@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Play, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import type { Video } from "@shared/schema";
 
 interface VideoEmbedProps {
@@ -172,11 +173,18 @@ export default function VideoEmbed({ video, featured = false, showTitle = true }
 
       {/* Video Modal */}
       <Dialog open={isPlaying} onOpenChange={setIsPlaying}>
-        <DialogContent className="max-w-6xl w-full p-0 bg-black">
+        <DialogContent className="max-w-6xl w-full p-0 bg-black" aria-describedby="video-player-description">
+          <VisuallyHidden>
+            <DialogTitle>Video Player</DialogTitle>
+          </VisuallyHidden>
+          <div className="sr-only" id="video-player-description">
+            Video player for {video.title}
+          </div>
           <div className="relative">
             <Button
               onClick={handleClose}
               className="absolute top-4 right-4 z-50 bg-black/50 text-white hover:bg-black/70 rounded-full p-2"
+              aria-label="Close video player"
             >
               <X className="w-4 h-4" />
             </Button>
@@ -191,6 +199,7 @@ export default function VideoEmbed({ video, featured = false, showTitle = true }
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
                   className="rounded-lg"
+                  title={video.title}
                 />
               )}
             </div>

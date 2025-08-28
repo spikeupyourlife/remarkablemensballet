@@ -158,13 +158,14 @@ export default function VideoForm() {
           const data = await response.json();
           
           console.log("Setting thumbnailUrl value to:", data.objectPath);
+          // Just update the form field, don't auto-save the video
           form.setValue("thumbnailUrl", data.objectPath, { 
-            shouldValidate: false, 
-            shouldDirty: false,
-            shouldTouch: false
+            shouldValidate: true, 
+            shouldDirty: true,
+            shouldTouch: true
           });
           
-          toast({ title: "Success", description: "Thumbnail uploaded successfully" });
+          toast({ title: "Success", description: "Thumbnail uploaded successfully - remember to save the video" });
         } catch (error) {
           console.error("Error setting thumbnail ACL:", error);
           toast({ title: "Error", description: "Failed to process uploaded thumbnail", variant: "destructive" });
@@ -256,18 +257,29 @@ export default function VideoForm() {
                                 maxFileSize={5242880} // 5MB limit
                                 onGetUploadParameters={handleThumbnailUpload}
                                 onComplete={handleThumbnailComplete}
-                                buttonClassName="bg-magenta text-white hover:bg-midnight"
+                                buttonClassName="bg-magenta text-white hover:bg-midnight text-sm"
                               >
                                 <Upload className="w-4 h-4 mr-2" />
                                 Upload Thumbnail
                               </ObjectUploader>
-                              {field.value && (
+                              {isUploading && (
+                                <div className="flex items-center space-x-2">
+                                  <div className="w-4 h-4 border-2 border-magenta border-t-transparent rounded-full animate-spin"></div>
+                                  <span className="text-sm text-gray-600">Uploading...</span>
+                                </div>
+                              )}
+                              {field.value && !isUploading && (
                                 <div className="flex items-center space-x-2">
                                   <Image className="w-4 h-4 text-green-600" />
-                                  <span className="text-sm text-green-600">Thumbnail uploaded</span>
+                                  <span className="text-sm text-green-600">Thumbnail ready</span>
                                 </div>
                               )}
                             </div>
+                            {field.value && (
+                              <div className="text-xs text-gray-500">
+                                Preview: {field.value}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </FormControl>
@@ -348,18 +360,25 @@ export default function VideoForm() {
 
               <div className="flex gap-4">
                 <Button 
-                  type="submit" 
-                  className="bg-magenta hover:bg-magenta/80"
-                  disabled={createMutation.isPending || updateMutation.isPending}
+                  type="button" 
+                  variant="outline" 
+                  onClick={cancelEdit}
+                  disabled={createMutation.isPending || updateMutation.isPending || isUploading}
                 >
-                  {editingVideo ? "Update Video" : "Add Video"}
+                  {editingVideo ? "Cancel" : "Clear Form"}
                 </Button>
                 
-                {editingVideo && (
-                  <Button type="button" variant="outline" onClick={cancelEdit}>
-                    Cancel
-                  </Button>
-                )}
+                <Button 
+                  type="submit" 
+                  className="bg-magenta hover:bg-magenta/80"
+                  disabled={createMutation.isPending || updateMutation.isPending || isUploading}
+                >
+                  {createMutation.isPending || updateMutation.isPending ? (
+                    "Saving..."
+                  ) : (
+                    editingVideo ? "Update Video" : "Save Video"
+                  )}
+                </Button>
               </div>
             </form>
           </Form>
