@@ -11,12 +11,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { format } from "date-fns";
-import { Trash2, Edit, Upload, X, Image, Calendar, ExternalLink, FileText, Users } from "lucide-react";
+import { Trash2, Edit, Upload, X, Image, Calendar, ExternalLink, FileText, Users, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -27,6 +28,79 @@ import {
 } from "@/components/ui/form";
 import type { PressArticle, InsertPressArticle, Performer } from "@shared/schema";
 import type { UploadResult } from "@uppy/core";
+
+// Enhanced date picker with year and month selection for easier navigation
+function EnhancedDatePicker({ selected, onSelect }: { selected?: Date; onSelect: (date: Date | undefined) => void }) {
+  const [currentMonth, setCurrentMonth] = useState(selected || new Date());
+  
+  const currentYear = currentMonth.getFullYear();
+  const currentMonthIndex = currentMonth.getMonth();
+  
+  // Generate year options (1900 to current year)
+  const currentYearActual = new Date().getFullYear();
+  const yearOptions = Array.from({ length: currentYearActual - 1899 }, (_, i) => currentYearActual - i);
+  
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const handleYearChange = (year: string) => {
+    const newDate = new Date(parseInt(year), currentMonthIndex, 1);
+    setCurrentMonth(newDate);
+  };
+
+  const handleMonthChange = (month: string) => {
+    const newDate = new Date(currentYear, parseInt(month), 1);
+    setCurrentMonth(newDate);
+  };
+
+  return (
+    <div className="p-3">
+      {/* Year and Month Selectors */}
+      <div className="flex gap-2 mb-3">
+        <Select value={currentYear.toString()} onValueChange={handleYearChange}>
+          <SelectTrigger className="flex-1">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent className="max-h-[200px]">
+            {yearOptions.map((year) => (
+              <SelectItem key={year} value={year.toString()}>
+                {year}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        
+        <Select value={currentMonthIndex.toString()} onValueChange={handleMonthChange}>
+          <SelectTrigger className="flex-1">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {monthNames.map((month, index) => (
+              <SelectItem key={index} value={index.toString()}>
+                {month}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      
+      {/* Calendar */}
+      <CalendarComponent
+        mode="single"
+        selected={selected}
+        onSelect={onSelect}
+        month={currentMonth}
+        onMonthChange={setCurrentMonth}
+        disabled={(date) =>
+          date > new Date() || date < new Date("1900-01-01")
+        }
+        initialFocus
+      />
+    </div>
+  );
+}
 
 export default function PressForm() {
   const { toast } = useToast();
@@ -295,14 +369,9 @@ export default function PressForm() {
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
-                        <CalendarComponent
-                          mode="single"
+                        <EnhancedDatePicker
                           selected={field.value}
                           onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
                         />
                       </PopoverContent>
                     </Popover>
