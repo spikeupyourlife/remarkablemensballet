@@ -252,15 +252,32 @@ export default function PressForm() {
     };
   };
 
-  const handleImageComplete = (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+  const handleImageComplete = async (result: UploadResult<Record<string, unknown>, Record<string, unknown>>) => {
+    console.log("Upload result:", result);
     if (result.successful && result.successful.length > 0) {
-      const imageUrl = result.successful[0].response?.uploadURL || "";
-      form.setValue("imageUrl", imageUrl);
-      setIsUploading(false);
-      toast({
-        title: "Success",
-        description: "Image uploaded successfully",
+      const uploadedFile = result.successful[0];
+      const uploadUrl = uploadedFile.uploadURL as string;
+      console.log("Upload URL:", uploadUrl);
+      
+      if (uploadUrl) {
+        // Use the uploaded URL directly for press images
+        form.setValue("imageUrl", uploadUrl);
+        setIsUploading(false);
+        toast({
+          title: "Success",
+          description: "Image uploaded successfully",
+        });
+        console.log("Set image URL to:", uploadUrl);
+      }
+    } else if (result.failed && result.failed.length > 0) {
+      console.error("Upload failed:", result.failed);
+      const errorMsg = result.failed[0].error || "Unknown upload error";
+      toast({ 
+        title: "Upload Failed", 
+        description: errorMsg, 
+        variant: "destructive" 
       });
+      setIsUploading(false);
     }
   };
 
@@ -443,11 +460,14 @@ export default function PressForm() {
                 <ObjectUploader
                   onGetUploadParameters={handleImageUpload}
                   onComplete={handleImageComplete}
+                  onUploadStart={() => setIsUploading(true)}
+                  onUploadError={() => setIsUploading(false)}
                   maxFileSize={5 * 1024 * 1024} // 5MB
                   buttonClassName="bg-magenta text-white hover:bg-midnight"
+                  disabled={isUploading}
                 >
                   <Upload className="w-4 h-4 mr-2" />
-                  Upload Image
+                  {isUploading ? "Uploading..." : "Upload Image"}
                 </ObjectUploader>
                 {form.watch("imageUrl") && (
                   <Button
