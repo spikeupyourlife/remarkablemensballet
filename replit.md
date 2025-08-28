@@ -47,6 +47,15 @@ This is a full-stack web application for a ballet company called "Remarkable Men
   - Added visual indicators for video type, start/end times, and upload status
   - Improved form validation and save behavior to prevent duplicate video creation during thumbnail uploads
   - Enhanced accessibility with proper dialog titles and ARIA labels for video player modals
+- **Added comprehensive Press section for news articles and media coverage**
+  - Created dedicated Press database table with full article content storage and source linking
+  - Implemented gallery-style press articles display page with search, filter, and sort functionality
+  - Added comprehensive CMS management interface for creating, editing, and managing press articles
+  - Supports article metadata including publication date, source name, author, and categorization tags
+  - Includes image upload capability for article thumbnails and visual content
+  - Features modal reading experience with full article content and external source links
+  - Added Press navigation link in main site header for easy access to media coverage
+  - Designed to preserve article content locally even if original source URLs become unavailable
 
 # User Preferences
 

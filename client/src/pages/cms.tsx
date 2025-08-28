@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Video, Calendar, Camera, FileText } from "lucide-react";
+import { Users, Video, Calendar, Camera, FileText, Newspaper } from "lucide-react";
 import PerformerForm from "@/components/cms/performer-form";
 import VideoForm from "@/components/cms/video-form";
 import PerformanceForm from "@/components/cms/performance-form";
 import GalleryManagement from "@/components/cms/gallery-management";
 import ContentEditor from "@/components/cms/content-editor";
+import PressForm from "@/components/cms/press-form";
 
 export default function CMS() {
   return (
@@ -21,7 +22,7 @@ export default function CMS() {
 
         <div className="max-w-6xl mx-auto">
           <Tabs defaultValue="performers" className="space-y-8">
-            <TabsList className="grid w-full grid-cols-5 lg:w-fit lg:grid-cols-5 mx-auto">
+            <TabsList className="grid w-full grid-cols-6 lg:w-fit lg:grid-cols-6 mx-auto">
               <TabsTrigger value="performers" className="flex items-center space-x-2">
                 <Users className="w-4 h-4" />
                 <span>Team</span>
@@ -37,6 +38,10 @@ export default function CMS() {
               <TabsTrigger value="gallery" className="flex items-center space-x-2">
                 <Camera className="w-4 h-4" />
                 <span>Gallery</span>
+              </TabsTrigger>
+              <TabsTrigger value="press" className="flex items-center space-x-2">
+                <Newspaper className="w-4 h-4" />
+                <span>Press</span>
               </TabsTrigger>
               <TabsTrigger value="content" className="flex items-center space-x-2">
                 <FileText className="w-4 h-4" />
@@ -79,6 +84,17 @@ export default function CMS() {
 
             <TabsContent value="gallery">
               <GalleryManagement />
+            </TabsContent>
+
+            <TabsContent value="press">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="font-playfair text-2xl text-midnight">Manage Press Articles</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <PressForm />
+                </CardContent>
+              </Card>
             </TabsContent>
 
             <TabsContent value="content">

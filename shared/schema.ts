@@ -114,6 +114,23 @@ export const performerRatings = pgTable("performer_ratings", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Press articles table for news and media coverage
+export const pressArticles = pgTable("press_articles", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  excerpt: text("excerpt"), // Short summary/preview
+  content: text("content").notNull(), // Full article content stored locally
+  sourceUrl: text("source_url"), // Original article URL
+  sourceName: text("source_name"), // Publication name (e.g., "Dance Magazine", "The Times")
+  author: text("author"), // Article author
+  publishedDate: timestamp("published_date"), // When the article was originally published
+  featured: boolean("featured").default(false),
+  tags: text("tags").array().default(sql`'{}'::text[]`), // Categories like "review", "interview", "news"
+  imageUrl: text("image_url"), // Associated image or screenshot
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export const insertPerformerSchema = createInsertSchema(performers).omit({
   id: true,
   createdAt: true,
@@ -161,6 +178,17 @@ export const insertPerformerRatingSchema = createInsertSchema(performerRatings).
   createdAt: true,
 });
 
+export const insertPressArticleSchema = createInsertSchema(pressArticles).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  title: z.string().min(1, "Title is required").max(500, "Title must be less than 500 characters"),
+  content: z.string().min(1, "Content is required"),
+  sourceName: z.string().max(200, "Source name must be less than 200 characters").optional(),
+  author: z.string().max(200, "Author name must be less than 200 characters").optional(),
+});
+
 export type InsertPerformer = z.infer<typeof insertPerformerSchema>;
 export type Performer = typeof performers.$inferSelect;
 
@@ -178,6 +206,9 @@ export type GalleryPhoto = typeof galleryPhotos.$inferSelect;
 
 export type InsertPerformerRating = z.infer<typeof insertPerformerRatingSchema>;
 export type PerformerRating = typeof performerRatings.$inferSelect;
+
+export type InsertPressArticle = z.infer<typeof insertPressArticleSchema>;
+export type PressArticle = typeof pressArticles.$inferSelect;
 
 export const upsertUserSchema = createInsertSchema(users).omit({
   createdAt: true,

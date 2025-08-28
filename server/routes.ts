@@ -2,8 +2,8 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { db } from "./db";
-import { galleryPhotos, performers, performerRatings } from "@shared/schema";
-import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema, insertGalleryPhotoSchema, insertPerformerRatingSchema } from "@shared/schema";
+import { galleryPhotos, performers, performerRatings, pressArticles } from "@shared/schema";
+import { insertPerformerSchema, insertVideoSchema, insertPerformanceSchema, insertContentSchema, insertGalleryPhotoSchema, insertPerformerRatingSchema, insertPressArticleSchema } from "@shared/schema";
 import { z } from "zod";
 import { eq, avg, count, sql } from "drizzle-orm";
 import { setupAuth, isAuthenticated } from "./replitAuth";
@@ -605,6 +605,95 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error rating performer:", error);
       res.status(500).json({ error: "Failed to submit rating" });
+    }
+  });
+
+  // Press articles routes
+  app.get("/api/press", async (req, res) => {
+    try {
+      const articles = await db.select().from(pressArticles).orderBy(sql`${pressArticles.publishedDate} DESC NULLS LAST, ${pressArticles.createdAt} DESC`);
+      res.json(articles);
+    } catch (error) {
+      console.error("Error fetching press articles:", error);
+      res.status(500).json({ error: "Failed to fetch press articles" });
+    }
+  });
+
+  app.get("/api/press/featured", async (req, res) => {
+    try {
+      const articles = await db.select()
+        .from(pressArticles)
+        .where(eq(pressArticles.featured, true))
+        .orderBy(sql`${pressArticles.publishedDate} DESC NULLS LAST, ${pressArticles.createdAt} DESC`)
+        .limit(3);
+      res.json(articles);
+    } catch (error) {
+      console.error("Error fetching featured press articles:", error);
+      res.status(500).json({ error: "Failed to fetch featured press articles" });
+    }
+  });
+
+  app.get("/api/press/:id", async (req, res) => {
+    try {
+      const [article] = await db.select().from(pressArticles).where(eq(pressArticles.id, req.params.id));
+      if (!article) {
+        return res.status(404).json({ error: "Press article not found" });
+      }
+      res.json(article);
+    } catch (error) {
+      console.error("Error fetching press article:", error);
+      res.status(500).json({ error: "Failed to fetch press article" });
+    }
+  });
+
+  app.post("/api/press", isAuthenticated, async (req, res) => {
+    try {
+      const validatedData = insertPressArticleSchema.parse(req.body);
+      const [article] = await db.insert(pressArticles).values(validatedData).returning();
+      res.status(201).json(article);
+    } catch (error) {
+      console.error("Error creating press article:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid article data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create press article" });
+    }
+  });
+
+  app.put("/api/press/:id", isAuthenticated, async (req, res) => {
+    try {
+      const validatedData = insertPressArticleSchema.parse(req.body);
+      const [article] = await db.update(pressArticles)
+        .set({ ...validatedData, updatedAt: new Date() })
+        .where(eq(pressArticles.id, req.params.id))
+        .returning();
+      
+      if (!article) {
+        return res.status(404).json({ error: "Press article not found" });
+      }
+      res.json(article);
+    } catch (error) {
+      console.error("Error updating press article:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid article data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to update press article" });
+    }
+  });
+
+  app.delete("/api/press/:id", isAuthenticated, async (req, res) => {
+    try {
+      const [deletedArticle] = await db.delete(pressArticles)
+        .where(eq(pressArticles.id, req.params.id))
+        .returning();
+      
+      if (!deletedArticle) {
+        return res.status(404).json({ error: "Press article not found" });
+      }
+      res.json({ message: "Press article deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting press article:", error);
+      res.status(500).json({ error: "Failed to delete press article" });
     }
   });
 

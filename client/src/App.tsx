@@ -12,6 +12,7 @@ import Performers from "@/pages/performers";
 import Videos from "@/pages/videos";
 import Performances from "@/pages/performances";
 import Gallery from "@/pages/gallery";
+import Press from "@/pages/press";
 import Contact from "@/pages/contact";
 import About from "@/pages/about";
 import PrivacyPolicy from "@/pages/privacy-policy";
@@ -40,6 +41,7 @@ function AuthenticatedRouter() {
       <Route path="/videos" component={Videos} />
       <Route path="/performances" component={Performances} />
       <Route path="/gallery" component={Gallery} />
+      <Route path="/press" component={Press} />
       <Route path="/contact" component={Contact} />
       <Route path="/about" component={About} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
