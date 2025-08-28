@@ -324,15 +324,17 @@ export default function VideoForm() {
                           />
                           <div className="space-y-3">
                             <div className="flex items-center space-x-4">
-                              <ObjectUploader
-                                maxFileSize={5242880} // 5MB limit
-                                onGetUploadParameters={handleThumbnailUpload}
-                                onComplete={handleThumbnailComplete}
-                                buttonClassName="bg-magenta text-white hover:bg-midnight text-sm"
-                              >
-                                <Upload className="w-4 h-4 mr-2" />
-                                Upload Thumbnail
-                              </ObjectUploader>
+                              <div onClick={(e) => e.preventDefault()}>
+                                <ObjectUploader
+                                  maxFileSize={5242880} // 5MB limit
+                                  onGetUploadParameters={handleThumbnailUpload}
+                                  onComplete={handleThumbnailComplete}
+                                  buttonClassName="bg-magenta text-white hover:bg-midnight text-sm"
+                                >
+                                  <Upload className="w-4 h-4 mr-2" />
+                                  Upload Thumbnail
+                                </ObjectUploader>
+                              </div>
                               {isUploading && (
                                 <div className="flex items-center space-x-2">
                                   <div className="w-4 h-4 border-2 border-magenta border-t-transparent rounded-full animate-spin"></div>
