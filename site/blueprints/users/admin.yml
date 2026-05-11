@@ -1,0 +1,11 @@
+title: Admin
+description: Full access — site config, users, content.
+home: site
+permissions:
+  access: true
+  files: true
+  languages: true
+  pages: true
+  site: true
+  users: true
+  user: true

@@ -1,0 +1,35 @@
+Title: Sponsors
+
+----
+
+Headline: The people who make this possible
+
+----
+
+Blurb: A ballet of this scale doesn't happen without serious support. These are the businesses, families and quiet heroes who keep the music going.
+
+----
+
+Causeheadline: Doing it for the kids
+
+----
+
+Causebody:
+
+Every cent the Christmas Show raises goes to Queenstown families and kids who need it most — Salvation Army, Happiness House, Baskets of Blessings, the Buddy Programme. The Remarkable Men's Ballet is a small part of a much bigger thing, and we are very proud of that.
+
+----
+
+Donationsactive: false
+
+----
+
+Donationheadline: Chip in for the kids
+
+----
+
+Donationurl:
+
+----
+
+Donationcta: Donate

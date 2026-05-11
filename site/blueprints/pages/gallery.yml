@@ -1,0 +1,40 @@
+title: Gallery
+preset: pages
+icon: image
+
+options:
+  changeSlug: false
+  changeTemplate: false
+  delete: false
+
+sections:
+  intro:
+    type: fields
+    fields:
+      headline:
+        label: Headline
+        type: text
+        default: Twenty years of evidence
+      blurb:
+        label: Blurb
+        type: textarea
+        size: small
+        default: Photos from rehearsals, dressing rooms, backstage chaos, and (occasionally) the actual stage.
+
+  photos:
+    headline: Photos
+    type: pages
+    template: photo
+    layout: cards
+    image:
+      query: page.images.first
+      cover: true
+    info: "{{ page.showName }} · {{ page.showDate.toDate('Y') }}"
+
+  add:
+    headline: Add a photo
+    type: pages
+    template: photo
+    create: photo
+    layout: list
+    limit: 0

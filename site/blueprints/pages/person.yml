@@ -1,0 +1,108 @@
+title: Person
+icon: user
+
+options:
+  changeSlug: true
+  changeTemplate: false
+
+columns:
+  - width: 2/3
+    sections:
+      basics:
+        type: fields
+        fields:
+          personType:
+            label: Type
+            type: select
+            required: true
+            default: performer
+            options:
+              performer: Performer
+              choreographer: Choreographer
+              makeup: Makeup Artist
+              costume: Costume Designer
+              musician: Musician
+              director: Director
+              producer: Producer
+              assistant: Personal Assistant
+              fan: Fan / Honorary Member
+              rookie: Rookie
+              other: Other
+          stageName:
+            label: Stage name (optional)
+            type: text
+            help: Drag persona if different from real name.
+          role:
+            label: Role / position
+            type: text
+            help: e.g. "Prima Ballerina", "Chief Choreographer", "Resident Diva"
+          bio:
+            label: Bio
+            type: textarea
+            size: medium
+          quotes:
+            label: Memorable quotes
+            type: structure
+            fields:
+              quote:
+                label: Quote
+                type: textarea
+                size: small
+              context:
+                label: Context (optional)
+                type: text
+
+      gallery:
+        type: files
+        label: Photos
+        template: image
+        layout: cards
+        info: "{{ file.dimensions }}"
+
+  - width: 1/3
+    sections:
+      timeline:
+        type: fields
+        fields:
+          performingSince:
+            label: Performing since
+            type: date
+            display: YYYY-MM-DD
+          performingUntil:
+            label: Performing until (optional)
+            type: date
+            display: YYYY-MM-DD
+            help: Leave empty if still active.
+          isCurrent:
+            label: Currently active?
+            type: toggle
+            default: true
+          showInList:
+            label: Show on team page?
+            type: toggle
+            default: true
+          featured:
+            label: Featured on home page?
+            type: toggle
+            default: false
+
+      links:
+        type: fields
+        fields:
+          instagram:
+            label: Instagram handle
+            type: text
+          customLink:
+            label: Custom link
+            type: url
+          customLinkLabel:
+            label: Custom link label
+            type: text
+
+      seo:
+        type: fields
+        fields:
+          metaDescription:
+            label: SEO description
+            type: textarea
+            size: small

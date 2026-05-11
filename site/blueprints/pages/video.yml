@@ -1,0 +1,58 @@
+title: Video
+icon: video
+
+options:
+  changeSlug: true
+
+columns:
+  - width: 2/3
+    sections:
+      basics:
+        type: fields
+        fields:
+          description:
+            label: Description
+            type: textarea
+            size: medium
+          videoType:
+            label: Platform
+            type: select
+            required: true
+            default: youtube
+            options:
+              youtube: YouTube
+              vimeo: Vimeo
+          videoUrl:
+            label: Video URL
+            type: url
+            required: true
+            help: Paste the full URL (we'll handle the embed).
+          startTime:
+            label: Start time (optional)
+            type: text
+            help: e.g. "2m30s", "46m", "1h2m"
+          endTime:
+            label: End time (optional)
+            type: text
+
+  - width: 1/3
+    sections:
+      thumbnail:
+        type: files
+        label: Custom thumbnail (optional)
+        template: image
+        max: 1
+        layout: cards
+        info: Otherwise we auto-fetch from the platform.
+
+      meta:
+        type: fields
+        fields:
+          showYear:
+            label: Show year
+            type: number
+            min: 2005
+            max: 2030
+          featured:
+            label: Featured?
+            type: toggle

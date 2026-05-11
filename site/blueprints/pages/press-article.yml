@@ -1,0 +1,64 @@
+title: Press article
+icon: news
+
+options:
+  changeSlug: true
+
+columns:
+  - width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          excerpt:
+            label: Excerpt / pull-quote
+            type: textarea
+            size: small
+          body:
+            label: Article body
+            type: textarea
+            size: large
+            help: Store the full article locally so it survives dead links.
+
+  - width: 1/3
+    sections:
+      source:
+        type: fields
+        fields:
+          sourceName:
+            label: Publication
+            type: text
+            default: Otago Daily Times
+          sourceUrl:
+            label: Original URL
+            type: url
+          author:
+            label: Author
+            type: text
+          publishedDate:
+            label: Published
+            type: date
+            display: YYYY-MM-DD
+          featured:
+            label: Featured?
+            type: toggle
+
+      image:
+        type: files
+        label: Article image
+        template: image
+        max: 1
+        layout: cards
+
+      mentions:
+        type: fields
+        fields:
+          mentionedPerformers:
+            label: Performers mentioned
+            type: pages
+            query: site.find('team').children
+            multiple: true
+          tags:
+            label: Tags
+            type: tags
+            help: e.g. "review", "interview", "preview"

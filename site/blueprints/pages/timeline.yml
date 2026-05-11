@@ -1,0 +1,41 @@
+title: Timeline
+preset: pages
+icon: clock
+
+options:
+  changeSlug: false
+  changeTemplate: false
+  delete: false
+
+sections:
+  intro:
+    type: fields
+    fields:
+      headline:
+        label: Headline
+        type: text
+        default: Twenty years of this
+      blurb:
+        label: Blurb
+        type: textarea
+        size: small
+        default: From a deeply silly idea in 2005 to whatever the hell we're doing now.
+
+  years:
+    headline: Years
+    type: pages
+    template: year
+    layout: cards
+    sortBy: title desc
+    image:
+      query: page.images.first
+      cover: true
+    info: "{{ page.showTitle }}"
+
+  add:
+    headline: Add a year
+    type: pages
+    template: year
+    create: year
+    layout: list
+    limit: 0

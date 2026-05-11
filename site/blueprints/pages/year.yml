@@ -1,0 +1,64 @@
+title: Year
+icon: clock
+
+options:
+  changeSlug: true
+
+columns:
+  - width: 2/3
+    sections:
+      story:
+        type: fields
+        fields:
+          showTitle:
+            label: Show title / theme
+            type: text
+            help: e.g. "Tutu Much" (2018), "The World of Christmas" (2024)
+          summary:
+            label: One-line summary
+            type: text
+          story:
+            label: The story of the year
+            type: textarea
+            size: large
+
+      gallery:
+        type: files
+        label: Photos from this year
+        template: image
+        layout: cards
+
+      videos:
+        type: fields
+        fields:
+          videos:
+            label: Featured videos this year
+            type: pages
+            query: site.find('videos').children
+            multiple: true
+
+  - width: 1/3
+    sections:
+      meta:
+        type: fields
+        fields:
+          year:
+            label: Year
+            type: number
+            min: 2005
+            max: 2030
+            required: true
+          isMilestone:
+            label: Milestone year?
+            type: toggle
+            help: First show, 10th, 20th, etc.
+          cast:
+            label: Cast / crew this year
+            type: pages
+            query: site.find('team').children
+            multiple: true
+          highlightImage:
+            label: Highlight image
+            type: files
+            template: image
+            max: 1

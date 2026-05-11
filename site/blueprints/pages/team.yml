@@ -1,0 +1,41 @@
+title: The Team
+preset: pages
+icon: users
+
+options:
+  changeSlug: false
+  changeTemplate: false
+  delete: false
+
+sections:
+  intro:
+    type: fields
+    fields:
+      headline:
+        label: Page headline
+        type: text
+        default: The team
+      blurb:
+        label: Page blurb
+        type: textarea
+        size: small
+        default: Performers, choreographers, costume miracle-workers and the unsung heroes who keep the show on its toes.
+
+  current:
+    headline: Current performers
+    type: pages
+    template: person
+    info: "{{ page.personType }} · since {{ page.performingSince.toDate('Y') }}"
+    image:
+      query: page.images.first
+      cover: true
+    layout: cards
+
+  add:
+    type: pages
+    headline: Add a person
+    template: person
+    create: person
+    layout: list
+    info: "{{ page.personType }}"
+    limit: 0

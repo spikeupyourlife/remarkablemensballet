@@ -1,0 +1,21 @@
+title: Image
+accept:
+  mime: image/jpeg, image/png, image/webp, image/avif, image/gif
+  maxsize: 15M
+
+options:
+  changeName: true
+  delete: true
+  replace: true
+
+fields:
+  caption:
+    label: Caption
+    type: text
+  alt:
+    label: Alt text
+    type: text
+    help: For screen readers — describe what's in the image.
+  credit:
+    label: Photo credit
+    type: text

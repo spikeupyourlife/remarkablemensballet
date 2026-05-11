@@ -1,0 +1,34 @@
+title: Editor
+description: Can add and edit content, but can't change site settings or users.
+home: site
+permissions:
+  access:
+    panel: true
+    site: true
+    users: false
+  files:
+    changeName: true
+    create: true
+    delete: true
+    read: true
+    replace: true
+    update: true
+  pages:
+    create: true
+    delete: true
+    duplicate: true
+    move: true
+    read: true
+    sort: true
+    update: true
+  site:
+    update: false
+  user:
+    changeEmail: true
+    changeLanguage: true
+    changeName: true
+    changePassword: true
+    changeRole: false
+    delete: false
+    update: true
+  users: false

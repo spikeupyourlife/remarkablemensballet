@@ -1,0 +1,39 @@
+title: Press
+preset: pages
+icon: news
+
+options:
+  changeSlug: false
+  changeTemplate: false
+  delete: false
+
+sections:
+  intro:
+    type: fields
+    fields:
+      headline:
+        label: Headline
+        type: text
+        default: They wrote about us. Bless.
+      blurb:
+        label: Blurb
+        type: textarea
+        size: small
+
+  articles:
+    headline: Articles
+    type: pages
+    template: press-article
+    layout: cards
+    image:
+      query: page.images.first
+      cover: true
+    info: "{{ page.sourceName }} · {{ page.publishedDate.toDate('d M Y') }}"
+
+  add:
+    headline: Add an article
+    type: pages
+    template: press-article
+    create: press-article
+    layout: list
+    limit: 0

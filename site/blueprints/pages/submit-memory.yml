@@ -1,0 +1,38 @@
+title: Submit a memory
+preset: page
+icon: upload
+
+options:
+  changeSlug: false
+  changeTemplate: false
+
+sections:
+  intro:
+    type: fields
+    fields:
+      headline:
+        label: Headline
+        type: text
+        default: Got a photo? A video? A wildly inappropriate anecdote?
+      blurb:
+        label: Blurb
+        type: textarea
+        size: medium
+        default: |
+          We're piecing together twenty years of Remarkable Men's Ballet history,
+          and we need your help. If you've got a photo, a video, or just a story —
+          send it our way. Everything gets reviewed before it goes up.
+      thanks:
+        label: After-submit message
+        type: textarea
+        size: small
+        default: Thanks. We'll take a look and let you know if we use it.
+
+  submissions:
+    type: pages
+    label: Pending submissions
+    headline: Pending submissions
+    template: memory
+    layout: list
+    info: "{{ page.submittedBy }} · {{ page.submittedAt.toDate('d M Y') }}"
+    status: draft

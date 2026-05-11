@@ -1,0 +1,83 @@
+title: Photo
+icon: image
+
+options:
+  changeSlug: true
+
+columns:
+  - width: 2/3
+    sections:
+      image:
+        type: files
+        label: The photo
+        template: image
+        max: 1
+        layout: cards
+
+      details:
+        type: fields
+        fields:
+          description:
+            label: Description / caption
+            type: textarea
+            size: medium
+
+      tags:
+        type: fields
+        fields:
+          whoTags:
+            label: Who's in it
+            type: tags
+            help: Performer names or other people in the photo.
+          whatTags:
+            label: What's happening
+            type: tags
+            help: e.g. "rehearsal", "costume fitting", "post-show beer"
+          whenTags:
+            label: When context
+            type: tags
+            help: e.g. "opening night", "dress rehearsal", "after-party"
+          whereTags:
+            label: Where
+            type: tags
+            help: e.g. "Queenstown Events Centre", "backstage", "the pub"
+          whyTags:
+            label: Why context
+            type: tags
+            help: e.g. "celebration", "absolute nonsense", "we don't know either"
+
+  - width: 1/3
+    sections:
+      show:
+        type: fields
+        fields:
+          showName:
+            label: Show name
+            type: text
+            default: Queenstown Christmas Show
+          showDate:
+            label: Show date
+            type: date
+            display: YYYY-MM-DD
+          featured:
+            label: Featured?
+            type: toggle
+
+      performers:
+        type: fields
+        fields:
+          performers:
+            label: Performers in photo
+            type: pages
+            query: site.find('team').children
+            multiple: true
+
+      credit:
+        type: fields
+        fields:
+          photographer:
+            label: Photographer
+            type: text
+          submittedBy:
+            label: Submitted by (if from a fan)
+            type: text

@@ -1,6 +1,40 @@
-node_modules
-dist
+# Kirby core (installed via Composer)
+/kirby
+/vendor
+
+# Composer
+/composer.phar
+
+# Local config / secrets
+/site/config/config.localhost.php
+/site/accounts/*
+!/site/accounts/.gitkeep
+/site/sessions
+/site/cache
+/site/logs
+
+# Media cache (Kirby regenerates)
+/media
+
+# OS junk
 .DS_Store
-server/public
-vite.config.ts.*
-*.tar.gz
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor noise
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node (none in this project — keep ignored just in case)
+node_modules/
+dist/
+
+# Legacy app's local files
+/legacy/node_modules
+/legacy/dist
+/legacy/.local
+/legacy/.config

@@ -1,0 +1,61 @@
+title: Submitted memory
+icon: upload
+
+status:
+  draft:
+    label: Pending review
+    text: Hidden until approved.
+  unlisted:
+    label: Approved (private)
+    text: Reviewed; not yet published.
+  listed:
+    label: Published
+    text: Live on the site.
+
+columns:
+  - width: 2/3
+    sections:
+      submission:
+        type: fields
+        fields:
+          submittedBy:
+            label: Submitted by
+            type: text
+          submittedEmail:
+            label: Email
+            type: email
+          submittedAt:
+            label: Submitted at
+            type: date
+            display: YYYY-MM-DD HH:mm
+          story:
+            label: Story / context
+            type: textarea
+            size: large
+          showYear:
+            label: Show year (best guess)
+            type: number
+            min: 2005
+            max: 2030
+
+      assets:
+        type: files
+        label: Attached files
+        layout: cards
+
+  - width: 1/3
+    sections:
+      moderation:
+        type: fields
+        fields:
+          moderatorNotes:
+            label: Moderator notes
+            type: textarea
+            size: small
+          publishedTo:
+            label: Published to
+            type: select
+            options:
+              gallery: Gallery
+              timeline: Timeline year
+              none: Not yet

@@ -1,0 +1,38 @@
+title: Sponsor
+icon: heart
+
+options:
+  changeSlug: true
+
+columns:
+  - width: 2/3
+    sections:
+      basics:
+        type: fields
+        fields:
+          tier:
+            label: Tier
+            type: select
+            default: supporter
+            options:
+              principal: Principal
+              major: Major
+              supporter: Supporter
+              friend: Friend
+              inkind: In-kind
+          website:
+            label: Website
+            type: url
+          blurb:
+            label: Blurb (about them)
+            type: textarea
+            size: small
+
+  - width: 1/3
+    sections:
+      logo:
+        type: files
+        label: Logo
+        template: image
+        max: 1
+        layout: cards

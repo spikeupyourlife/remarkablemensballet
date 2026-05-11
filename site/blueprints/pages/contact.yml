@@ -1,0 +1,31 @@
+title: Contact
+preset: page
+icon: email
+
+options:
+  changeSlug: false
+  changeTemplate: false
+
+sections:
+  intro:
+    type: fields
+    fields:
+      headline:
+        label: Headline
+        type: text
+        default: Talk to us
+      blurb:
+        label: Blurb
+        type: textarea
+        size: small
+
+  details:
+    type: fields
+    fields:
+      email:
+        label: Public email
+        type: email
+      bookings:
+        label: Bookings / press contact
+        type: textarea
+        size: small

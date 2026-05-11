@@ -1,0 +1,39 @@
+title: Performances
+preset: pages
+icon: calendar
+
+options:
+  changeSlug: false
+  changeTemplate: false
+  delete: false
+
+sections:
+  intro:
+    type: fields
+    fields:
+      headline:
+        label: Headline
+        type: text
+        default: Upcoming nonsense
+      blurb:
+        label: Blurb
+        type: textarea
+        size: small
+
+  performances:
+    headline: Performances
+    type: pages
+    template: performance
+    layout: cards
+    image:
+      query: page.poster.toFile
+      cover: true
+    info: "{{ page.venue }} · {{ page.showDate.toDate('d M Y') }}"
+
+  add:
+    headline: Add a performance
+    type: pages
+    template: performance
+    create: performance
+    layout: list
+    limit: 0

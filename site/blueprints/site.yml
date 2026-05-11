@@ -1,0 +1,99 @@
+title: Remarkable Men's Ballet
+
+options:
+  changeSlug: false
+  changeTitle: false
+  delete: false
+
+tabs:
+  pages:
+    label: Pages
+    icon: page
+    columns:
+      - width: 1/1
+        sections:
+          mainPages:
+            type: pages
+            label: Main pages
+            templates:
+              - home
+              - about
+              - team
+              - gallery
+              - videos
+              - performances
+              - press
+              - timeline
+              - sponsors
+              - contact
+              - submit-memory
+
+  brand:
+    label: Brand & footer
+    icon: settings
+    columns:
+      - width: 1/2
+        sections:
+          identity:
+            type: fields
+            fields:
+              tagline:
+                label: Tagline
+                type: text
+                default: A little bit Monty Python. A little bit modern. We pretend to take it very seriously.
+              showName:
+                label: Show name
+                type: text
+                default: The Queenstown Christmas Show
+              showUrl:
+                label: Christmas Show URL
+                type: url
+                default: https://christmasshow.co.nz
+      - width: 1/2
+        sections:
+          social:
+            type: fields
+            fields:
+              facebook:
+                label: Facebook URL
+                type: url
+              instagram:
+                label: Instagram URL
+                type: url
+              youtube:
+                label: YouTube URL
+                type: url
+              tiktok:
+                label: TikTok URL
+                type: url
+              contactEmail:
+                label: Contact email
+                type: email
+
+  legal:
+    label: Legal & SEO
+    icon: protected
+    columns:
+      - width: 1/1
+        sections:
+          legal:
+            type: fields
+            fields:
+              metaDescription:
+                label: Default meta description
+                type: textarea
+                size: small
+                default: The Remarkable Men's Ballet — Queenstown's most cherished annual cameo. Celebrating 20 years of doing it for the kids.
+              ogImage:
+                label: Default social share image
+                type: files
+                multiple: false
+                query: site.files.template('image')
+              privacyPolicy:
+                label: Privacy policy
+                type: textarea
+                size: large
+              termsOfService:
+                label: Terms of service
+                type: textarea
+                size: large

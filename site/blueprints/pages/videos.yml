@@ -1,0 +1,39 @@
+title: Videos
+preset: pages
+icon: video
+
+options:
+  changeSlug: false
+  changeTemplate: false
+  delete: false
+
+sections:
+  intro:
+    type: fields
+    fields:
+      headline:
+        label: Headline
+        type: text
+        default: The (sort of) action
+      blurb:
+        label: Blurb
+        type: textarea
+        size: small
+
+  videos:
+    headline: Videos
+    type: pages
+    template: video
+    layout: cards
+    image:
+      query: page.thumbnail.toFile
+      cover: true
+    info: "{{ page.videoType }}"
+
+  add:
+    headline: Add a video
+    type: pages
+    template: video
+    create: video
+    layout: list
+    limit: 0

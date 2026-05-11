@@ -1,0 +1,73 @@
+title: Sponsors & supporters
+preset: pages
+icon: heart
+
+options:
+  changeSlug: false
+  changeTemplate: false
+  delete: false
+
+columns:
+  - width: 2/3
+    sections:
+      intro:
+        type: fields
+        fields:
+          headline:
+            label: Headline
+            type: text
+            default: The people who make this possible
+          blurb:
+            label: Blurb
+            type: textarea
+            size: medium
+
+      causeIntro:
+        type: fields
+        fields:
+          causeHeadline:
+            label: "Where the money goes — headline"
+            type: text
+            default: Doing it for the kids
+          causeBody:
+            label: "Where the money goes — body"
+            type: textarea
+            size: medium
+
+      sponsors:
+        type: pages
+        headline: Sponsors
+        template: sponsor
+        layout: cards
+        image:
+          query: page.logo.toFile
+          cover: false
+        info: "{{ page.tier }}"
+
+      add:
+        type: pages
+        headline: Add a sponsor
+        template: sponsor
+        create: sponsor
+        layout: list
+        limit: 0
+
+  - width: 1/3
+    sections:
+      donate:
+        type: fields
+        fields:
+          donationsActive:
+            label: Donations active?
+            type: toggle
+          donationHeadline:
+            label: Donation headline
+            type: text
+            default: Chip in for the kids
+          donationUrl:
+            label: Donation URL
+            type: url
+          donationCta:
+            label: Donate button label
+            type: text
+            default: Donate

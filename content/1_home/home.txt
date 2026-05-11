@@ -1,0 +1,55 @@
+Title: Home
+
+----
+
+Herohead­line: Remarkable Men's Ballet
+
+----
+
+Heroflourish: twenty years of pretending we know what we're doing
+
+----
+
+Heroblurb: A Queenstown Christmas tradition. Big lads. Tiny tutus. Slightly questionable choreography. All for the kids.
+
+----
+
+Herocta: Watch us prance
+
+----
+
+Heroctalink: /videos
+
+----
+
+Herosecondarycta: Twenty years of nonsense
+
+----
+
+Herosecondarylink: /timeline
+
+----
+
+Introheadline: A serious endeavour. Mostly.
+
+----
+
+Introbody:
+
+We are the Remarkable Men's Ballet — a small army of (mostly) untrained men, performing one extremely committed dance routine, once a year, at the Queenstown Christmas Show.
+
+We have been doing this for twenty years.
+
+Nobody has stopped us yet.
+
+----
+
+Sections:
+
+----
+
+Metatitle:
+
+----
+
+Metadescription: A Queenstown Christmas tradition. Twenty years of the Remarkable Men's Ballet — doing it for the kids.

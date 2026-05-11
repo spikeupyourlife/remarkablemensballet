@@ -1,0 +1,68 @@
+title: Performance
+icon: calendar
+
+options:
+  changeSlug: true
+
+columns:
+  - width: 2/3
+    sections:
+      basics:
+        type: fields
+        fields:
+          description:
+            label: Description
+            type: textarea
+            size: medium
+          venue:
+            label: Venue
+            type: text
+            required: true
+            default: Queenstown Events Centre
+          showDate:
+            label: Primary show date
+            type: date
+            display: YYYY-MM-DD
+            required: true
+          showTimes:
+            label: All show times
+            type: structure
+            fields:
+              date:
+                label: Date
+                type: date
+                display: YYYY-MM-DD
+              time:
+                label: Time
+                type: time
+              note:
+                label: Note (optional)
+                type: text
+                help: e.g. "Matinee", "Opening night", "Gala"
+
+      ticketing:
+        type: fields
+        fields:
+          ticketUrl:
+            label: Ticket URL
+            type: url
+          ticketProvider:
+            label: Ticket provider (display label)
+            type: text
+            default: Humanitix
+
+  - width: 1/3
+    sections:
+      poster:
+        type: files
+        label: Poster
+        template: image
+        max: 1
+        layout: cards
+
+      meta:
+        type: fields
+        fields:
+          featured:
+            label: Featured?
+            type: toggle

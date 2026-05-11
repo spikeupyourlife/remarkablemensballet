@@ -1,0 +1,89 @@
+title: Home
+preset: page
+icon: home
+
+options:
+  changeSlug: false
+  changeTemplate: false
+  delete: false
+  duplicate: false
+
+columns:
+  - width: 2/3
+    sections:
+      hero:
+        type: fields
+        fields:
+          heroHeadline:
+            label: Hero headline
+            type: text
+            default: Remarkable Men's Ballet
+          heroFlourish:
+            label: Hero flourish (scripty bit)
+            type: text
+            default: twenty years of pretending we know what we're doing
+          heroBlurb:
+            label: Hero blurb
+            type: textarea
+            size: small
+            default: A Queenstown Christmas tradition. Big lads. Tiny tutus. Slightly questionable choreography. All for the kids.
+          heroCta:
+            label: Primary call-to-action label
+            type: text
+            default: Watch us prance
+          heroCtaLink:
+            label: Primary CTA link
+            type: link
+            default: /videos
+          heroSecondaryCta:
+            label: Secondary CTA label
+            type: text
+            default: Twenty years of nonsense
+          heroSecondaryLink:
+            label: Secondary CTA link
+            type: link
+            default: /timeline
+
+      intro:
+        type: fields
+        fields:
+          introHeadline:
+            label: Intro headline
+            type: text
+            default: A serious endeavour. Mostly.
+          introBody:
+            label: Intro body
+            type: textarea
+            size: medium
+
+      sections:
+        type: blocks
+        label: Page sections
+        fieldsets:
+          - heading
+          - text
+          - image
+          - quote
+          - video
+          - gallery
+
+  - width: 1/3
+    sections:
+      heroImage:
+        type: files
+        label: Hero image
+        template: image
+        max: 1
+        layout: cards
+        info: "{{ file.dimensions }}"
+
+      pageMeta:
+        type: fields
+        fields:
+          metaTitle:
+            label: SEO title override
+            type: text
+          metaDescription:
+            label: SEO description override
+            type: textarea
+            size: small

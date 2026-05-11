@@ -1,0 +1,52 @@
+# Kirby .htaccess — Apache / LiteSpeed
+# Adjust RewriteBase if Kirby lives in a subfolder.
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+
+# RewriteBase /
+
+# Block all files in the content folder from being accessed directly
+RewriteRule ^content/(.*?\.(txt|md|mdown))$ index.php [L]
+
+# Block all files in the site folder from being accessed directly
+RewriteRule ^site/(.*) index.php [L]
+
+# Block direct access to Kirby and the Panel sources
+RewriteRule ^kirby/(.*) index.php [L]
+
+# Make site links work
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.*)$ index.php [L]
+
+</IfModule>
+
+# Pretty error responses
+ErrorDocument 404 /error
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png  "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/avif "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType text/css   "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+# Security
+<FilesMatch "(^\.|composer\.(json|lock)|package\.json)">
+    Require all denied
+</FilesMatch>
+
+Options -Indexes
