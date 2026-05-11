@@ -29,12 +29,18 @@ desktop.ini
 *.swo
 *~
 
+# Claude Code session state (worktrees, local settings)
+.claude/
+
 # Node (none in this project — keep ignored just in case)
 node_modules/
 dist/
 
-# Legacy app's local files
+# Legacy app's local files (Replit-era build artefacts left in the root)
 /legacy/node_modules
 /legacy/dist
 /legacy/.local
 /legacy/.config
+/dist
+/public
+/node_modules
