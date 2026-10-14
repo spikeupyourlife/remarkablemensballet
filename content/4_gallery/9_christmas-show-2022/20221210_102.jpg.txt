@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2022-12-10 10:00:00
+
+----
+
+Iscover: false
+
+----
+
+Camera: 
+
+----
+
+Lens:
+
+----
+
+Gpslat: 
+
+----
+
+Gpslng: 
+
+----
+
+Originalfilename: 20221210_102.jpg

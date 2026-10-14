@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2026-04-16 12:34:29
+
+----
+
+Iscover: false
+
+----
+
+Camera: samsung Galaxy Z Fold6
+
+----
+
+Lens: 
+
+----
+
+Gpslat: -44.940853
+
+----
+
+Gpslng: 168.832849
+
+----
+
+Originalfilename: 20260416_123428.jpg

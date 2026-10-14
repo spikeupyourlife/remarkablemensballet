@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2025-04-25 12:01:25
+
+----
+
+Iscover: false
+
+----
+
+Camera: samsung Galaxy Z Fold6
+
+----
+
+Lens: 
+
+----
+
+Gpslat: -44.938556
+
+----
+
+Gpslng: 168.832648
+
+----
+
+Originalfilename: 20250425_120125.jpg

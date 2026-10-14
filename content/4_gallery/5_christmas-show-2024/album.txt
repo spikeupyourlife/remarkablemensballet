@@ -1,0 +1,27 @@
+Title: Christmas Show 2024
+
+----
+
+Headline: Christmas Show 2024
+
+----
+
+Description:
+
+The 18th annual show. The year of the presents. The tutus had a sad year off.
+
+----
+
+Showdate: 2024-12-08
+
+----
+
+Location: Queenstown Events Centre
+
+----
+
+Featured: false
+
+----
+
+Showinlist: true

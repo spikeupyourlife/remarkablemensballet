@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2025-12-07 16:27:38
+
+----
+
+Iscover: false
+
+----
+
+Camera: samsung Galaxy Z Fold6
+
+----
+
+Lens: 
+
+----
+
+Gpslat: -45.016113
+
+----
+
+Gpslng: 168.738111
+
+----
+
+Originalfilename: 20251207_162738.jpg

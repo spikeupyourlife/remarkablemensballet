@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2019-12-15 16:51:15
+
+----
+
+Iscover: false
+
+----
+
+Camera: HUAWEI VOG-L09
+
+----
+
+Lens: 
+
+----
+
+Gpslat: 
+
+----
+
+Gpslng: 
+
+----
+
+Originalfilename: IMG_20191215_165113.jpg

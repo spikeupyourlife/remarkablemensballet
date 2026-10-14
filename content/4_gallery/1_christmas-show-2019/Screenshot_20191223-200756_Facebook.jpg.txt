@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2019-12-23 20:07:56
+
+----
+
+Iscover: false
+
+----
+
+Camera: 
+
+----
+
+Lens: 
+
+----
+
+Gpslat: 
+
+----
+
+Gpslng: 
+
+----
+
+Originalfilename: Screenshot_20191223-200756_Facebook.jpg

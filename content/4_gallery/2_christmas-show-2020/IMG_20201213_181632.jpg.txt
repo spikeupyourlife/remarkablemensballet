@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2020-12-13 18:16:36
+
+----
+
+Iscover: false
+
+----
+
+Camera: HUAWEI ELE-L09
+
+----
+
+Lens: 
+
+----
+
+Gpslat: -45.016617
+
+----
+
+Gpslng: 168.737289
+
+----
+
+Originalfilename: IMG_20201213_181632.jpg

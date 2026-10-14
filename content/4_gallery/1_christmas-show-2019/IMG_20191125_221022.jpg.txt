@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2019-11-25 22:10:24
+
+----
+
+Iscover: false
+
+----
+
+Camera: HUAWEI VOG-L09
+
+----
+
+Lens: 
+
+----
+
+Gpslat: -44.992294
+
+----
+
+Gpslng: 168.671890
+
+----
+
+Originalfilename: IMG_20191125_221022.jpg

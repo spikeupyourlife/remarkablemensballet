@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2019-12-09 19:55:21
+
+----
+
+Iscover: false
+
+----
+
+Camera: HUAWEI VOG-L09
+
+----
+
+Lens: 
+
+----
+
+Gpslat: 
+
+----
+
+Gpslng: 
+
+----
+
+Originalfilename: IMG_20191209_195519.jpg

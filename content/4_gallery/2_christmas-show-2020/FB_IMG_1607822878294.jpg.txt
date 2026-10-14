@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2020-12-13 14:27:58
+
+----
+
+Iscover: false
+
+----
+
+Camera: 
+
+----
+
+Lens: 
+
+----
+
+Gpslat: 
+
+----
+
+Gpslng: 
+
+----
+
+Originalfilename: FB_IMG_1607822878294.jpg

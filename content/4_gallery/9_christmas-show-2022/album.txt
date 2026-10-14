@@ -1,0 +1,27 @@
+Title: Christmas Show 2022
+
+----
+
+Headline: Christmas Show 2022
+
+----
+
+Description:
+
+
+
+----
+
+Showdate: 2022-12-08
+
+----
+
+Location: Queenstown Events Centre
+
+----
+
+Featured: false
+
+----
+
+Showinlist: true

@@ -1,0 +1,27 @@
+Title: Christmas Show 2021
+
+----
+
+Headline: Christmas Show 2021
+
+----
+
+Description:
+
+The 15th show. We did most of it online, somehow.
+
+----
+
+Showdate: 2021-12-10
+
+----
+
+Location: Queenstown
+
+----
+
+Featured: false
+
+----
+
+Showinlist: true

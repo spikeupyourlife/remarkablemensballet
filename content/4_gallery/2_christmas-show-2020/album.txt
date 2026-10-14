@@ -1,0 +1,27 @@
+Title: Christmas Show 2020
+
+----
+
+Headline: Christmas Show 2020
+
+----
+
+Description:
+
+The 14th show. The year of the asterisks.
+
+----
+
+Showdate: 2020-12-13
+
+----
+
+Location: Queenstown
+
+----
+
+Featured: false
+
+----
+
+Showinlist: true

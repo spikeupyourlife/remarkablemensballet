@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2025-04-25 14:28:42
+
+----
+
+Iscover: false
+
+----
+
+Camera: samsung SM-G780G
+
+----
+
+Lens: 
+
+----
+
+Gpslat: 
+
+----
+
+Gpslng: 0.000000
+
+----
+
+Originalfilename: 20250425_142841.jpg

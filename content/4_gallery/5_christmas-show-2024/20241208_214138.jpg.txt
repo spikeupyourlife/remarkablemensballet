@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2024-12-08 21:41:38
+
+----
+
+Iscover: false
+
+----
+
+Camera: samsung SM-G780G
+
+----
+
+Lens: 
+
+----
+
+Gpslat: 
+
+----
+
+Gpslng: 
+
+----
+
+Originalfilename: 20241208_214138.jpg

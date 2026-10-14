@@ -1,0 +1,27 @@
+Title: Christmas Show 2019
+
+----
+
+Headline: Christmas Show 2019
+
+----
+
+Description:
+
+The 13th annual Queenstown Christmas Show. Big tutus, bigger hair.
+
+----
+
+Showdate: 2019-12-15
+
+----
+
+Location: Queenstown
+
+----
+
+Featured: false
+
+----
+
+Showinlist: true

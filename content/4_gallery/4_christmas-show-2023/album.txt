@@ -1,0 +1,27 @@
+Title: Christmas Show 2023
+
+----
+
+Headline: Christmas Show 2023
+
+----
+
+Description:
+
+The 17th annual Christmas Show — *Not a Creature Was Stirring (Not Even a Mouse)*.
+
+----
+
+Showdate: 2023-12-10
+
+----
+
+Location: Queenstown Events Centre
+
+----
+
+Featured: false
+
+----
+
+Showinlist: true

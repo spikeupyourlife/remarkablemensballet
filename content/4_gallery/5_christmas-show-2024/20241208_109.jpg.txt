@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2024-12-08 10:00:00
+
+----
+
+Iscover: false
+
+----
+
+Camera: 
+
+----
+
+Lens:
+
+----
+
+Gpslat: 
+
+----
+
+Gpslng: 
+
+----
+
+Originalfilename: 20241208_109.jpg

@@ -1,0 +1,41 @@
+Template: image
+
+----
+
+Caption:
+
+----
+
+Alt:
+
+----
+
+Credit:
+
+----
+
+Takenat: 2025-11-25 21:13:41
+
+----
+
+Iscover: false
+
+----
+
+Camera: 
+
+----
+
+Lens: 
+
+----
+
+Gpslat: 
+
+----
+
+Gpslng: 
+
+----
+
+Originalfilename: Screenshot_20251125_211341_WhatsApp.jpg
