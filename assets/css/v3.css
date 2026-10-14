@@ -41,3 +41,14 @@
   .countdown span { font-size: 2rem; }
   .nextshow__card { padding: 1.3rem; box-shadow: 5px 5px 0 var(--gold, #c9a227); }
 }
+/* Forms (Oct 2026) */
+.honeypot { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-msg { padding: 1rem 1.2rem; border-radius: .6rem; margin: 0 0 1.5rem; font-weight: 500; }
+.form-msg--ok { background: #e9f7ef; border: 2px solid #2e7d4f; color: #1d4d31; }
+.form-msg--err { background: #fdecef; border: 2px solid #c2185b; color: #7a0f38; }
+.signup { padding: 4rem 1.5rem; background: var(--paper, #fbf8f2); }
+.signup__inner { max-width: 40rem; margin: 0 auto; }
+.rmb-form { display: grid; gap: 1rem; }
+.rmb-form__field { display: grid; gap: .35rem; font-weight: 600; }
+.rmb-form input, .rmb-form textarea { font: inherit; font-weight: 400; padding: .7rem .8rem; border: 1px solid var(--line, #d8d3c7); border-radius: .5rem; background: #fff; width: 100%; box-sizing: border-box; }
+.rmb-form button { justify-self: start; }

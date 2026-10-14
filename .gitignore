@@ -56,3 +56,6 @@ dist/
 /content/**/*.mov
 /content/**/*.m4v
 /content/**/*.webm
+
+# Review-phase Basic Auth file (deployed via zip only)
+/.htpasswd

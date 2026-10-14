@@ -39,7 +39,7 @@ return [
             'type'      => 'file',
             'ignore'    => function ($page) {
                 // Don't cache pages with forms / dynamic content
-                return in_array($page->intendedTemplate()->name(), ['submit-memory', 'contact']);
+                return in_array($page->intendedTemplate()->name(), ['submit-memory', 'contact', 'join']);
             },
         ],
     ],
@@ -68,6 +68,11 @@ return [
     // Brand-specific globals
     'rmb' => [
         'show_year' => 20, // 20th anniversary
+        // Every site form emails here (never shown on the site)
+        'forms' => [
+            'to'   => 'spike@queenstown.com',
+            'from' => 'noreply@remarkablemensballet.com',
+        ],
         // Primary nav, in order (Contact lives in the footer; Join is the Audition button)
         'nav' => ['our-story', 'hall-of-fame', 'performances', 'gallery', 'press', 'support-us'],
         // Next show card + countdown. Venue and tickets: christmasshow.co.nz only.

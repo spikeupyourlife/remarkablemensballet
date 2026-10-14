@@ -1,5 +1,4 @@
 <?php snippet('header') ?>
-<?php $email = $page->ctaEmail()->or($site->contactEmail()); ?>
 <header class="page-head page-head--curtain">
     <div class="page-head__inner">
         <p class="page-head__eyebrow">Now casting · Season 21</p>
@@ -22,12 +21,21 @@
         <div class="audition__process reveal">
             <h2>The process</h2>
             <?= $page->process()->kt() ?>
-            <?php if ($email->isNotEmpty()): ?>
-                <a class="btn btn--primary" data-confetti href="mailto:<?= $email ?>?subject=I%20would%20like%20to%20wear%20the%20tutu"><?= $page->ctaLabel()->escape() ?></a>
-            <?php else: ?>
-                <p class="coming-soon">Sign-ups open soon. Our audition inbox is still being fitted for a tutu. Meanwhile, leave your name via the <a href="/submit-memory">memory form</a> and we'll be in touch.</p>
-            <?php endif ?>
+            <a class="btn btn--primary" data-confetti href="#signup"><?= $page->ctaLabel()->escape() ?></a>
         </div>
+    </div>
+</section>
+<section class="signup" id="signup">
+    <div class="signup__inner">
+        <p class="eyebrow">Step one</p>
+        <h2 class="display">Put my name down</h2>
+        <?php if ($sent): ?>
+            <?php snippet('form-messages', ['sent' => 'Bravo. Your name is in the tutu hat. Someone from the troupe will be in touch before rehearsals start. Start pointing your toes.']) ?>
+        <?php else: ?>
+            <p>Tell us who you are and describe your single best dance move. In words. We are not ready for video.</p>
+            <?php snippet('form-messages', ['error' => $error]) ?>
+            <?php snippet('rmb-form', ['fields' => $fields, 'values' => $values, 'textareas' => ['move', 'notes'], 'required' => ['name', 'email', 'move'], 'button' => 'Sign me up', 'action' => $page->url() . '#signup']) ?>
+        <?php endif ?>
     </div>
 </section>
 <?php $faq = $page->faq()->toStructure(); if ($faq->count()): ?>

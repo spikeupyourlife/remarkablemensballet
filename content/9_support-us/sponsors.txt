@@ -10,7 +10,7 @@ Blurb: A ballet of this scale doesn't happen without serious support. These are 
 
 ----
 
-Emptyblurb: This space is reserved for the visionary business that wants its name next to twenty grown men in tulle. Sponsorship details coming soon.
+Emptyblurb: This space is reserved for the visionary business that wants its name next to twenty grown men in tulle. Keen? (link: /contact text: Send us a note).
 
 ----
 

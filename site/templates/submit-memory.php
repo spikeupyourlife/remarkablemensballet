@@ -25,23 +25,24 @@
                   method="post"
                   enctype="multipart/form-data">
 
-                <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <?php snippet('form-messages', ['error' => $error ?? null]) ?>
+                <?php snippet('honeypot') ?>
 
                 <label>
                     Your name
-                    <input type="text" name="name" required maxlength="120">
+                    <input type="text" name="name" required maxlength="120" value="<?= esc($values['name'] ?? '', 'attr') ?>">
                 </label>
                 <label>
                     Email
-                    <input type="email" name="email" required maxlength="200">
+                    <input type="email" name="email" required maxlength="200" value="<?= esc($values['email'] ?? '', 'attr') ?>">
                 </label>
                 <label>
                     What year was this? (best guess)
-                    <input type="number" name="year" min="2005" max="<?= date('Y') ?>">
+                    <input type="number" name="year" min="2006" max="<?= date('Y') ?>">
                 </label>
                 <label>
                     The story / context
-                    <textarea name="story" rows="5" maxlength="4000" required></textarea>
+                    <textarea name="story" rows="5" maxlength="4000" required><?= esc($values['story'] ?? '') ?></textarea>
                 </label>
                 <label>
                     Attach photos or short videos (multiple)

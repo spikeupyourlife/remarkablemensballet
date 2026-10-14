@@ -56,3 +56,73 @@ if (!function_exists('av')) {
         return url($path) . ($v ? '?v=' . $v : '');
     }
 }
+
+/**
+ * Form helpers (Oct 2026). Every site form posts through rmbHandleForm(), which
+ * checks CSRF + honeypot + required fields, then emails the submission via
+ * Kirby's email() using the host's PHP mail() transport (see production configs).
+ *
+ * rmbHandleForm('Contact', ['name' => 'Your name', ...], ['name', 'email', 'message'])
+ * returns ['ok' => bool, 'error' => ?string, 'values' => array]
+ */
+if (!function_exists('rmbFormValues')) {
+    function rmbFormValues(array $fields): array
+    {
+        $v = [];
+        foreach (array_keys($fields) as $k) {
+            $v[$k] = trim(Kirby\Toolkit\Str::substr((string) get($k, ''), 0, $k === 'message' || $k === 'story' ? 4000 : 300));
+        }
+        return $v;
+    }
+
+    function rmbValidateForm(array $fields, array $required): array
+    {
+        $values = rmbFormValues($fields);
+        if (csrf(get('csrf')) !== true) {
+            return ['ok' => false, 'error' => 'Your session went for a lie-down. Please try sending that again.', 'values' => $values];
+        }
+        if ((string) get('website', '') !== '') {
+            // Honeypot tripped: pretend all is well, send nothing.
+            return ['ok' => false, 'spam' => true, 'error' => null, 'values' => $values];
+        }
+        foreach ($required as $k) {
+            if ($values[$k] === '') {
+                return ['ok' => false, 'error' => 'Please fill in ' . strtolower($fields[$k]) . '. Even ballerinas need the basics.', 'values' => $values];
+            }
+        }
+        if (isset($values['email']) && $values['email'] !== '' && !Kirby\Toolkit\V::email($values['email'])) {
+            return ['ok' => false, 'error' => "That email address doesn't look quite right. Mind checking it?", 'values' => $values];
+        }
+        return ['ok' => true, 'error' => null, 'values' => $values];
+    }
+
+    /** Send a form submission. Returns true on success; logs and returns false on failure. */
+    function rmbSendForm(string $formName, array $fields, array $values, array $extraLines = []): bool
+    {
+        $name = $values['name'] ?? 'Anonymous';
+        $lines = ["New {$formName} submission from the Remarkable Men's Ballet website", ''];
+        foreach ($fields as $k => $label) {
+            $lines[] = $label . ': ' . (($values[$k] ?? '') === '' ? '(blank)' : $values[$k]);
+        }
+        $lines = array_merge($lines, $extraLines, ['', 'Sent: ' . (new DateTime('now', new DateTimeZone('Pacific/Auckland')))->format('Y-m-d H:i T'), 'Page: ' . (kirby()->request()->url()->toString())]);
+        // Strip anything that could break a header.
+        $subjectName = preg_replace('/[\r\n]+/', ' ', $name);
+        try {
+            $mail = [
+                'to'      => option('rmb.forms.to', 'spike@queenstown.com'),
+                'from'    => option('rmb.forms.from', 'noreply@remarkablemensballet.com'),
+                'fromName'=> "Remarkable Men's Ballet website",
+                'subject' => '[RMB] ' . $formName . ': ' . Kirby\Toolkit\Str::substr($subjectName, 0, 80),
+                'body'    => implode("\n", $lines),
+            ];
+            if (!empty($values['email']) && Kirby\Toolkit\V::email($values['email'])) {
+                $mail['replyTo'] = $values['email'];
+            }
+            kirby()->email($mail);
+            return true;
+        } catch (\Throwable $e) {
+            error_log('[RMB forms] ' . $formName . ' email failed: ' . $e->getMessage());
+            return false;
+        }
+    }
+}
