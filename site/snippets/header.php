@@ -31,6 +31,7 @@
     <?= css(av('assets/css/main.css')) ?>
     <?= css(av('assets/css/upgrade.css')) ?>
     <?= css(av('assets/css/v2.css')) ?>
+    <?= css(av('assets/css/v3.css')) ?>
     <?php $tplCss = 'assets/css/' . $page->intendedTemplate()->name() . '.css'; if (is_file(kirby()->root('index') . '/' . $tplCss)) echo css(av($tplCss)); ?>
 </head>
 <body class="page--<?= $page->intendedTemplate() ?>">
@@ -55,7 +56,7 @@
                 <span aria-hidden="true">≡</span>
             </button>
             <ul id="site-nav-list" class="site-nav__list">
-                <?php foreach ($site->children()->listed()->not('home', 'sponsors', 'contact', 'submit-memory') as $item): ?>
+                <?php foreach (array_filter(array_map('page', option('rmb.nav', []))) as $item): ?>
                     <li class="site-nav__item">
                         <a href="<?= $item->url() ?>"
                            class="site-nav__link <?= $item->isOpen() ? 'is-active' : '' ?>">

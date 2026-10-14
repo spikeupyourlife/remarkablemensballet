@@ -10,32 +10,24 @@
 
 <?php
 $all = $page->children()->listed()->filterBy('showInList', true);
-$types = $all->groupBy('personType');
-
-$labels = [
-    'performer'     => 'Performers',
-    'choreographer' => 'Choreographers',
-    'costume'       => 'Costume',
-    'makeup'        => 'Makeup',
-    'musician'      => 'Music',
-    'director'      => 'Direction',
-    'producer'      => 'Production',
-    'assistant'     => 'The PAs',
-    'fan'           => 'Honorary members',
-    'rookie'        => 'Rookies',
-    'other'         => 'Other miracle workers',
+$perf = $all->filter(fn($p) => $p->personType()->value() === 'performer');
+$sections = [
+    ['current', 'The current company', 'Active duty. Tutus pressed. Dignity on leave.', $perf->filter(fn($p) => $p->isCurrent()->toBool())],
+    ['choreo', 'Choreographers and crew', 'The people who make it look (almost) intentional.', $all->filter(fn($p) => $p->personType()->value() !== 'performer')],
+    ['alumni', 'Alumni', 'Retired from the stage. Never from our hearts. Some of them still have the tutu.', $perf->filter(fn($p) => !$p->isCurrent()->toBool())],
 ];
 ?>
 
 <section class="team">
-    <p class="draft-note draft-note--center">Card stats in grey italics are [DRAFT] placeholders. Dancers: send corrections, bribes accepted.</p>
+    <p class="draft-note draft-note--center">Card stats in grey italics are placeholders until the dancer confirms them (bribes accepted). Know a name we've missed? <a href="/submit-memory">Tell us</a>.</p>
     <div class="team__inner">
-        <?php foreach ($labels as $key => $heading): ?>
-            <?php if (!isset($types->$key) || $types->$key->count() === 0) continue; ?>
-            <div class="team__section" data-type="<?= $key ?>">
-                <h2 class="team__heading"><?= $heading ?></h2>
+        <?php foreach ($sections as [$key, $heading, $blurb, $people]): ?>
+            <?php if ($people->count() === 0) continue; ?>
+            <div class="team__section" id="<?= $key ?>" data-type="<?= $key ?>">
+                <h2 class="team__heading"><?= $heading ?> <small>(<?= $people->count() ?>)</small></h2>
+                <p class="team__blurb"><?= $blurb ?></p>
                 <div class="tgrid">
-                    <?php foreach ($types->$key as $person): ?>
+                    <?php foreach ($people as $person): ?>
                         <?php snippet('person-card', ['person' => $person]) ?>
                     <?php endforeach ?>
                 </div>

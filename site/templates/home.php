@@ -1,9 +1,10 @@
 <?php snippet('header') ?>
 <?php
 $heroImage = $page->images()->first();
-$team = page('team');
+$team = page('hall-of-fame');
+$story = page('our-story');
 $members = $team ? $team->children()->listed() : null;
-$withPhoto = $members ? $members->filter(fn($p) => $p->images()->count() > 0) : null;
+$withPhoto = $members ? $members->filter(fn($p) => $p->images()->count() > 0)->sortBy('isCurrent', 'desc', 'num', 'asc') : null;
 $nextShow = page('performances')?->children()->listed()
     ->filter(fn($p) => $p->showDate()->toDate() >= time())->sortBy('showDate', 'asc')->first();
 $press = page('press')?->children()->listed()->limit(10);
@@ -31,7 +32,7 @@ $press = page('press')?->children()->listed()->limit(10);
             </div>
         </div>
         <div class="hero__ctas hero__ctas--left reveal">
-            <a href="/team" class="btn btn--gold btn--lg">Enter the Hall of Fame</a>
+            <a href="/hall-of-fame" class="btn btn--gold btn--lg">Enter the Hall of Fame</a>
             <a href="/join" class="btn btn--ghost btn--lg" data-confetti>Audition (if you dare)</a>
         </div>
     </div>
@@ -64,14 +65,9 @@ $press = page('press')?->children()->listed()->limit(10);
     </div>
 </section>
 
-<section class="numbers">
-    <div class="numbers__inner reveal-stagger">
-        <div><span class="numbers__n" data-count="20">20</span><span class="numbers__l">years of tulle</span></div>
-        <div><span class="numbers__n" data-count="<?= $members ? $members->count() : 0 ?>"><?= $members ? $members->count() : 0 ?></span><span class="numbers__l">names in the Hall of Fame</span></div>
-        <div><span class="numbers__n" data-count="3">3</span><span class="numbers__l">mayors in tutus</span></div>
-        <div><span class="numbers__n" data-count="2700">2,700</span><span class="numbers__l">witnesses in 2025</span></div>
-    </div>
-</section>
+<?php snippet('next-show') ?>
+
+<?php snippet('stats', ['story' => $story]) ?>
 
 <?php if ($withPhoto && $withPhoto->count()): ?>
 <section class="hof-strip">
@@ -84,32 +80,12 @@ $press = page('press')?->children()->listed()->limit(10);
         <div class="tgrid tgrid--fan">
             <?php foreach ($withPhoto->limit(4) as $person): ?><?php snippet('person-card', ['person' => $person]) ?><?php endforeach ?>
         </div>
-        <p class="section-cta"><a href="/team" class="btn btn--outline">See all <?= $members->count() ?> cards</a></p>
+        <p class="section-cta"><a href="/hall-of-fame" class="btn btn--outline">See all <?= $members->count() ?> cards</a></p>
     </div>
 </section>
 <?php endif ?>
 
-<section class="htl" aria-label="Twenty years, give or take">
-    <div class="htl__head reveal">
-        <p class="eyebrow">The long and winding pirouette</p>
-        <h2 class="display">Twenty years<br>in twelve seconds</h2>
-        <p class="draft-note">[DRAFT] Milestones from the press archive. Spike to verify.</p>
-    </div>
-    <ol class="htl__track" tabindex="0">
-        <?php foreach ([
-            ['2006', 'The idea', 'Doug Kamo and Simon Green talk a group of grown men into tutus. Nobody has recovered.'],
-            ['2009', 'A mayor in tulle', 'Mayor Clive Geddes joins the line. Civic dignity takes a brief holiday.'],
-            ['2010', 'The dream team', 'The press notices. "Dream team" is the phrase used. We have framed it.'],
-            ['2011', 'The class of 2011', 'James Beech files a column from inside the troupe. Journalism is never the same.'],
-            ['2013', 'Enter the choreographer', 'Anna Stuart takes charge of the steps. Standards rise, briefly.'],
-            ['2020', 'Winter Festival', 'The troupe goes rogue at the Queenstown Winter Festival. In winter. In tutus.'],
-            ['2025', 'Arrowtown, and a record', 'First ever show outside the Christmas Show, then a record 2,700 crowd in December.'],
-            ['2026', 'Year twenty', 'Christmas Stars. The 20th anniversary. We pretend to be very calm about it.'],
-        ] as [$y, $t, $b]): ?>
-            <li class="htl__item"><span class="htl__year"><?= $y ?></span><h3><?= $t ?></h3><p><?= $b ?></p></li>
-        <?php endforeach ?>
-    </ol>
-</section>
+<?php snippet('milestones', ['story' => $story, 'more' => true]) ?>
 
 <?php if ($press && $press->count()): ?>
 <section class="marquee" aria-label="As seen in the press">
@@ -127,7 +103,7 @@ $press = page('press')?->children()->listed()->limit(10);
 <section class="recruit ballet-gradient">
     <div class="recruit__inner">
         <h2>Could <em>you</em> be Remarkable?</h2>
-        <p>[DRAFT] No experience. No flexibility. No problem. We are always on the lookout for brave men of the Lakes District with a free week in December and a loose grip on dignity.</p>
+        <p>No experience. No flexibility. No problem. We are always on the lookout for brave men of the Lakes District with a free week in December and a loose grip on dignity.</p>
         <a class="btn btn--gold btn--lg" href="/join" data-confetti>Read the audition requirements</a>
     </div>
 </section>

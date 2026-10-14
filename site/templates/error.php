@@ -6,7 +6,7 @@
         <p class="oops__blurb"><?= $page->blurb()->escape() ?></p>
         <div class="hero__ctas">
             <a class="btn btn--primary" href="<?= url() ?>">Back to the home page</a>
-            <a class="btn btn--outline" href="<?= url('team') ?>">Meet the troupe</a>
+            <a class="btn btn--outline" href="<?= url('hall-of-fame') ?>">Meet the troupe</a>
         </div>
     </div>
 </section>

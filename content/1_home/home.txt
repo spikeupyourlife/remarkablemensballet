@@ -18,7 +18,7 @@ Herocta: Watch us prance
 
 ----
 
-Heroctalink: /videos
+Heroctalink: /performances
 
 ----
 
@@ -26,7 +26,7 @@ Herosecondarycta: Twenty years of nonsense
 
 ----
 
-Herosecondarylink: /timeline
+Herosecondarylink: /our-story
 
 ----
 
@@ -36,7 +36,7 @@ Introheadline: A serious endeavour. Mostly.
 
 Introbody:
 
-We are the Remarkable Men's Ballet — a small army of (mostly) untrained men, performing one extremely committed dance routine, once a year, at the Queenstown Christmas Show.
+We are the Remarkable Men's Ballet: a small army of (mostly) untrained men, performing one extremely committed dance routine, once a year, at the Queenstown Christmas Show.
 
 We have been doing this for twenty years.
 
@@ -52,7 +52,7 @@ Metatitle:
 
 ----
 
-Metadescription: A Queenstown Christmas tradition. Twenty years of the Remarkable Men's Ballet — doing it for the kids.
+Metadescription: A Queenstown Christmas tradition. Twenty years of the Remarkable Men's Ballet, doing it for the kids.
 
 ----
 

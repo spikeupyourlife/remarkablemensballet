@@ -6,4 +6,4 @@ Headline: This page has left the stage
 
 ----
 
-Blurb: [DRAFT] We looked everywhere: the wings, the dressing room, under the spare tutus. Whatever you were after has missed its cue.
+Blurb: We looked everywhere: the wings, the dressing room, under the spare tutus. Whatever you were after has missed its cue.

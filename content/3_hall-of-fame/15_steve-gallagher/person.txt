@@ -1,0 +1,53 @@
+Title: Steve Gallagher
+
+----
+
+Stagename: 
+
+----
+
+Persontype: performer
+
+----
+
+Role: Performer
+
+----
+
+Bio: Full name **Steven Michael Gallagher**, which is far too many names for one tutu. Current member of the company. Full bio coming soon.
+
+----
+
+Performingsince: 
+
+----
+
+Performinguntil: 
+
+----
+
+Iscurrent: true
+
+----
+
+Showinlist: true
+
+----
+
+Featured: false
+
+----
+
+Instagram: 
+
+----
+
+Customlink: 
+
+----
+
+Customlinklabel: 
+
+----
+
+Metadescription: Steve Gallagher — Remarkable Men's Ballet performer.

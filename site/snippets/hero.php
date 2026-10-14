@@ -32,12 +32,12 @@ $heroImage = $page->images()->template('image')->first() ?? $page->images()->fir
         <?php endif ?>
         <div class="hero__ctas">
             <?php if ($page->heroCta()->isNotEmpty()): ?>
-                <a href="<?= $page->heroCtaLink()->or('/videos') ?>" class="btn btn--primary">
+                <a href="<?= $page->heroCtaLink()->or('/performances') ?>" class="btn btn--primary">
                     <?= $page->heroCta()->escape() ?>
                 </a>
             <?php endif ?>
             <?php if ($page->heroSecondaryCta()->isNotEmpty()): ?>
-                <a href="<?= $page->heroSecondaryLink()->or('/timeline') ?>" class="btn btn--ghost">
+                <a href="<?= $page->heroSecondaryLink()->or('/our-story') ?>" class="btn btn--ghost">
                     <?= $page->heroSecondaryCta()->escape() ?>
                 </a>
             <?php endif ?>

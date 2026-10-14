@@ -25,9 +25,20 @@
             <?php if ($email->isNotEmpty()): ?>
                 <a class="btn btn--primary" data-confetti href="mailto:<?= $email ?>?subject=I%20would%20like%20to%20wear%20the%20tutu"><?= $page->ctaLabel()->escape() ?></a>
             <?php else: ?>
-                <p class="draft-note">[DRAFT] Sign-up button appears once a contact email is set in the Panel.</p>
+                <p class="coming-soon">Sign-ups open soon. Our audition inbox is still being fitted for a tutu. Meanwhile, leave your name via the <a href="/submit-memory">memory form</a> and we'll be in touch.</p>
             <?php endif ?>
         </div>
     </div>
 </section>
+<?php $faq = $page->faq()->toStructure(); if ($faq->count()): ?>
+<section class="faq">
+    <div class="faq__inner">
+        <p class="eyebrow">Recruitment FAQ</p>
+        <h2 class="display">Questions men ask (eventually)</h2>
+        <?php foreach ($faq as $item): ?>
+            <details class="faq__item"><summary><?= $item->q()->escape() ?></summary><p><?= $item->a()->escape() ?></p></details>
+        <?php endforeach ?>
+    </div>
+</section>
+<?php endif ?>
 <?php snippet('footer') ?>

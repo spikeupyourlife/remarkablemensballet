@@ -19,7 +19,7 @@ sections:
         label: Blurb
         type: textarea
         size: small
-        default: From a deeply silly idea in 2005 to whatever the hell we're doing now.
+        default: From a deeply silly idea at the very first Christmas Show to whatever the hell we're doing now.
 
   years:
     headline: Years

@@ -1,4 +1,4 @@
-title: Sponsors & supporters
+title: Support us
 preset: pages
 icon: heart
 
@@ -21,6 +21,10 @@ columns:
             label: Blurb
             type: textarea
             size: medium
+          emptyBlurb:
+            label: Shown while no sponsors are listed
+            type: textarea
+            size: small
 
       causeIntro:
         type: fields

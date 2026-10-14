@@ -1,0 +1,13 @@
+Title: Hall of Fame
+
+----
+
+Headline: The Hall of Fame
+
+----
+
+Blurb: Twenty years, dozens of men, and not one of them asked to be immortalised in a tutu. Here they are anyway. Current company up front, alumni in the wings where they belong, and the choreographers who have spent two decades with their faces in their hands.
+
+----
+
+Uuid: TC8uLnrtsusYMOoJ

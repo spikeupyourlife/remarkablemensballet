@@ -1,0 +1,43 @@
+/* v3: 9-page restructure (Oct 2026). Next-show card, stats, Wall of Shame, FAQ, archive. */
+.coming-soon { font-style: italic; color: var(--muted, #6b6880); border-left: 3px solid var(--gold, #c9a227); padding: .4rem 0 .4rem .9rem; }
+.coming-soon--big { font-size: 1.15rem; max-width: 40rem; margin: 0 auto 2rem; }
+.nextshow { padding: 3rem 1.5rem; background: var(--paper, #fbf8f2); }
+.nextshow__card { max-width: 52rem; margin: 0 auto; padding: 2rem; border: 2px solid var(--midnight, #131038); border-radius: 1rem; background: #fff; box-shadow: 8px 8px 0 var(--gold, #c9a227); text-align: center; }
+.nextshow__title { font-family: var(--font-display); font-size: clamp(1.5rem, 3.5vw, 2.3rem); margin: .3rem 0; }
+.nextshow__kicker { font-style: italic; margin: 0 0 1rem; }
+.nextshow__times { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
+.nextshow__times li { background: var(--midnight, #131038); color: #fff; padding: .35rem .8rem; border-radius: 999px; font-size: .9rem; }
+.countdown { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.2rem; }
+.countdown div { min-width: 5rem; }
+.countdown span { display: block; font-family: var(--font-display); font-weight: 900; font-size: 2.6rem; line-height: 1; color: var(--magenta, #c2185b); }
+.countdown small { text-transform: uppercase; letter-spacing: .1em; font-size: .7rem; }
+.nextshow__more { margin: 0; }
+.shame, .archive, .faq, .videos { padding: 4rem 1.5rem; }
+.shame { background: #1d1a3f; color: #fff; }
+.shame .section-head__blurb, .shame p { color: rgba(255,255,255,.85); }
+.shame__inner, .archive__inner, .faq__inner, .videos__inner { max-width: var(--container, 72rem); margin: 0 auto; }
+.shame__grid { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.2rem; }
+.shame__item { background: rgba(255,255,255,.06); border: 1px dashed rgba(255,255,255,.35); border-radius: .8rem; padding: 1.2rem; transform: rotate(-.6deg); }
+.shame__item:nth-child(even) { transform: rotate(.7deg); }
+.shame__item h3 { margin: .3rem 0; font-size: 1.15rem; }
+.shame__year { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold, #c9a227); }
+.shame__item--soon { opacity: .75; }
+.shame a { color: var(--gold, #c9a227); }
+.archive__list { list-style: none; padding: 0; margin: 2rem 0 0; }
+.archive__list li { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line, #e3dfd6); }
+.archive__list h3 { margin: 0 0 .2rem; font-size: 1.1rem; }
+.archive__list p { margin: 0; }
+.archive__year { font-family: var(--font-display); font-weight: 900; font-size: 1.4rem; color: var(--magenta, #c2185b); }
+.archive__soon { opacity: .7; font-style: italic; }
+.faq__inner { max-width: 48rem; }
+.faq__item { border-bottom: 1px solid var(--line, #e3dfd6); padding: .9rem 0; }
+.faq__item summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
+.faq__item p { margin: .6rem 0 0; }
+.team__blurb { margin: -.5rem 0 1.5rem; font-style: italic; }
+.team__heading small { font-size: .6em; opacity: .6; }
+.video-card__thumb { background: var(--midnight, #131038); aspect-ratio: 16 / 9; }
+@media (max-width: 640px) {
+  .archive__list li { grid-template-columns: 1fr; gap: .2rem; }
+  .countdown span { font-size: 2rem; }
+  .nextshow__card { padding: 1.3rem; box-shadow: 5px 5px 0 var(--gold, #c9a227); }
+}

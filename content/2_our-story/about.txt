@@ -1,0 +1,114 @@
+Title: Our story
+
+----
+
+Headline: How this happened
+
+----
+
+Body:
+
+It started, as most regrettable ideas do, in a pub.
+
+Doug Kamo and Simon Green had an idea. History does not record whether anyone tried to talk them out of it. What we do know is that the Remarkable Men's Ballet has been part of the Queenstown Christmas Show since the very first one (2006, we're fairly sure; the paperwork was kept in a pub).
+
+We have survived every rebrand: the Shotover Jet Remarkable Christmas Spectacular, the Shotover Christmas Cracker, and today's Queenstown Christmas Show. Names change. Tutus endure.
+
+Our members are tradies, professionals, councillors, a police constable, a volunteer firefighter, a newspaper journalist and, on one memorable occasion, the mayor. Almost none of us are trained. That is the point.
+
+By 2009 we were 30 strong, and Mayor Clive Geddes stepped in as an eleventh-hour replacement ballerina to a rock version of Beethoven's Fifth. In 2011 Mayor Vanessa van Uden stole our flowers, and was wrapped in tinsel and carried offstage for her trouble. In 2013 we took the show outdoors at the Queenstown Recreation Ground with red lipstick, hairy legs and a rugby ball, and the paper said we stole the show. We have not given it back.
+
+In 2025 we left the Christmas Show for the first time, crossing the frontier to the Arrowtown Autumn Festival with a routine to Vivaldi's *Autumn*. They had us back in 2026. Our touring radius is now roughly 20 kilometres.
+
+This December is our twentieth year. We take it very seriously. Mostly.
+
+Every cent the Christmas Show raises goes to Queenstown families and kids who need it. That bit we take seriously all the way.
+
+----
+
+Milestones:
+
+-
+  year: "2006"
+  title: The very first show
+  text: A pub idea becomes a dance. Doug Kamo and Simon Green are to blame. (Year to be confirmed by a reliable witness.)
+-
+  year: "2009"
+  title: A mayor in tulle
+  text: Thirty men, one rock version of Beethoven's Fifth, and Mayor Clive Geddes as an eleventh-hour replacement ballerina.
+-
+  year: "2011"
+  title: The flower heist
+  text: Mayor Vanessa van Uden steals our flowers. Justice is tinsel. Anna Stuart, in her second year, wonders what happened to her quiet little fairies.
+-
+  year: "2013"
+  title: Outdoors, with fireworks
+  text: The Christmas Cracker moves to the Queenstown Recreation Ground. We bring a rugby ball. The ODT says we steal the show.
+-
+  year: "2019"
+  title: Sugar versus Plum
+  text: The troupe splits into rival Sugar and Plum Fairies for a fundraising dance-off for Queenstown Lakes Baby Box.
+-
+  year: "2021"
+  title: The show goes online
+  text: The whole Christmas Show is filmed for the internet. Our pirouettes are now preserved forever.
+-
+  year: "2024"
+  title: Nine strong
+  text: A nine-man company with two brave rookies, a volunteer firefighter among them.
+-
+  year: "2025"
+  title: On tour (Arrowtown)
+  text: First appearance outside the Christmas Show, then a December crowd of more than 2,700.
+-
+  year: "2026"
+  title: Year twenty
+  text: Christmas Stars, the 20th anniversary show. We are pretending to be very calm about it.
+
+----
+
+Stats:
+
+-
+  number: "20"
+  label: years of tulle
+-
+  number: "30"
+  label: men on stage in 2009 (our peak)
+-
+  number: "2,700+"
+  label: witnesses in December 2025
+-
+  number: "2"
+  label: mayors roped in
+-
+  number: "2"
+  label: towns conquered (Queenstown, Arrowtown)
+-
+  number: "?"
+  label: tutus laundered (we're scared to ask)
+
+----
+
+Shame:
+
+-
+  year: "2009"
+  title: The eleventh-hour ballerina
+  text: A dancer short on the night, we recruited the most senior man available. The Mayor. In a tutu and headband.
+-
+  year: "2011"
+  title: The burlesque scare
+  text: Our embedded ODT journalist warned in print that one wrong move would take the show from ballet to burlesque.
+-
+  year: "2011"
+  title: The flower theft
+  text: Our flowers were stolen, live on stage, by the sitting Mayor. No charges were laid.
+-
+  year: "2013"
+  title: The rugby ball
+  text: Classical ballet does not, traditionally, feature a rugby ball. Ours did.
+
+----
+
+Uuid: Z3yW9WzVOHbZhjMp

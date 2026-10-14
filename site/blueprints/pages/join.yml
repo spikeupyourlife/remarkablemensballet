@@ -8,3 +8,9 @@ fields:
   process: { type: textarea }
   ctaLabel: { type: text, label: Button label }
   ctaEmail: { type: email, label: Send applications to, help: Falls back to the site contact email }
+  faq:
+    label: Recruitment FAQ
+    type: structure
+    fields:
+      q: { type: text, label: Question }
+      a: { type: textarea, label: Answer, buttons: false }

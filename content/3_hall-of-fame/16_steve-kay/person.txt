@@ -1,0 +1,53 @@
+Title: Steve Kay
+
+----
+
+Stagename: 
+
+----
+
+Persontype: performer
+
+----
+
+Role: Performer
+
+----
+
+Bio: Current member of the company and part of the 2025 Arrowtown Autumn Festival line-up. Full bio coming soon.
+
+----
+
+Performingsince: 
+
+----
+
+Performinguntil: 
+
+----
+
+Iscurrent: true
+
+----
+
+Showinlist: true
+
+----
+
+Featured: false
+
+----
+
+Instagram: 
+
+----
+
+Customlink: 
+
+----
+
+Customlinklabel: 
+
+----
+
+Metadescription: Steve Kay, Remarkable Men's Ballet performer.

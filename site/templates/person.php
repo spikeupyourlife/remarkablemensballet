@@ -30,7 +30,7 @@
                     <div><dt>Status</dt><dd><?= $page->isCurrent()->toBool() ? 'Active duty' : 'Emeritus' ?></dd></div>
                 </dl>
                 <?php if (in_array(true, array_column($s, 'draft'), true)): ?>
-                    <p class="draft-note">Stats in grey italics are [DRAFT] placeholders until confirmed by the dancer (or a reliable witness).</p>
+                    <p class="draft-note">Stats in grey italics are placeholders until confirmed by the dancer (or a reliable witness).</p>
                 <?php endif ?>
             </div>
         </div>

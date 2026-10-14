@@ -18,7 +18,7 @@
 
 require __DIR__ . '/../kirby/bootstrap.php';
 
-const TEAM_DIR = __DIR__ . '/../content/3_team';
+const TEAM_DIR = __DIR__ . '/../content/3_hall-of-fame';
 
 $dryRun = in_array('--dry-run', array_slice($argv, 1), true) || in_array('-n', array_slice($argv, 1), true);
 
@@ -102,28 +102,6 @@ MD,
     ],
 
     // ─── Notable / mayors ─────────────────────────────────────────────────────
-    [
-        'slug' => 'glyn-lewers',
-        'title' => 'Glyn Lewers',
-        'stageName' => '',
-        'personType' => 'performer',
-        'role' => 'Performer · Former Mayor, Queenstown Lakes',
-        'bio' => <<<MD
-Mayor of Queenstown Lakes District from **2022 to 2025**, when he was succeeded by John Glover in the 2025 local elections. Before that, one term as a councillor.
-
-Glyn's RMB appearance puts him in a select club of mayor-and-tutu — the troupe now has a complete set of three: Glyn (2022–25), the late Clive Geddes (former mayor, 2009 performer), and Peter Laurenson (married to former mayor Vanessa van Uden).
-
-The "tutu-wearing mayor pipeline" is, frankly, a defining feature of the troupe.
-MD,
-        'performingSince' => '',
-        'performingUntil' => '',
-        'isCurrent' => true,
-        'featured' => true,
-        'customLink' => 'https://www.glynlewers.nz',
-        'customLinkLabel' => 'glynlewers.nz',
-        'metaDescription' => 'Glyn Lewers — Queenstown Lakes mayor 2022–25 and Remarkable Men\'s Ballet performer.',
-    ],
-
     [
         'slug' => 'clive-geddes',
         'title' => 'Clive Geddes',
@@ -611,6 +589,20 @@ MD,
         'metaDescription' => 'Andrew Bisset — Queenstown Wine Trail MD and 2011 Remarkable Men\'s Ballet performer.',
     ],
 
+    [
+        'slug' => 'james-the-rabbit-man',
+        'title' => "James 'the Rabbit Man'",
+        'stageName' => 'The Rabbit Man',
+        'personType' => 'performer',
+        'role' => 'Performer · Newest recruit',
+        'bio' => "The newest member of the company, known to the troupe only as **the Rabbit Man**. Surname classified. Origin of the nickname under investigation. Full bio coming soon.",
+        'performingSince' => '',
+        'performingUntil' => '',
+        'isCurrent' => true,
+        'featured' => false,
+        'metaDescription' => "James 'the Rabbit Man', the newest Remarkable Men's Ballet recruit.",
+    ],
+
     // ─── Choreographers ──────────────────────────────────────────────────────
     [
         'slug' => 'anna-stuart',
@@ -656,6 +648,57 @@ MD,
         'metaDescription' => 'Claire Hazledine — Remarkable Men\'s Ballet choreographer.',
     ],
 ];
+
+// ─── Roster rules (Spike, 14 Oct 2026) ───────────────────────────────────────
+// Current company = the troupe chat group. Everyone else is alumni.
+// Applied on every run, so this is the source of truth for isCurrent.
+const CURRENT_COMPANY = [
+    'uan-spijkerbosch', 'craig-ferguson', 'bert-haines', 'claire-hazledine',
+    'irik-anderson', 'jake-neaves', 'rich-hatchett', 'steve-gallagher',
+    'steve-kay', 'gary-clearwater', 'mark-taylor', 'mike-thurston',
+    'peter-laurenson', 'paul-robinson', 'james-the-rabbit-man',
+];
+// Removed from the roster entirely (folder deleted if present).
+const REMOVED = ['glyn-lewers'];
+
+$overrides = [
+    'doug-kamo' => [
+        'role' => 'Co-founder (alumnus)',
+        'featured' => false,
+    ],
+    'anna-stuart' => [
+        'role' => 'Former choreographer · Founder-Director, DEVOS',
+    ],
+    'steve-gallagher' => [
+        'bio' => "Full name **Steven Michael Gallagher**, which is far too many names for one tutu. Current member of the company. Full bio coming soon.",
+    ],
+    'steve-kay' => [
+        'bio' => "Current member of the company and part of the 2025 Arrowtown Autumn Festival line-up. Full bio coming soon.",
+        'metaDescription' => "Steve Kay, Remarkable Men's Ballet performer.",
+    ],
+    'paul-robinson' => [
+        'stageName' => 'Robbo',
+        'bio' => "Known to the troupe as **Robbo**. Current member of the company. Full bio coming soon.",
+        'metaDescription' => 'Paul "Robbo" Robinson, Remarkable Men\'s Ballet performer.',
+    ],
+];
+
+foreach ($people as &$p) {
+    $p['isCurrent'] = in_array($p['slug'], CURRENT_COMPANY, true);
+    if (isset($overrides[$p['slug']])) $p = array_merge($p, $overrides[$p['slug']]);
+}
+unset($p);
+$people = array_values(array_filter($people, fn($p) => !in_array($p['slug'], REMOVED, true)));
+
+if (!$dryRun) {
+    foreach (REMOVED as $slug) {
+        foreach (glob(TEAM_DIR . '/*_' . $slug) ?: [] as $dir) {
+            foreach (glob($dir . '/*') as $f) unlink($f);
+            rmdir($dir);
+            echo "  - removed " . basename($dir) . "\n";
+        }
+    }
+}
 
 // ─── Generate ────────────────────────────────────────────────────────────────
 

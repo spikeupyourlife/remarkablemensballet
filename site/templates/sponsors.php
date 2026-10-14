@@ -35,6 +35,9 @@ $tiers = [
 ];
 $bytier = $page->children()->listed()->groupBy('tier');
 ?>
+<?php if ($page->children()->listed()->count() === 0 && $page->emptyBlurb()->isNotEmpty()): ?>
+<section class="sponsors sponsors--empty"><div class="sponsors__inner"><p class="coming-soon coming-soon--big"><?= $page->emptyBlurb()->escape() ?></p></div></section>
+<?php endif ?>
 <section class="sponsors">
     <div class="sponsors__inner">
         <?php foreach ($tiers as $key => $heading): ?>

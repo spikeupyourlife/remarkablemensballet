@@ -1,0 +1,53 @@
+Title: Paul Robinson
+
+----
+
+Stagename: Robbo
+
+----
+
+Persontype: performer
+
+----
+
+Role: Performer
+
+----
+
+Bio: Known to the troupe as **Robbo**. Current member of the company. Full bio coming soon.
+
+----
+
+Performingsince: 
+
+----
+
+Performinguntil: 
+
+----
+
+Iscurrent: true
+
+----
+
+Showinlist: true
+
+----
+
+Featured: false
+
+----
+
+Instagram: 
+
+----
+
+Customlink: 
+
+----
+
+Customlinklabel: 
+
+----
+
+Metadescription: Paul "Robbo" Robinson, Remarkable Men's Ballet performer.

@@ -2,11 +2,56 @@ Title: Performances
 
 ----
 
-Headline: Upcoming nonsense
+Headline: Upcoming nonsense (and the evidence)
 
 ----
 
-Blurb: Where, when, and how to get tickets.
+Blurb: Where to see us next, and proof of everywhere we've been. Mostly the Queenstown Christmas Show, occasionally Arrowtown, never Paris.
+
+----
+
+Pastshows:
+
+-
+  year: "2025"
+  show: Queenstown Christmas Show, plus Arrowtown Autumn Festival
+  note: First time off the Christmas Show reservation. Vivaldi's Autumn in Arrowtown, then 2,700+ in December.
+-
+  year: "2024"
+  show: Queenstown Christmas Show
+  note: Nine-strong, with two new recruits.
+-
+  year: "2023"
+  show: "Not a Creature was Stirring"
+  note: Listed among the community acts. Not a mouse was harmed.
+-
+  year: "2021"
+  show: Queenstown Christmas Show (online)
+  note: The full show is on Vimeo. Our bit is in there somewhere.
+-
+  year: "2020"
+  show: Queenstown Christmas Show
+  note: Shared the stage with Aroha, Olaf and Father Christmas. Also a winter cameo at the Queenstown Winter Festival.
+-
+  year: "2019"
+  show: Queenstown Christmas Show
+  note: Sugar Fairies versus Plum Fairies, a fundraising dance-off for Queenstown Lakes Baby Box.
+-
+  year: "2018"
+  show: Shotover Jet Christmas Show
+  note: Billed as the return of the Men's Ballet troupe.
+-
+  year: "2013"
+  show: Shotover Christmas Cracker
+  note: Outdoors at the Queenstown Recreation Ground. Red lipstick, hairy legs, a rugby ball.
+-
+  year: "2011"
+  show: Shotover Jet Remarkable Christmas Spectacular
+  note: The Class of 2011, and the great flower theft.
+-
+  year: "2009"
+  show: Shotover Jet Remarkable Christmas Spectacular
+  note: Thirty men, Beethoven's Fifth (rock version), one mayor.
 
 ----
 

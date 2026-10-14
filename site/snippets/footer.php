@@ -22,7 +22,7 @@
         <div class="site-footer__col">
             <h3 class="site-footer__heading">Wander</h3>
             <ul class="site-footer__list">
-                <?php foreach ($site->children()->listed() as $item): ?>
+                <?php foreach (array_filter(array_map('page', array_merge(option('rmb.nav', []), ['join', 'contact']))) as $item): ?>
                     <li><a href="<?= $item->url() ?>"><?= $item->title()->escape() ?></a></li>
                 <?php endforeach ?>
             </ul>
@@ -54,7 +54,7 @@
         <p>&copy; <?= date('Y') ?> Remarkable Men's Ballet. All very serious.</p>
         <p class="site-footer__credit">Crest skyline after <a href="https://commons.wikimedia.org/wiki/File:The_Remarkables_from_Queenstown,_New_Zealand_02.jpg" rel="noopener">“The Remarkables from Queenstown, New Zealand 02”</a> by Σ64, <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>.</p>
         <ul>
-            <li><a href="/about">About</a></li>
+            <li><a href="/our-story">Our story</a></li>
             <li><a href="/contact">Contact</a></li>
             <li><a href="/submit-memory">Submit a memory</a></li>
         </ul>

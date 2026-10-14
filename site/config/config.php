@@ -44,22 +44,40 @@ return [
         ],
     ],
 
-    // Routes (custom URLs)
-    'routes' => [
-        // Pretty year archive: /timeline/2008
-        [
-            'pattern' => 'timeline/(:any)',
-            'action'  => function ($year) {
-                $page = page('timeline/' . $year);
-                if (!$page) return false;
-                return $page;
-            },
-        ],
-    ],
+    // Routes: 301s from the old 12-page sitemap to the 9-page one (Oct 2026)
+    'routes' => (function () {
+        $map = [
+            'about'    => 'our-story',
+            'timeline' => 'our-story',
+            'team'     => 'hall-of-fame',
+            'videos'   => 'performances',
+            'sponsors' => 'support-us',
+        ];
+        $routes = [];
+        foreach ($map as $from => $to) {
+            $routes[] = ['pattern' => $from, 'action' => fn () => go($to, 301)];
+            $keepChild = in_array($from, ['team', 'videos'], true);
+            $routes[] = [
+                'pattern' => $from . '/(:all)',
+                'action'  => fn ($rest) => go($keepChild ? $to . '/' . $rest : $to, 301),
+            ];
+        }
+        return $routes;
+    })(),
 
     // Brand-specific globals
     'rmb' => [
         'show_year' => 20, // 20th anniversary
+        // Primary nav, in order (Contact lives in the footer; Join is the Audition button)
+        'nav' => ['our-story', 'hall-of-fame', 'performances', 'gallery', 'press', 'support-us'],
+        // Next show card + countdown. Venue and tickets: christmasshow.co.nz only.
+        'nextShow' => [
+            'title'  => 'The Queenstown Christmas Show 2026: Christmas Stars',
+            'kicker' => "The show's 20th anniversary, and ours",
+            'starts' => '2026-12-05T15:00:00+13:00',
+            'times'  => ['Saturday 5 December, 3pm', 'Sunday 6 December, 1pm', 'Sunday 6 December, 5pm'],
+            'url'    => 'https://christmasshow.co.nz',
+        ],
     ],
 
 ];

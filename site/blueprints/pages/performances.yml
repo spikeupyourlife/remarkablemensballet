@@ -19,6 +19,13 @@ sections:
         label: Blurb
         type: textarea
         size: small
+      pastShows:
+        label: Past shows (archive list)
+        type: structure
+        fields:
+          year: { type: text, width: 1/4 }
+          show: { type: text, width: 3/4 }
+          note: { type: text }
 
   performances:
     headline: Performances
@@ -29,6 +36,17 @@ sections:
       query: page.poster.toFile
       cover: true
     info: "{{ page.venue }} · {{ page.showDate.toDate('d M Y') }}"
+
+  videos:
+    headline: Videos (formerly the Videos page)
+    type: pages
+    template: video
+    create: video
+    layout: cards
+    image:
+      query: page.thumbnail.toFile
+      cover: true
+    info: "{{ page.showYear }}"
 
   add:
     headline: Add a performance
