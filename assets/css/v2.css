@@ -182,3 +182,11 @@ html:not(.js) .curtain { display: none; }
   .flip:hover .flip__inner { transform: none; }
 }
 .flip__back .tcard__backtitle, .flip__back dd { color: #fff; }
+
+/* crest logo */
+.site-brand__mark--crest { width: auto; height: 3.4rem; color: inherit; flex: none; }
+.site-brand__mark--crest img { display: block; height: 100%; width: auto; }
+.site-footer__crest { display: block; height: 5.5rem; width: auto; margin: 0 0 1rem; }
+.site-footer__credit { flex-basis: 100%; order: 3; font-size: .8rem; opacity: .6; margin: 0; }
+.site-footer__credit a { color: inherit; }
+@media (max-width: 640px) { .site-brand__mark--crest { height: 2.8rem; } }

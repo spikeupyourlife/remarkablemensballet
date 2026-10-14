@@ -20,6 +20,7 @@
     <?php endif ?>
     <link rel="canonical" href="<?= $page->url() ?>">
     <link rel="icon" href="<?= url('assets/images/favicon.svg') ?>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="<?= url('assets/images/apple-touch-icon.png') ?>">
     <meta name="theme-color" content="#131038">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,8 +39,8 @@
 <header class="site-header">
     <div class="site-header__inner">
         <a href="<?= $site->url() ?>" class="site-brand" aria-label="<?= $site->title() ?> — home">
-            <span class="site-brand__mark" aria-hidden="true">
-                <?= svg('assets/images/butterfly.svg') ?>
+            <span class="site-brand__mark site-brand__mark--crest" aria-hidden="true">
+                <img src="<?= url('assets/images/crest-shield.svg') ?>" alt="" width="472" height="682">
             </span>
             <span class="site-brand__name">
                 <span class="site-brand__name-line">Remarkable</span>

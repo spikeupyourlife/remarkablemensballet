@@ -3,6 +3,7 @@
 <footer class="site-footer">
     <div class="site-footer__inner">
         <div class="site-footer__col">
+            <img class="site-footer__crest" src="<?= url('assets/images/crest-shield-dark.svg') ?>" alt="" width="472" height="682">
             <p class="site-footer__brand">
                 <span class="site-footer__line">Remarkable</span>
                 <span class="site-footer__script">Men's Ballet</span>
@@ -51,6 +52,7 @@
 
     <div class="site-footer__legal">
         <p>&copy; <?= date('Y') ?> Remarkable Men's Ballet. All very serious.</p>
+        <p class="site-footer__credit">Crest skyline after <a href="https://commons.wikimedia.org/wiki/File:The_Remarkables_from_Queenstown,_New_Zealand_02.jpg" rel="noopener">“The Remarkables from Queenstown, New Zealand 02”</a> by Σ64, <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>.</p>
         <ul>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
