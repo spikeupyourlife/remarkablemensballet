@@ -1,0 +1,53 @@
+Title: Gary Clearwater
+
+----
+
+Stagename: 
+
+----
+
+Persontype: performer
+
+----
+
+Role: Performer
+
+----
+
+Bio: Bio coming. Confirmed Remarkable Men's Ballet performer — full story still being collected.
+
+----
+
+Performingsince: 
+
+----
+
+Performinguntil: 
+
+----
+
+Iscurrent: true
+
+----
+
+Showinlist: true
+
+----
+
+Featured: false
+
+----
+
+Instagram: 
+
+----
+
+Customlink: 
+
+----
+
+Customlinklabel: 
+
+----
+
+Metadescription: Gary Clearwater — Remarkable Men's Ballet performer.

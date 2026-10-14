@@ -1,0 +1,57 @@
+Title: Andrew Bisset
+
+----
+
+Stagename: 
+
+----
+
+Persontype: performer
+
+----
+
+Role: Performer · Wine Trail MD
+
+----
+
+Bio:
+
+Managing Director of [Queenstown Wine Trail](https://queenstownwinetrail.co.nz). His CV maps onto pretty much every facet of running this town: previously at Southern Lakes Info Centre, Queenstown Lakes District Council, Apex Car Rentals.
+
+Confirmed in the 2011 RMB lineup (ODT, *Meet the lords of the dance*).
+
+----
+
+Performingsince: 2011-12-01
+
+----
+
+Performinguntil: 
+
+----
+
+Iscurrent: false
+
+----
+
+Showinlist: true
+
+----
+
+Featured: false
+
+----
+
+Instagram: 
+
+----
+
+Customlink: https://queenstownwinetrail.co.nz
+
+----
+
+Customlinklabel: Queenstown Wine Trail
+
+----
+
+Metadescription: Andrew Bisset — Queenstown Wine Trail MD and 2011 Remarkable Men's Ballet performer.

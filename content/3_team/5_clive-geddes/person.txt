@@ -1,0 +1,57 @@
+Title: Clive Geddes
+
+----
+
+Stagename: 
+
+----
+
+Persontype: performer
+
+----
+
+Role: Performer · Former Mayor, Queenstown Lakes
+
+----
+
+Bio:
+
+Former Queenstown Lakes District Mayor. Performed with the Remarkables Christmas Male Ballet Company at the 2009 concert — the earliest "tutu-wearing mayor" data point we have on file.
+
+Mentioned in the ODT's preview of the 2010 Christmas Spectacular: *"…the Remarkables Christmas Male Ballet Company, who performed at the 2009 concert with then-mayor Clive Geddes."*
+
+----
+
+Performingsince: 2009-12-01
+
+----
+
+Performinguntil: 2009-12-31
+
+----
+
+Iscurrent: false
+
+----
+
+Showinlist: true
+
+----
+
+Featured: false
+
+----
+
+Instagram: 
+
+----
+
+Customlink: 
+
+----
+
+Customlinklabel: 
+
+----
+
+Metadescription: Clive Geddes — former Queenstown Lakes mayor and 2009 Remarkable Men's Ballet performer.

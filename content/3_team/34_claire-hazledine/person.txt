@@ -1,0 +1,57 @@
+Title: Claire Hazledine
+
+----
+
+Stagename: 
+
+----
+
+Persontype: choreographer
+
+----
+
+Role: Choreographer
+
+----
+
+Bio:
+
+Choreographer for the Remarkable Men's Ballet. Choreographed the troupe's 2025 Arrowtown Autumn Festival routine — set to Vivaldi's *Autumn* — for the troupe's first ever appearance outside the Christmas Show.
+
+Full bio coming.
+
+----
+
+Performingsince: 
+
+----
+
+Performinguntil: 
+
+----
+
+Iscurrent: true
+
+----
+
+Showinlist: true
+
+----
+
+Featured: false
+
+----
+
+Instagram: 
+
+----
+
+Customlink: 
+
+----
+
+Customlinklabel: 
+
+----
+
+Metadescription: Claire Hazledine — Remarkable Men's Ballet choreographer.

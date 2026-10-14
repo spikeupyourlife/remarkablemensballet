@@ -1,0 +1,53 @@
+Title: Irik Anderson
+
+----
+
+Stagename: 
+
+----
+
+Persontype: performer
+
+----
+
+Role: Performer
+
+----
+
+Bio: Confirmed in the 2011 lineup (ODT, *Lissom Lads*). Full bio coming.
+
+----
+
+Performingsince: 2011-12-01
+
+----
+
+Performinguntil: 
+
+----
+
+Iscurrent: false
+
+----
+
+Showinlist: true
+
+----
+
+Featured: false
+
+----
+
+Instagram: 
+
+----
+
+Customlink: 
+
+----
+
+Customlinklabel: 
+
+----
+
+Metadescription: Irik Anderson — 2011 Remarkable Men's Ballet performer.

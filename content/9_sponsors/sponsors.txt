@@ -14,9 +14,7 @@ Causeheadline: Doing it for the kids
 
 ----
 
-Causebody:
-
-Every cent the Christmas Show raises goes to Queenstown families and kids who need it most — Salvation Army, Happiness House, Baskets of Blessings, the Buddy Programme. The Remarkable Men's Ballet is a small part of a much bigger thing, and we are very proud of that.
+Causebody: Every cent the Christmas Show raises goes to Queenstown families and kids who need it most — Salvation Army, Happiness House, Baskets of Blessings, the Buddy Programme. The Remarkable Men's Ballet is a small part of a much bigger thing, and we are very proud of that.
 
 ----
 
@@ -28,8 +26,12 @@ Donationheadline: Chip in for the kids
 
 ----
 
-Donationurl:
+Donationurl: 
 
 ----
 
 Donationcta: Donate
+
+----
+
+Uuid: c3DOUFZSFqmRWzDO

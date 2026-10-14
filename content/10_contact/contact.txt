@@ -10,10 +10,12 @@ Blurb: Got a media enquiry, a sponsorship offer, or a really good costume idea?
 
 ----
 
-Email:
+Email: 
 
 ----
 
-Bookings:
+Bookings: For press and bookings, please email us at the address above.
 
-For press and bookings, please email us at the address above.
+----
+
+Uuid: lGWJtqYhw8PLGc1i
