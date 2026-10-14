@@ -19,18 +19,19 @@
         <meta name="twitter:card" content="summary_large_image">
     <?php endif ?>
     <link rel="canonical" href="<?= $page->url() ?>">
-    <link rel="icon" href="<?= url('assets/images/favicon.svg') ?>" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="<?= url('assets/images/apple-touch-icon.png') ?>">
+    <link rel="icon" href="<?= av('assets/images/favicon-a.svg') ?>" type="image/svg+xml">
+    <link rel="icon" href="<?= av('assets/images/icon-512-a.png') ?>" type="image/png" sizes="512x512">
+    <link rel="apple-touch-icon" href="<?= av('assets/images/apple-touch-icon-a.png') ?>">
     <meta name="theme-color" content="#131038">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,700;1,900&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;600;700&display=swap">
 
-    <?= css('assets/css/main.css') ?>
-    <?= css('assets/css/upgrade.css') ?>
-    <?= css('assets/css/v2.css') ?>
-    <?= css('assets/css/' . $page->intendedTemplate()->name() . '.css', ['accept' => false]) ?>
+    <?= css(av('assets/css/main.css')) ?>
+    <?= css(av('assets/css/upgrade.css')) ?>
+    <?= css(av('assets/css/v2.css')) ?>
+    <?php $tplCss = 'assets/css/' . $page->intendedTemplate()->name() . '.css'; if (is_file(kirby()->root('index') . '/' . $tplCss)) echo css(av($tplCss)); ?>
 </head>
 <body class="page--<?= $page->intendedTemplate() ?>">
 
@@ -40,7 +41,7 @@
     <div class="site-header__inner">
         <a href="<?= $site->url() ?>" class="site-brand" aria-label="<?= $site->title() ?> — home">
             <span class="site-brand__mark site-brand__mark--crest" aria-hidden="true">
-                <img src="<?= url('assets/images/crest-shield.svg') ?>" alt="" width="472" height="682">
+                <img src="<?= av('assets/images/crest-shield-a.svg') ?>" alt="" width="504" height="704">
             </span>
             <span class="site-brand__name">
                 <span class="site-brand__name-line">Remarkable</span>

@@ -43,3 +43,16 @@ Kirby::plugin('rmb/site', [
     ],
 
 ]);
+
+/**
+ * Cache-busted asset URL: av('assets/css/v2.css') → /assets/css/v2.css?v=<mtime>
+ * LiteSpeed sends 7-day max-age on static files, so the query changes whenever the file does.
+ */
+if (!function_exists('av')) {
+    function av(string $path): string
+    {
+        $file = kirby()->root('index') . '/' . ltrim($path, '/');
+        $v = is_file($file) ? filemtime($file) : null;
+        return url($path) . ($v ? '?v=' . $v : '');
+    }
+}

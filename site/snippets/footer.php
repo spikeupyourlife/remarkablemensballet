@@ -3,7 +3,7 @@
 <footer class="site-footer">
     <div class="site-footer__inner">
         <div class="site-footer__col">
-            <img class="site-footer__crest" src="<?= url('assets/images/crest-shield-dark.svg') ?>" alt="" width="472" height="682">
+            <img class="site-footer__crest" src="<?= av('assets/images/crest-shield-dark-a.svg') ?>" alt="" width="520" height="720">
             <p class="site-footer__brand">
                 <span class="site-footer__line">Remarkable</span>
                 <span class="site-footer__script">Men's Ballet</span>
@@ -61,7 +61,7 @@
     </div>
 </footer>
 
-<?= js('assets/js/main.js') ?>
-<?= js('assets/js/fx.js', ['defer' => true]) ?>
+<?= js(av('assets/js/main.js')) ?>
+<?= js(av('assets/js/fx.js'), ['defer' => true]) ?>
 </body>
 </html>
