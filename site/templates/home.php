@@ -40,10 +40,10 @@ $press = page('press')?->children()->listed()->limit(10);
 
 <section class="showbar" aria-label="Christmas Show 2026">
     <div class="showbar__track">
-        <p class="showbar__eyebrow">Season 21 · Auditions</p>
-        <p class="showbar__what"><strong>Christmas Stars</strong>, the 20th Anniversary Christmas Show: Sat 5 Dec (3pm) and Sun 6 Dec (1pm and 5pm). Kids' auditions (ages 8 to 14) are <strong>Sunday 18 October</strong> at the Arrowtown Athenaeum Hall.</p>
-        <a class="btn btn--primary btn--sm" href="https://christmasshow.co.nz/audition-info/" rel="noopener">Audition info</a>
-        <a class="showbar__men" href="/join">Grown men: different audition →</a>
+        <p class="showbar__eyebrow">Confirmed · Year 20</p>
+        <p class="showbar__what"><strong>Confirmed: the Remarkable Men's Ballet returns for the 20th Christmas Show, December 2026.</strong> Tutus have been pressed. Dignity has not. Catch us Sat 5 Dec (3pm) and Sun 6 Dec (1pm and 5pm).</p>
+        <a class="btn btn--primary btn--sm" href="/join" data-confetti>Season 21 recruits wanted</a>
+        <a class="showbar__men" href="https://christmasshow.co.nz" rel="noopener">christmasshow.co.nz →</a>
     </div>
 </section>
 
