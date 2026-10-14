@@ -134,6 +134,8 @@ MD,
 Former Queenstown Lakes District Mayor. Performed with the Remarkables Christmas Male Ballet Company at the 2009 concert — the earliest "tutu-wearing mayor" data point we have on file.
 
 Mentioned in the ODT's preview of the 2010 Christmas Spectacular: *"…the Remarkables Christmas Male Ballet Company, who performed at the 2009 concert with then-mayor Clive Geddes."*
+
+The ODT's own 2009 report (*Mayoral turn dazzles at Christmas Spectacular*, James Beech, 14 December 2009) adds the detail: he was a surprise eleventh-hour replacement "ballerina", pirouetting in a tutu alongside the other 29 members of the company to a rock version of Beethoven's Fifth Symphony.
 MD,
         'performingSince' => '2009-12-01',
         'performingUntil' => '2009-12-31',

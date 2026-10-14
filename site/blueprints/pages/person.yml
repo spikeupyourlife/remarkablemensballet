@@ -36,6 +36,16 @@ columns:
             label: Role / position
             type: text
             help: e.g. "Prima Ballerina", "Chief Choreographer", "Resident Diva"
+          signatureMove:
+            label: Signature move
+            type: text
+            help: Hall of Fame card stat. Blank shows a draft placeholder.
+          tutuColour:
+            label: Tutu colour
+            type: text
+          specialty:
+            label: Special power
+            type: text
           bio:
             label: Bio
             type: textarea

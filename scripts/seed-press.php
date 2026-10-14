@@ -33,9 +33,9 @@ Among the talent performing in the show's 19th year were the Queenstown Gymnasti
 Queenstown Lakes District Council arts and events relationship manager Jan Maxwell said she was *"thrilled"* the show could be produced for local families at such a special time of year.
 MD,
         'sourceName' => 'Otago Daily Times',
-        'sourceUrl' => 'https://www.odt.co.nz/regions/queenstown/santa-claus-came-town',
+        'sourceUrl' => 'https://www.odt.co.nz/otago/queenstown/santa-claus-came-to-town-lscwlm08',
         'author' => 'Guy Williams',
-        'publishedDate' => '2025-12-08',
+        'publishedDate' => '2025-12-07',
         'tags' => 'community, events, queenstown',
         'featured' => false,
     ],
@@ -85,7 +85,7 @@ Autumn festival co-ordinator Vanessa Williams says she *"cannot wait"* to see th
 Balletman Uan Spijkerbosch is full of confidence ahead of their special performances. *"We think we've got it. It's solid, it's dynamic, and we've nailed it."*
 MD,
         'sourceName' => 'Otago Daily Times',
-        'sourceUrl' => 'https://www.odt.co.nz/regions/queenstown/festival-head-turners',
+        'sourceUrl' => 'https://www.odt.co.nz/otago/queenstown/festival-head-turners-d3x1cg3a',
         'author' => 'Tracey Roxburgh',
         'publishedDate' => '2025-04-24',
         'tags' => 'preview, arrowtown, autumn festival, milestone',
@@ -109,9 +109,9 @@ He stressed their primary goal remains entertaining younger audience members and
 Due to ongoing roadworks on Ballarat Street, the group's traditional flashmob location has been relocated. Instead of performing at their usual Friday spot, the ensemble will perform at Earnslaw Park around 6pm tomorrow.
 MD,
         'sourceName' => 'Otago Daily Times',
-        'sourceUrl' => 'https://www.odt.co.nz/regions/queenstown/men%E2%80%99s-ballet-tutu-much',
+        'sourceUrl' => 'https://www.odt.co.nz/otago/queenstown/mens-ballet-tutu-much-pyrch8ws',
         'author' => 'Tracey Roxburgh',
-        'publishedDate' => '2024-12-07',
+        'publishedDate' => '2024-12-06',
         'tags' => 'feature, queenstown, christmas, costumes',
         'featured' => true,
     ],
@@ -184,6 +184,23 @@ MD,
         'sourceUrl' => 'https://www.odt.co.nz/regions/queenstown/embracing-show%E2%80%99s-theme',
         'author' => 'Tracey Roxburgh',
         'publishedDate' => '2023-12-08',
+        'tags' => 'preview, queenstown, christmas',
+        'featured' => false,
+    ],
+
+    [
+        'slug' => 'not-a-creature-was-stirring',
+        'title' => 'Not a creature was stirring',
+        'excerpt' => 'Preview of the 2023 show, Not a Creature was Stirring, featuring The Remarkable Men\'s Ballet among the community acts.',
+        'body' => <<<MD
+Queenstown Lakes District Council's annual Christmas show returns to the Events Centre on 10 December with *"Not a Creature was Stirring"* (...not even a mouse), the story of Murray the Mouse, created by Margaret O'Hanlon with choreography by Anna Stuart.
+
+The show includes performances from Queenstown Gymnastics Club, Silk and Circus, Wakatipu Conservatoire of Classical Ballet, Dance Evolution Studio (DEVOS) and The Remarkable Men's Ballet. Producer Jan Maxwell: *"QLDC produce a Christmas show and have from day one."*
+MD,
+        'sourceName' => 'Lakes Weekly Bulletin',
+        'sourceUrl' => 'https://lwb.co.nz/content/not-a-creature-was-stirring/',
+        'author' => 'Lakes Weekly Bulletin',
+        'publishedDate' => '2023-11-30',
         'tags' => 'preview, queenstown, christmas',
         'featured' => false,
     ],
@@ -404,6 +421,24 @@ MD,
         'publishedDate' => '2010-11-17',
         'tags' => 'preview, history, founding-era',
         'featured' => true,
+    ],
+
+    // ─── 2009 ────────────────────────────────────────────────────────────────
+    [
+        'slug' => 'mayoral-turn-dazzles',
+        'title' => 'Mayoral turn dazzles at Christmas Spectacular',
+        'excerpt' => 'Mayor Clive Geddes steps in as a surprise eleventh-hour replacement ballerina with the 30-strong Remarkable Christmas Male Ballet Company.',
+        'body' => <<<MD
+Queenstown Lakes Mayor Clive Geddes dazzled hundreds of families as the surprise eleventh hour replacement *"ballerina"* during the Shotover Jet Remarkable Christmas Spectacular 2009.
+
+The mayor pirouetted and fluttered in a fetching tutu to whoops of delight, along with the other 29 members of the Remarkable Christmas Male Ballet Company, to a rock version of Beethoven's Fifth Symphony.
+MD,
+        'sourceName' => 'Otago Daily Times',
+        'sourceUrl' => 'https://www.odt.co.nz/otago/queenstown/mayoral-turn-dazzles-at-christmas-spectacular-isjlnp1g',
+        'author' => 'James Beech',
+        'publishedDate' => '2009-12-14',
+        'tags' => 'review, queenstown, christmas, mayor',
+        'featured' => false,
     ],
 ];
 

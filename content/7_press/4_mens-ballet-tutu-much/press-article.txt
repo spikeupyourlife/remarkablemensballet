@@ -24,7 +24,7 @@ Sourcename: Otago Daily Times
 
 ----
 
-Sourceurl: https://www.odt.co.nz/regions/queenstown/men%E2%80%99s-ballet-tutu-much
+Sourceurl: https://www.odt.co.nz/otago/queenstown/mens-ballet-tutu-much-pyrch8ws
 
 ----
 
@@ -32,7 +32,7 @@ Author: Tracey Roxburgh
 
 ----
 
-Publisheddate: 2024-12-07
+Publisheddate: 2024-12-06
 
 ----
 

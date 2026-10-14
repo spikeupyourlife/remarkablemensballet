@@ -22,7 +22,7 @@ Sourcename: Otago Daily Times
 
 ----
 
-Sourceurl: https://www.odt.co.nz/regions/queenstown/santa-claus-came-town
+Sourceurl: https://www.odt.co.nz/otago/queenstown/santa-claus-came-to-town-lscwlm08
 
 ----
 
@@ -30,7 +30,7 @@ Author: Guy Williams
 
 ----
 
-Publisheddate: 2025-12-08
+Publisheddate: 2025-12-07
 
 ----
 

@@ -1,0 +1,10 @@
+title: Join the Troupe
+icon: users
+fields:
+  headline: { type: text }
+  blurb: { type: textarea, buttons: false }
+  requirements: { type: textarea, buttons: false, help: One requirement per line, starting with "- " }
+  notRequired: { type: text, label: Not required }
+  process: { type: textarea }
+  ctaLabel: { type: text, label: Button label }
+  ctaEmail: { type: email, label: Send applications to, help: Falls back to the site contact email }

@@ -24,7 +24,7 @@ Sourcename: Otago Daily Times
 
 ----
 
-Sourceurl: https://www.odt.co.nz/regions/queenstown/festival-head-turners
+Sourceurl: https://www.odt.co.nz/otago/queenstown/festival-head-turners-d3x1cg3a
 
 ----
 

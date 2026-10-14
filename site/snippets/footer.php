@@ -60,5 +60,6 @@
 </footer>
 
 <?= js('assets/js/main.js') ?>
+<?= js('assets/js/fx.js', ['defer' => true]) ?>
 </body>
 </html>
