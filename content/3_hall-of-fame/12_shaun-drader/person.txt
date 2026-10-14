@@ -10,17 +10,11 @@ Persontype: performer
 
 ----
 
-Role: Performer · Queenstown Police
+Role: Performer · Police Constable
 
 ----
 
-Bio:
-
-A Queenstown police constable — almost certainly part of THE Drader family, given the surname (his father / uncle was Chas Drader, founder of Q92FM and the broadcasting mentor who put Craig "Ferg" Ferguson on the radio in the first place).
-
-A 2009 CNN article credited Constable Sean Drader for pioneering the Queenstown police's use of Facebook for community engagement — at the time he was working as an intelligence analyst for QPD. Family had skied at Coronet Peak for over 10 years.
-
-The Drader-to-Ferg-to-RMB lineage is one of those small-town threads that runs through this whole story.
+Bio: A Queenstown police constable and past member of the company, and living proof that the long arm of the law can manage a passable port de bras. Full bio coming soon.
 
 ----
 
@@ -56,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Shaun Drader — Queenstown police constable and Remarkable Men's Ballet performer.
+Metadescription: Shaun Drader, Remarkable Men's Ballet performer.

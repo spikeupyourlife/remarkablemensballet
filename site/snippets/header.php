@@ -31,7 +31,7 @@
     <?= css(av('assets/css/main.css')) ?>
     <?= css(av('assets/css/upgrade.css')) ?>
     <?= css(av('assets/css/v2.css')) ?>
-    <?= css(av('assets/css/v3.css')) ?>
+    <?= css(av('assets/css/v4.css')) ?>
     <?php $tplCss = 'assets/css/' . $page->intendedTemplate()->name() . '.css'; if (is_file(kirby()->root('index') . '/' . $tplCss)) echo css(av($tplCss)); ?>
 </head>
 <body class="page--<?= $page->intendedTemplate() ?>">
@@ -40,7 +40,7 @@
 
 <header class="site-header">
     <div class="site-header__inner">
-        <a href="<?= $site->url() ?>" class="site-brand" aria-label="<?= $site->title() ?> — home">
+        <a href="<?= $site->url() ?>" class="site-brand" aria-label="<?= $site->title() ?>, home">
             <span class="site-brand__mark site-brand__mark--crest" aria-hidden="true">
                 <img src="<?= av('assets/images/crest-shield-a.svg') ?>" alt="" width="504" height="704">
             </span>
@@ -69,5 +69,11 @@
         </nav>
     </div>
 </header>
+
+<?php if (option('rmb.review')): ?>
+<aside class="review-note" role="note">
+    <strong>Reviewer's note:</strong> You're watching the dress rehearsal. Spot a wrong fact, a missing name, a bio that undersells you or a photo you'd rather we didn't use? <a href="<?= url('contact') ?>">Send us a note</a>. Stats marked &ldquo;Awaiting confession&rdquo; are waiting on you.
+</aside>
+<?php endif ?>
 
 <main id="main">

@@ -27,7 +27,7 @@
                 <?php foreach ($times as $t): ?>
                     <li>
                         <strong><?= $t->date()->toDate('l d M Y') ?></strong>
-                        — <?= $t->time()->escape() ?>
+                        · <?= $t->time()->escape() ?>
                         <?php if ($t->note()->isNotEmpty()): ?>
                             <em>(<?= $t->note()->escape() ?>)</em>
                         <?php endif ?>

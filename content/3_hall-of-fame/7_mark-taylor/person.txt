@@ -10,17 +10,11 @@ Persontype: performer
 
 ----
 
-Role: Performer · Builder
+Role: Performer
 
 ----
 
-Bio:
-
-Builder by trade. Assistant Manager at [Jennian Homes Central Otago and Queenstown](https://jennian.co.nz/franchises/central-otago-and-queenstown) — the region's long-running custom design-and-build franchise with offices in Queenstown and Alexandra, twenty-plus years in the region.
-
-Also connected with [Queenstown Carpenters](https://www.facebook.com/p/Queenstown-Carpenters-100062974042478/) — keeping the tools sharp.
-
-New to the Remarkable Men's Ballet troupe. We assume the builder-level precision will translate to the choreography. Time will tell.
+Bio: Builder by trade, and one of the newer members of the company. We assume builder-level precision will translate to the choreography. Time will tell.
 
 ----
 
@@ -48,12 +42,12 @@ Instagram:
 
 ----
 
-Customlink: https://jennian.co.nz/franchises/central-otago-and-queenstown
+Customlink: 
 
 ----
 
-Customlinklabel: Jennian Homes Central Otago
+Customlinklabel: 
 
 ----
 
-Metadescription: Mark Taylor — builder, Jennian Homes Central Otago Assistant Manager, Remarkable Men's Ballet performer.
+Metadescription: Mark Taylor, Remarkable Men's Ballet performer.

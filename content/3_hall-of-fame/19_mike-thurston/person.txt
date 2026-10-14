@@ -14,7 +14,7 @@ Role: Performer
 
 ----
 
-Bio: Known to the troupe as **Cookie**. Bio coming.
+Bio: Known to the troupe as **Cookie**. Current member of the company. Further details withheld pending legal advice. Full dossier coming soon.
 
 ----
 
@@ -50,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Mike "Cookie" Thurston — Remarkable Men's Ballet performer.
+Metadescription: Mike "Cookie" Thurston, Remarkable Men's Ballet performer.

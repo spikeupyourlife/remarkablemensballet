@@ -16,11 +16,11 @@ Role: Performer · Former Mayor, Queenstown Lakes
 
 Bio:
 
-Former Queenstown Lakes District Mayor. Performed with the Remarkables Christmas Male Ballet Company at the 2009 concert — the earliest "tutu-wearing mayor" data point we have on file.
+Former Queenstown Lakes District Mayor, and a Remarkable Men's Ballet performer at the 2009 Shotover Jet Remarkable Christmas Spectacular.
 
-Mentioned in the ODT's preview of the 2010 Christmas Spectacular: *"…the Remarkables Christmas Male Ballet Company, who performed at the 2009 concert with then-mayor Clive Geddes."*
+The ODT's report from that year (*Mayoral turn dazzles at Christmas Spectacular*, James Beech, 14 December 2009) records that he stepped in as an eleventh-hour replacement "ballerina", dancing in a tutu alongside the other 29 members of the company to a rock version of Beethoven's Fifth Symphony.
 
-The ODT's own 2009 report (*Mayoral turn dazzles at Christmas Spectacular*, James Beech, 14 December 2009) adds the detail: he was a surprise eleventh-hour replacement "ballerina", pirouetting in a tutu alongside the other 29 members of the company to a rock version of Beethoven's Fifth Symphony.
+The ODT's preview of the 2010 show remembered it too: *"...the Remarkables Christmas Male Ballet Company, who performed at the 2009 concert with then-mayor Clive Geddes."*
 
 ----
 
@@ -56,4 +56,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Clive Geddes — former Queenstown Lakes mayor and 2009 Remarkable Men's Ballet performer.
+Metadescription: Clive Geddes, former Queenstown Lakes mayor and 2009 Remarkable Men's Ballet performer.

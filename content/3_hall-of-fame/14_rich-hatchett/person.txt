@@ -14,7 +14,7 @@ Role: Performer
 
 ----
 
-Bio: Bio coming. Confirmed Remarkable Men's Ballet performer — full story still being collected.
+Bio: Current member of the company. Further details withheld pending legal advice. Full dossier coming soon.
 
 ----
 
@@ -50,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Rich Hatchett — Remarkable Men's Ballet performer.
+Metadescription: Rich Hatchett, Remarkable Men's Ballet performer.

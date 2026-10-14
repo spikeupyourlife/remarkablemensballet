@@ -16,7 +16,7 @@ Role: Performer · Journalist
 
 Bio:
 
-ODT journalist whose first-person column from inside the 2011 RMB rehearsal is — twelve years on — the most useful list of cast names we've got.
+ODT journalist whose first-person column from inside the 2011 RMB rehearsal is, twelve years on, the most useful list of cast names we've got.
 
 In December 2011, James wrote the *"Lissom lads"* piece for the Otago Daily Times as an embedded participant: describing the costume reveal (*"duct tape will be needed at the back of mine while I'm flouncing around otherwise our show will instantly go from ballet to burlesque"*), Anna Stuart's saintly patience as choreographer, and the manoeuvre where he and Ferg hoist Rowan McDonald into the air.
 
@@ -56,4 +56,4 @@ Customlinklabel: James' 2011 ODT column
 
 ----
 
-Metadescription: James Beech — 2011 Remarkable Men's Ballet performer and ODT journalist.
+Metadescription: James Beech, 2011 Remarkable Men's Ballet performer and ODT journalist.

@@ -4,7 +4,7 @@ Title: Queenstown Christmas Show 2021 (full show)
 
 Description:
 
-The full 2021 Queenstown Christmas Show, filmed when the show moved online. The Remarkable Men's Ballet appear somewhere in the middle, looking magnificent. Video by David Oakley, Creative Digital Media. Shared with thanks to the Queenstown Christmas Show.
+The full 2021 Queenstown Christmas Show, filmed when the show moved online. The Remarkable Men's Ballet appear somewhere in the middle, looking magnificent. Video by David Oakley, Creative Digital Media. Shared with thanks to the Queenstown Christmas Show. The video lives on Vimeo, so the button below opens it there.
 
 ----
 
@@ -21,6 +21,16 @@ Showyear: 2021
 ----
 
 Featured: false
+
+----
+
+Thumbnail:
+
+- thumbnail.jpg
+
+----
+
+Linkout: true
 
 ----
 

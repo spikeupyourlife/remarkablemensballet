@@ -10,19 +10,11 @@ Persontype: performer
 
 ----
 
-Role: Performer · Tourism Chief Executive
+Role: Performer
 
 ----
 
-Bio:
-
-Queenstown tourism heavyweight — the public face of selling this place for over a quarter-century.
-
-Tempted from Wellington in 1998, where he'd been at Tourism Wellington and helped organise the **Queenstown Winter Festival in the 1990s** (long before the RMB ever turned up at one). Spent **nearly 10 years as Chief Executive of Destination Queenstown**, then **eight years as Regional General Manager – South Island at Ngāi Tahu Tourism**, and is now Chief Executive of **Ngāi Tahu Property**.
-
-Along the way, he led Eden Park through two World Cups, and is currently shepherding the **Te Pā Tāhuna** residential development in Queenstown — 350+ homes including 100+ KiwiBuild apartments on the former high school site.
-
-Sold Queenstown to the world for a quarter century. And apparently also wore a tutu for it.
+Bio: Listed in the Remarkable Men's Ballet archive. We're still confirming the details of his time in the tutu, so if you were there, [tell us](/contact).
 
 ----
 
@@ -58,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: David Kennedy — former Destination Queenstown CEO, Ngāi Tahu Property CE, Eden Park, and Remarkable Men's Ballet performer.
+Metadescription: David Kennedy, Remarkable Men's Ballet archive.

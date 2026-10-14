@@ -442,6 +442,45 @@ MD,
     ],
 ];
 
+// ─── Publishing rules (Oct 2026) ────────────────────────────────────────────
+// The $articles bodies above are our research notes. What gets published is a
+// short excerpt (about 50 words, whole sentences) plus a link to the source, so
+// we never reproduce a full article. Bold summary lines (e.g. the 2011 line-up)
+// are kept. Em-dashes are replaced everywhere except inside "direct quotes".
+
+function rmbNoDashes(string $t): string {
+    // Split on double-quoted segments; only touch the unquoted parts.
+    $parts = preg_split('/("[^"]*")/u', $t, -1, PREG_SPLIT_DELIM_CAPTURE);
+    foreach ($parts as $i => $part) {
+        if ($i % 2 === 0) $parts[$i] = str_replace([' — ', '—'], [', ', ', '], $part);
+    }
+    return implode('', $parts);
+}
+
+function rmbExcerptBody(array $a, int $target = 50): string {
+    $paras = preg_split('/\n\s*\n/', trim($a['body']));
+    $keep = [];
+    $words = 0;
+    foreach ($paras as $para) {
+        if (str_starts_with(ltrim($para), '**')) continue;
+        if ($words >= $target) break;
+        $sentences = preg_split('/(?<=[.!?])\s+(?=[A-Z*"])/u', trim($para));
+        $out = [];
+        foreach ($sentences as $sen) {
+            if ($words >= $target && $out) break;
+            $out[] = $sen;
+            $words += str_word_count(strip_tags($sen));
+        }
+        $keep[] = implode(' ', $out);
+    }
+    $body = '> ' . implode("\n>\n> ", $keep);
+    $body .= "\n\n*An excerpt from the original article.*";
+    foreach ($paras as $para) {
+        if (str_starts_with(ltrim($para), '**')) $body .= "\n\n" . trim($para);
+    }
+    return rmbNoDashes($body);
+}
+
 // ─── Generate ────────────────────────────────────────────────────────────────
 
 function field(string $key, $value): string {
@@ -490,9 +529,9 @@ foreach ($articles as $i => $a) {
     }
 
     $parts = [
-        field('title',         $a['title']),
-        field('excerpt',       $a['excerpt']),
-        field('body',          $a['body']),
+        field('title',         rmbNoDashes($a['title'])),
+        field('excerpt',       rmbNoDashes($a['excerpt'])),
+        field('body',          rmbExcerptBody($a)),
         field('sourcename',    $a['sourceName']),
         field('sourceurl',     $a['sourceUrl']),
         field('author',        $a['author']),

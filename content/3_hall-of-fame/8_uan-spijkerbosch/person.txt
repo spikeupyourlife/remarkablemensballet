@@ -18,11 +18,11 @@ Bio:
 
 Stage name: **Balletman**.
 
-Quoted in the ODT in April 2025 ahead of the troupe's appearance at the Arrowtown Autumn Festival — the first time the RMB had performed outside the Christmas Show — sounding very ready for it: *"We think we've got it. It's solid, it's dynamic, and we've nailed it."*
+Quoted in the ODT in April 2025 ahead of the troupe's appearance at the Arrowtown Autumn Festival, the first time the RMB had performed outside the Christmas Show, sounding very ready for it: *"We think we've got it. It's solid, it's dynamic, and we've nailed it."*
 
 The 2025 Arrowtown routine was choreographed by Claire Hazledine and set to Vivaldi's *Autumn*.
 
-Also — purely coincidentally — the person who decided to build this website.
+Also, purely coincidentally, the person who decided to build this website.
 
 ----
 
@@ -58,4 +58,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Uan "Balletman" Spijkerbosch — Remarkable Men's Ballet performer.
+Metadescription: Uan "Balletman" Spijkerbosch, Remarkable Men's Ballet performer.

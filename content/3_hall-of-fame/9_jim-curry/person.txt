@@ -14,11 +14,7 @@ Role: Performer
 
 ----
 
-Bio:
-
-Performed at the 2025 Arrowtown Autumn Festival — the troupe's first appearance outside the Christmas Show. Choreography by Claire Hazledine, set to Vivaldi's *Autumn*.
-
-Full bio coming.
+Bio: Part of the six-man line-up for the troupe's first ever appearance outside the Christmas Show, at the 2025 Arrowtown Autumn Festival, dancing Claire Hazledine's routine to Vivaldi's *Autumn*. A short career, but a historic one.
 
 ----
 
@@ -54,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Jim Curry — Remarkable Men's Ballet performer.
+Metadescription: Jim Curry, Remarkable Men's Ballet performer (Arrowtown 2025).

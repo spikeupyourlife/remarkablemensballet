@@ -5,6 +5,8 @@ return [
     // Root-relative URLs so pages work on both http and https (page cache safe)
     'url' => '/',
     'panel' => ['install' => false],
+    // Review phase: shows the Reviewer's note banner. Remove (or set false) at launch.
+    'rmb.review' => true,
     // Forms: send via the host's built-in PHP mail()/sendmail (cPanel, no SMTP creds)
     'email' => [
         'transport' => ['type' => 'mail'],

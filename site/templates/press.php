@@ -18,6 +18,12 @@
                             <div class="press-card__thumb">
                                 <img src="<?= $img->resize(600, 400, 80)->url() ?>" alt="" loading="lazy">
                             </div>
+                        <?php else: ?>
+                            <div class="press-card__thumb press-fallback" aria-hidden="true">
+                                <img src="<?= av('assets/images/crest-shield-dark-a.svg') ?>" alt="" loading="lazy">
+                                <span class="press-fallback__src"><?= $article->sourceName()->escape() ?></span>
+                                <span class="press-fallback__year"><?= $article->publishedDate()->toDate('Y') ?></span>
+                            </div>
                         <?php endif ?>
                         <div class="press-card__body">
                             <p class="press-card__source">

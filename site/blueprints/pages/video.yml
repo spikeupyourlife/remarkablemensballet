@@ -48,6 +48,10 @@ columns:
       meta:
         type: fields
         fields:
+          linkOut:
+            label: Link out instead of embedding
+            type: toggle
+            help: Use when the platform blocks embedding on our domain.
           showYear:
             label: Show year
             type: number

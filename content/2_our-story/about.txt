@@ -14,7 +14,7 @@ Doug Kamo and Simon Green had an idea. History does not record whether anyone tr
 
 We have survived every rebrand: the Shotover Jet Remarkable Christmas Spectacular, the Shotover Christmas Cracker, and today's Queenstown Christmas Show. Names change. Tutus endure.
 
-Our members are tradies, professionals, councillors, a police constable, a volunteer firefighter, a newspaper journalist and, on one memorable occasion, the mayor. Almost none of us are trained. That is the point.
+Our members are tradies, professionals, a councillor, a police constable, a volunteer firefighter, a newspaper journalist and, on one memorable occasion, the mayor. Almost none of us are trained. That is the point.
 
 By 2009 we were 30 strong, and Mayor Clive Geddes stepped in as an eleventh-hour replacement ballerina to a rock version of Beethoven's Fifth. In 2011 Mayor Vanessa van Uden stole our flowers, and was wrapped in tinsel and carried offstage for her trouble. In 2013 we took the show outdoors at the Queenstown Recreation Ground with red lipstick, hairy legs and a rugby ball, and the paper said we stole the show. We have not given it back.
 
@@ -92,10 +92,6 @@ Stats:
 
 Shame:
 
--
-  year: "2009"
-  title: The eleventh-hour ballerina
-  text: A dancer short on the night, we recruited the most senior man available. The Mayor. In a tutu and headband.
 -
   year: "2011"
   title: The burlesque scare

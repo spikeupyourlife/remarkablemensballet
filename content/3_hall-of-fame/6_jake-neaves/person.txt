@@ -16,9 +16,9 @@ Role: Performer · Volunteer Firefighter
 
 Bio:
 
-Joined the troupe in 2024 — one of two new faces that year. A Queenstown volunteer firefighter by day; tutu-wearer by Christmas.
+Joined the troupe in 2024, one of two new faces that year. A Queenstown volunteer firefighter by day; tutu-wearer by Christmas.
 
-The 2024 show was the year of the presents (no tutus) — Ferg told the ODT the troupe was "still a bit sore" about the tutu absence. Jake had to make do with corrugated cardboard and a sense of humour.
+The 2024 show was the year of the presents (no tutus), Ferg told the ODT the troupe was "still a bit sore" about the tutu absence. Jake had to make do with corrugated cardboard and a sense of humour.
 
 ----
 
@@ -54,4 +54,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Jake Neaves — Queenstown volunteer firefighter and Remarkable Men's Ballet performer since 2024.
+Metadescription: Jake Neaves, Queenstown volunteer firefighter and Remarkable Men's Ballet performer since 2024.

@@ -23,6 +23,12 @@
                 <figcaption>Photo: <?= $img->credit()->escape() ?></figcaption>
             <?php endif ?>
         </figure>
+    <?php else: ?>
+        <figure class="press-article__image press-fallback press-fallback--wide" aria-hidden="true">
+            <img src="<?= av('assets/images/crest-shield-dark-a.svg') ?>" alt="">
+            <span class="press-fallback__src"><?= $page->sourceName()->escape() ?></span>
+            <span class="press-fallback__year"><?= $page->publishedDate()->toDate('Y') ?></span>
+        </figure>
     <?php endif ?>
 
     <div class="prose press-article__body">
@@ -31,7 +37,7 @@
 
     <?php if ($page->sourceUrl()->isNotEmpty()): ?>
         <p class="press-article__source-link">
-            <a href="<?= $page->sourceUrl()->url() ?>" rel="noopener">Read the original on <?= $page->sourceName()->or('the publisher\'s site')->escape() ?> →</a>
+            <a href="<?= $page->sourceUrl()->url() ?>" rel="noopener">Read the full story at <?= $page->sourceName()->or('the publisher\'s site')->escape() ?> →</a>
         </p>
     <?php endif ?>
 </article>

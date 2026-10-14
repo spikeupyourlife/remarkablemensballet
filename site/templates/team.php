@@ -19,7 +19,7 @@ $sections = [
 ?>
 
 <section class="team">
-    <p class="draft-note draft-note--center">Card stats in grey italics are placeholders until the dancer confirms them (bribes accepted). Know a name we've missed? <a href="/submit-memory">Tell us</a>.</p>
+    <p class="draft-note draft-note--center">Stats marked “Awaiting confession” fill in once the dancer owns up (bribes accepted). Know a name we've missed? <a href="/submit-memory">Tell us</a>.</p>
     <div class="team__inner">
         <?php foreach ($sections as [$key, $heading, $blurb, $people]): ?>
             <?php if ($people->count() === 0) continue; ?>

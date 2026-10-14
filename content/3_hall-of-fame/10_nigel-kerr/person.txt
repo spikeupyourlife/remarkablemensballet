@@ -10,15 +10,11 @@ Persontype: performer
 
 ----
 
-Role: Performer · Coronet Peak Ski Area Manager
+Role: Performer
 
 ----
 
-Bio:
-
-Wakatipu local with deep ski-industry roots. Started as a ski and snowboard instructor in the 1980s, then spent **21 years at Cardrona** before broadening into commercial and marketing roles — at The Good Group, his own marketing consultancy, and as Marketing Manager for Ngāi Tahu Tourism in Queenstown.
-
-Since February 2017 he's been the **Coronet Peak Ski Area Manager** — running the closest mountain to town. Forty-odd years of moving people up and down hills, in dignified ski wear and (apparently) the occasional tutu.
+Bio: Listed in the Remarkable Men's Ballet archive. We're still confirming the details of his time in the tutu, so if you were there, [tell us](/contact).
 
 ----
 
@@ -54,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Nigel Kerr — Coronet Peak Ski Area Manager and Remarkable Men's Ballet performer.
+Metadescription: Nigel Kerr, Remarkable Men's Ballet archive.

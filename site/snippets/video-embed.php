@@ -2,6 +2,22 @@
 /** Expects: $video (Page representing a video) */
 
 $url     = $video->videoUrl()->toString();
+
+// Link-out videos (embed not permitted on our domain): show the thumbnail and a button.
+if ($video->linkOut()->toBool()) {
+    $thumb = $video->thumbnail()->toFile();
+    $host  = $video->videoType()->value() === 'vimeo' ? 'Vimeo' : 'YouTube';
+    ?>
+    <div class="video-linkout">
+        <a href="<?= esc($url, 'attr') ?>" rel="noopener" target="_blank" class="video-linkout__thumb">
+            <?php if ($thumb): ?><img src="<?= $thumb->resize(1280, 720, 80)->url() ?>" alt="<?= $thumb->alt()->escape() ?>"><?php endif ?>
+            <span class="video-card__play" aria-hidden="true">▶</span>
+        </a>
+        <p><a class="btn btn--primary" href="<?= esc($url, 'attr') ?>" rel="noopener" target="_blank">Watch on <?= $host ?></a></p>
+    </div>
+    <?php
+    return;
+}
 $type    = $video->videoType()->or('youtube')->value();
 $start   = $video->startTime()->value();
 $end     = $video->endTime()->value();

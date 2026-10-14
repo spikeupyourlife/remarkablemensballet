@@ -14,7 +14,7 @@ Role: Performer
 
 ----
 
-Bio: Confirmed in the 2011 lineup (ODT, *Lissom Lads*). Bio coming.
+Bio: Graeme was one of the Class of 2011: a dozen sturdy blokes rehearsing in the Queenstown Primary School Hall under Anna Stuart, then in her second year of trying, for the 2011 Shotover Jet Christmas Spectacular. The routine was a waltz from *The Nutcracker*, complete with imaginary harps and bouquets. Fellow recruit James Beech reported in the ODT that the men's respect for real ballet dancers rose tenfold. Full bio coming soon.
 
 ----
 
@@ -50,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Graeme Jackson — 2011 Remarkable Men's Ballet performer.
+Metadescription: Graeme Jackson, 2011 Remarkable Men's Ballet performer.

@@ -16,14 +16,14 @@ function rmbStats(Kirby\Cms\Page $p): array
     $h = crc32($p->slug());
     $pick = fn($field, $list, $salt) => $p->content()->get($field)->isNotEmpty()
         ? ['value' => $p->content()->get($field)->value(), 'draft' => false]
-        : ['value' => $list[($h >> $salt) % count($list)], 'draft' => true];
+        : ['value' => 'Awaiting confession', 'draft' => true];
 
     $since = $p->performingSince()->isNotEmpty() ? (int) $p->performingSince()->toDate('Y') : null;
     $until = $p->performingUntil()->isNotEmpty() ? (int) $p->performingUntil()->toDate('Y') : (int) date('Y');
     return [
         'years'  => $since ? ['value' => max(1, $until - $since), 'draft' => false]
-                           : ['value' => 'Classified', 'draft' => true],
-        'debut'  => $since ? ['value' => $since, 'draft' => false] : ['value' => 'TBC', 'draft' => true],
+                           : ['value' => 'Awaiting confession', 'draft' => true],
+        'debut'  => $since ? ['value' => $since, 'draft' => false] : ['value' => 'Awaiting confession', 'draft' => true],
         'move'   => $pick('signatureMove', $moves, 3),
         'tutu'   => $pick('tutuColour', $tutus, 7),
         'power'  => $pick('specialty', $powers, 11),
