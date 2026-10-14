@@ -44,3 +44,15 @@ dist/
 /dist
 /public
 /node_modules
+
+# Replit-era user-level dirs that shouldn't be tracked
+/.config
+/.local
+
+# Video files kept locally only — the 2020 Winter Festival .mp4 is >250MB
+# and goes to YouTube per the deferred social-setup plan, so we don't push
+# raw video blobs to git. Pre-published Vimeo/YouTube URLs go in content/.
+/content/**/*.mp4
+/content/**/*.mov
+/content/**/*.m4v
+/content/**/*.webm

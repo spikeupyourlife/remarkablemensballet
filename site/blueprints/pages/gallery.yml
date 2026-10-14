@@ -21,8 +21,19 @@ sections:
         size: small
         default: Photos from rehearsals, dressing rooms, backstage chaos, and (occasionally) the actual stage.
 
+  albums:
+    headline: Albums
+    type: pages
+    template: album
+    layout: cards
+    image:
+      query: page.cover.toFile ?? page.files.template('image').first
+      cover: true
+    info: "{{ page.showDate.toDate('d M Y') }} · {{ page.files.template('image').count }} photos"
+    sortBy: showDate desc
+
   photos:
-    headline: Photos
+    headline: Standalone photos
     type: pages
     template: photo
     layout: cards
@@ -32,9 +43,13 @@ sections:
     info: "{{ page.showName }} · {{ page.showDate.toDate('Y') }}"
 
   add:
-    headline: Add a photo
+    headline: Add to gallery
     type: pages
-    template: photo
-    create: photo
+    templates:
+      - album
+      - photo
+    create:
+      - album
+      - photo
     layout: list
     limit: 0

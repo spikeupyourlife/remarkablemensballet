@@ -1,6 +1,7 @@
 title: Admin
-description: Full access — site config, users, content.
-home: site
+description: Full access — manages all content, site settings, and users.
+home: "{{ site.panel.url }}"
+
 permissions:
   access: true
   files: true
@@ -9,3 +10,32 @@ permissions:
   site: true
   users: true
   user: true
+
+columns:
+  - width: 1/3
+    sections:
+      role:
+        type: info
+        headline: Admin role
+        theme: positive
+        text: |
+          You have **full access** to everything.
+
+          Common starting points:
+
+          - **Site overview** — pages list and settings
+          - **Team** — add performers, choreographers, crew
+          - **Gallery** — upload and tag photos
+          - **Press** — manage media coverage
+          - **Submit-memory** — review fan submissions
+
+  - width: 2/3
+    sections:
+      profile:
+        type: fields
+        fields:
+          notes:
+            label: Personal notes
+            type: textarea
+            size: medium
+            help: Optional — for your own reference (what's in progress, ideas, reminders).

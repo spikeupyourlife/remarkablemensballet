@@ -20,9 +20,11 @@ return [
         'format'  => 'webp',
     ],
 
-    // Date format
+    // Date format — using the default 'date' handler so PHP date() format
+    // codes (e.g. 'd M Y' = '08 Dec 2025') work as expected in templates.
+    // (The 'intl' handler uses ICU codes which would require 'd MMM yyyy'.)
     'date' => [
-        'handler' => 'intl',
+        'handler' => 'date',
     ],
 
     // Panel customisation

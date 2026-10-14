@@ -57,9 +57,12 @@
     <?php if ($gallery->count()): ?>
         <section class="person__gallery">
             <h2 class="section-head__title">More evidence</h2>
-            <div class="image-grid">
+            <div class="image-grid" data-lightbox-group>
                 <?php foreach ($gallery as $img): ?>
-                    <a href="<?= $img->url() ?>" class="image-grid__item">
+                    <a href="<?= $img->url() ?>" class="image-grid__item"
+                       data-lightbox-src="<?= $img->url() ?>"
+                       data-lightbox-alt="<?= $img->alt()->or($page->title())->escape() ?>"
+                       data-lightbox-caption="<?= $img->caption()->escape() ?>">
                         <img src="<?= $img->resize(600, 600, 80)->url() ?>"
                              alt="<?= $img->alt()->escape() ?>"
                              loading="lazy">

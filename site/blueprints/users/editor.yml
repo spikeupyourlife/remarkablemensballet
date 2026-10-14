@@ -1,6 +1,7 @@
 title: Editor
 description: Can add and edit content, but can't change site settings or users.
-home: site
+home: "{{ site.panel.url }}"
+
 permissions:
   access:
     panel: true
@@ -32,3 +33,26 @@ permissions:
     delete: false
     update: true
   users: false
+
+columns:
+  - width: 1/3
+    sections:
+      role:
+        type: info
+        headline: Editor role
+        text: |
+          You can **add and edit content** — pages, photos, videos, press articles, performer profiles.
+
+          What you can't do (admins handle these):
+
+          - Change site-wide settings
+          - Manage users or roles
+  - width: 2/3
+    sections:
+      profile:
+        type: fields
+        fields:
+          notes:
+            label: Personal notes
+            type: textarea
+            size: medium

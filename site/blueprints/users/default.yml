@@ -1,0 +1,16 @@
+# Fallback user blueprint — applies to any role that doesn't have its own file.
+# Each defined role above (admin.yml, editor.yml) provides its own form;
+# this exists so future roles get a sensible default.
+
+title: User
+
+columns:
+  - width: 1/1
+    sections:
+      profile:
+        type: fields
+        fields:
+          notes:
+            label: Notes
+            type: textarea
+            size: small

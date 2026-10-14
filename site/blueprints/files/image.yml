@@ -1,21 +1,141 @@
 title: Image
 accept:
   mime: image/jpeg, image/png, image/webp, image/avif, image/gif
-  maxsize: 15M
+  maxsize: 25M
 
 options:
   changeName: true
   delete: true
   replace: true
 
-fields:
-  caption:
-    label: Caption
-    type: text
-  alt:
-    label: Alt text
-    type: text
-    help: For screen readers — describe what's in the image.
-  credit:
-    label: Photo credit
-    type: text
+tabs:
+  basics:
+    label: Basics
+    icon: image
+    fields:
+      caption:
+        label: Caption
+        type: text
+        width: 1/1
+      alt:
+        label: Alt text
+        type: text
+        width: 1/1
+        help: For screen readers — describe what's in the image.
+      credit:
+        label: Photo credit
+        type: text
+        width: 1/2
+      takenAt:
+        label: Taken
+        type: datetime
+        display: YYYY-MM-DD HH:mm
+        width: 1/2
+        help: Auto-filled from EXIF if available.
+      isCover:
+        label: Featured / cover?
+        type: toggle
+        width: 1/1
+
+  tags:
+    label: Tags & people
+    icon: tag
+    fields:
+      performers:
+        label: Performers in this photo
+        type: pages
+        query: site.find('team').children
+        multiple: true
+      whoTags:
+        label: Who else (free-text names)
+        type: tags
+        help: For people not yet on the Team page.
+      whatTags:
+        label: What's happening
+        type: tags
+        help: "rehearsal, costume fitting, post-show beer, etc."
+      whenTags:
+        label: When context
+        type: tags
+        help: "opening night, dress rehearsal, after-party"
+      whereTags:
+        label: Where
+        type: tags
+      whyTags:
+        label: Why context
+        type: tags
+
+  faces:
+    label: Faces
+    icon: user
+    fields:
+      facesInfo:
+        type: info
+        text: |
+          Face boxes (auto-detected by the Python face-detection pass) appear here.
+          Assign a performer to each detected face from the dropdown.
+          *Phase 2 feature — populated by an offline detection script.*
+      faces:
+        label: Detected faces
+        type: structure
+        fields:
+          x:
+            label: X
+            type: number
+            width: 1/4
+          y:
+            label: Y
+            type: number
+            width: 1/4
+          w:
+            label: Width
+            type: number
+            width: 1/4
+          h:
+            label: Height
+            type: number
+            width: 1/4
+          performer:
+            label: Performer
+            type: pages
+            query: site.find('team').children
+            max: 1
+          confidence:
+            label: Detection confidence
+            type: number
+            step: 0.01
+            help: 0–1; from face-detection script.
+
+  exif:
+    label: EXIF
+    icon: cog
+    fields:
+      exifInfo:
+        type: info
+        text: |
+          Metadata pulled from the original photo file at import time.
+      camera:
+        label: Camera
+        type: text
+        disabled: true
+        width: 1/2
+      lens:
+        label: Lens
+        type: text
+        disabled: true
+        width: 1/2
+      gpsLat:
+        label: GPS latitude
+        type: text
+        disabled: true
+        width: 1/2
+      gpsLng:
+        label: GPS longitude
+        type: text
+        disabled: true
+        width: 1/2
+      originalFilename:
+        label: Original filename
+        type: text
+        disabled: true
+        width: 1/1
