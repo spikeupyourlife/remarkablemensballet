@@ -10,19 +10,17 @@ Persontype: performer
 
 ----
 
-Role: Performer · "Balletman"
+Role: Performer · Acting G, 2025
 
 ----
 
-Bio:
+Bio: 
 
-Stage name: **Balletman**.
+The man who built this website and then, as punishment, was handed the baton. Spike stepped up as acting G for the 2025 Christmas Show: he wrote the rehearsal schedule, wrangled the venues and booked the makeup, all while learning which end of a tutu goes up.
 
-Quoted in the ODT in April 2025 ahead of the troupe's appearance at the Arrowtown Autumn Festival, the first time the RMB had performed outside the Christmas Show, sounding very ready for it: *"We think we've got it. It's solid, it's dynamic, and we've nailed it."*
+Quoted in the ODT in April 2025 ahead of the Arrowtown Autumn Festival, sounding very ready for it: *"We think we've got it. It's solid, it's dynamic, and we've nailed it."* That routine was Claire Hazledine's, set to Vivaldi's *Autumn*.
 
-The 2025 Arrowtown routine was choreographed by Claire Hazledine and set to Vivaldi's *Autumn*.
-
-Also, purely coincidentally, the person who decided to build this website.
+Reigning Best Dressed at the troupe's quiz night outing. His own review of the 2025 show photos: a short man doing his very best impression of a tall one.
 
 ----
 
@@ -58,4 +56,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Uan "Balletman" Spijkerbosch, Remarkable Men's Ballet performer.
+Metadescription: Uan "Spike" Spijkerbosch, Remarkable Men's Ballet performer, acting G for the 2025 Christmas Show and builder of this website.

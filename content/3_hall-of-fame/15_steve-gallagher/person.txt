@@ -2,7 +2,7 @@ Title: Steve Gallagher
 
 ----
 
-Stagename: 
+Stagename: Special
 
 ----
 
@@ -14,7 +14,9 @@ Role: Performer
 
 ----
 
-Bio: Full name **Steven Michael Gallagher**, which is far too many names for one tutu. Current member of the company. Further details withheld pending legal advice. Full dossier coming soon.
+Bio: Full name **Steven Michael Gallagher**, which is far too many names for one tutu, so everyone calls him **Special**.
+
+He signed up for 2025 promising to ruin ballet all over again, then recruited the Waterboy for good measure. Special keeps up his black swan training wherever he happens to be, from Samoa to the top of Cecil Peak, and he keeps the green room stocked with snacks. Christmas 2025 black swan. His golf, we don't ask about.
 
 ----
 
@@ -50,4 +52,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Steve Gallagher, Remarkable Men's Ballet performer.
+Metadescription: Steve "Special" Gallagher, Remarkable Men's Ballet performer.

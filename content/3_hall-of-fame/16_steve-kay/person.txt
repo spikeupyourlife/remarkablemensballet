@@ -2,7 +2,7 @@ Title: Steve Kay
 
 ----
 
-Stagename: 
+Stagename: Betty Swollocks
 
 ----
 
@@ -14,7 +14,9 @@ Role: Performer
 
 ----
 
-Bio: Current member of the company, and part of the six-man line-up that took the troupe beyond the Christmas Show for the first time, at the 2025 Arrowtown Autumn Festival (choreography by Claire Hazledine, music by Vivaldi, nerves by Steve). Full dossier coming soon.
+Bio: Stage name **Betty Swollocks**, and please don't call him Steve while he's in character. Ferg calls him **Yelly**.
+
+Steve is the troupe's hype man, archivist and fixer: he finds the costume references, the school hall and the speakers, and he even dug up video of the troupe's circa-1990 autumn festival forerunners. Part of the six-man line-up that took the troupe beyond the Christmas Show for the first time, at the 2025 Arrowtown Autumn Festival (choreography by Claire Hazledine, music by Vivaldi, nerves by Steve), and a black swan at Christmas 2025, having cut short a work trip to Te Anau rather than miss the flash mob.
 
 ----
 
@@ -50,4 +52,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Steve Kay, Remarkable Men's Ballet performer.
+Metadescription: Steve "Betty Swollocks" Kay, Remarkable Men's Ballet performer.

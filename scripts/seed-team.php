@@ -589,20 +589,6 @@ MD,
         'metaDescription' => 'Andrew Bisset, Queenstown Wine Trail MD and 2011 Remarkable Men\'s Ballet performer.',
     ],
 
-    [
-        'slug' => 'james-the-rabbit-man',
-        'title' => "James 'the Rabbit Man'",
-        'stageName' => 'The Rabbit Man',
-        'personType' => 'performer',
-        'role' => 'Performer · Newest recruit',
-        'bio' => "The newest member of the company, known to the troupe only as **the Rabbit Man**. Surname classified. Origin of the nickname under investigation. Full bio coming soon.",
-        'performingSince' => '',
-        'performingUntil' => '',
-        'isCurrent' => true,
-        'featured' => false,
-        'metaDescription' => "James 'the Rabbit Man', the newest Remarkable Men's Ballet recruit.",
-    ],
-
     // ─── Choreographers ──────────────────────────────────────────────────────
     [
         'slug' => 'anna-stuart',
@@ -656,10 +642,10 @@ const CURRENT_COMPANY = [
     'uan-spijkerbosch', 'craig-ferguson', 'bert-haines', 'claire-hazledine',
     'irik-anderson', 'jake-neaves', 'rich-hatchett', 'steve-gallagher',
     'steve-kay', 'gary-clearwater', 'mark-taylor', 'mike-thurston',
-    'peter-laurenson', 'paul-robinson', 'james-the-rabbit-man',
+    'peter-laurenson', 'paul-robinson', 'jim-curry',
 ];
 // Removed from the roster entirely (folder deleted if present).
-const REMOVED = ['glyn-lewers'];
+const REMOVED = ['glyn-lewers', 'james-the-rabbit-man'];
 
 $overrides = [
     'doug-kamo' => [

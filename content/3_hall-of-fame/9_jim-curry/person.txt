@@ -2,7 +2,7 @@ Title: Jim Curry
 
 ----
 
-Stagename: 
+Stagename: CCJ
 
 ----
 
@@ -14,7 +14,9 @@ Role: Performer
 
 ----
 
-Bio: Part of the six-man line-up for the troupe's first ever appearance outside the Christmas Show, at the 2025 Arrowtown Autumn Festival, dancing Claire Hazledine's routine to Vivaldi's *Autumn*. A short career, but a historic one.
+Bio: Known to the troupe as **CCJ**, and also as the Rabbit Man. The Arrowtown arm of the company: Jim was part of the six-man line-up for the troupe's first ever appearance outside the Christmas Show, at the 2025 Arrowtown Autumn Festival, dancing Claire Hazledine's routine to Vivaldi's *Autumn*.
+
+A few weeks out from the 2025 Christmas Show he lost an argument with a rabbit hole (fairy down!), and he danced the black swans anyway. Through his Arrowtown connections he also found the troupe a pair of ex-ballerina choreographers for Autumn Fest 2026. Please don't ask him what CCJ stands for.
 
 ----
 
@@ -26,7 +28,7 @@ Performinguntil:
 
 ----
 
-Iscurrent: false
+Iscurrent: true
 
 ----
 
@@ -50,4 +52,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Jim Curry, Remarkable Men's Ballet performer (Arrowtown 2025).
+Metadescription: Jim "CCJ" Curry, the Rabbit Man, Remarkable Men's Ballet performer.

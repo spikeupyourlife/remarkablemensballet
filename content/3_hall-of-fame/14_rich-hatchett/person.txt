@@ -2,7 +2,7 @@ Title: Rich Hatchett
 
 ----
 
-Stagename: 
+Stagename: The Hatchett
 
 ----
 
@@ -14,7 +14,7 @@ Role: Performer
 
 ----
 
-Bio: Current member of the company. Further details withheld pending legal advice. Full dossier coming soon.
+Bio: Black swan at Christmas 2025, and the man who suggested red-and-white tipped swan noses. By his own admission he is better at taking a punch than at group chats. Holder of the troupe record for creative arrival times: overslept, delayed, or occasionally in entirely the wrong town. Further details withheld pending legal advice.
 
 ----
 
@@ -50,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Rich Hatchett, Remarkable Men's Ballet performer.
+Metadescription: Rich "the Hatchett" Hatchett, Remarkable Men's Ballet performer.

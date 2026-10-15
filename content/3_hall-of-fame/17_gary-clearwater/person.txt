@@ -2,7 +2,7 @@ Title: Gary Clearwater
 
 ----
 
-Stagename: 
+Stagename: Schmetterling
 
 ----
 
@@ -14,7 +14,7 @@ Role: Performer
 
 ----
 
-Bio: Current member of the company. Further details withheld pending legal advice. Full dossier coming soon.
+Bio: The troupe's butterfly, **Schmetterling**. He appears in the Class of 2011 photo where, by Steve Kay's account, he somehow looks young yet has exactly the same hairline. Gary maintains those photos date from back when he had definition. He has spoken movingly about breaking out of his cocoon (metaphorically, we are assured), and he goes way back with co-founder Doug Kamo.
 
 ----
 
@@ -50,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Gary Clearwater, Remarkable Men's Ballet performer.
+Metadescription: Gary "Schmetterling" Clearwater, Remarkable Men's Ballet performer.

@@ -2,7 +2,7 @@ Title: Irik Anderson
 
 ----
 
-Stagename: 
+Stagename: The Viking
 
 ----
 
@@ -14,7 +14,9 @@ Role: Performer
 
 ----
 
-Bio: One of the longest-serving men on the books. Irik was in the Class of 2011 (ODT, *Meet the lords of the dance*), and was back in a tutu for the troupe's first ever outside gig, the 2025 Arrowtown Autumn Festival, dancing Claire Hazledine's routine to Vivaldi's *Autumn*. Fourteen years between press mentions and not a step forgotten. Allegedly.
+Bio: **The Viking**, and one of the longest-serving men on the books. Irik was in the Class of 2011 (ODT, *Meet the lords of the dance*), was back in a tutu for the troupe's first ever outside gig, the 2025 Arrowtown Autumn Festival, dancing Claire Hazledine's routine to Vivaldi's *Autumn*, and then danced the black swans at Christmas 2025.
+
+Keeper of troupe lore, sailor when he isn't dancing, and inventor of the emergency paper-cone swan beak. His philosophy, roughly: the hairline may say polish, but the attitude says glitter. Fourteen years between press mentions and not a step forgotten. Allegedly.
 
 ----
 
@@ -50,4 +52,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Irik Anderson, Remarkable Men's Ballet performer since 2011.
+Metadescription: Irik "The Viking" Anderson, Remarkable Men's Ballet performer since 2011.

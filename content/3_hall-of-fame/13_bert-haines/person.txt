@@ -2,7 +2,7 @@ Title: Bert Haines
 
 ----
 
-Stagename: 
+Stagename: Bertrude
 
 ----
 
@@ -14,7 +14,7 @@ Role: Performer
 
 ----
 
-Bio: Queenstown hospitality stalwart and current member of the company. Hospitality icon by day, tutu-wearer when Ferg asks nicely. Full dossier coming soon.
+Bio: Queenstown hospitality stalwart, the troupe's resident silver fox and, on stage, **Bertrude**. Bert sat out the 2025 show, but came along to watch and took the photos, and his review was short: so much drama. Hospitality icon by day, tutu-wearer when Ferg asks nicely.
 
 ----
 
@@ -50,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Bert Haines, Remarkable Men's Ballet performer.
+Metadescription: Bert "Bertrude" Haines, Remarkable Men's Ballet performer.

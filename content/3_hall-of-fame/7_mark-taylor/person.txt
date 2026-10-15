@@ -2,7 +2,7 @@ Title: Mark Taylor
 
 ----
 
-Stagename: 
+Stagename: Waterboy
 
 ----
 
@@ -14,11 +14,11 @@ Role: Performer
 
 ----
 
-Bio: Builder by trade, and one of the newer members of the company. We assume builder-level precision will translate to the choreography. Time will tell.
+Bio: Builder by trade, recruited by Special in late 2025 as **the Waterboy**. Reviews of his first rehearsal were glowing: he shone like the star he is, and was hailed as the new Jasmine. His stated ambition was to deliver mediocrity to the very best of his ability. He made his debut as a black swan at Christmas 2025, after first locating the wrong hall. Will do anything for a buffet.
 
 ----
 
-Performingsince: 
+Performingsince: 2025-12-01
 
 ----
 
@@ -50,4 +50,4 @@ Customlinklabel:
 
 ----
 
-Metadescription: Mark Taylor, Remarkable Men's Ballet performer.
+Metadescription: Mark "Waterboy" Taylor, Remarkable Men's Ballet performer since 2025.
