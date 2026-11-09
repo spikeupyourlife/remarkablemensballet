@@ -2,12 +2,12 @@
 
 <?php $hero = $page->images()->first(); ?>
 
-<?php $s = rmbStats($page); $type = $page->personType()->or('performer')->value(); ?>
+<?php $s = rmbStats($page); $type = rmbCardType($page); $typeLabel = rmbTypeLabel($page); ?>
 <article class="person person--hof">
     <header class="hof">
         <div class="hof__inner">
             <div data-tilt class="hof__card tcard tcard--big tcard--<?= esc($type, 'attr') ?>">
-                <div class="tcard__top"><span class="tcard__no">No. <?= $s['number'] ?></span><span class="tcard__type"><?= esc(ucfirst($type)) ?></span></div>
+                <div class="tcard__top"><span class="tcard__no">No. <?= $s['number'] ?></span><span class="tcard__type"><?= esc($typeLabel) ?></span></div>
                 <div class="tcard__photo">
                     <?php if ($hero): ?>
                         <img src="<?= $hero->crop(720, 840)->url() ?>" alt="<?= $hero->alt()->or($page->title())->escape() ?>" loading="eager">
@@ -27,10 +27,17 @@
                     <div><dt>Signature move</dt><dd class="<?= $s['move']['draft'] ? 'is-draft' : '' ?>"><?= esc($s['move']['value']) ?></dd></div>
                     <div><dt>Tutu colour</dt><dd class="<?= $s['tutu']['draft'] ? 'is-draft' : '' ?>"><?= esc($s['tutu']['value']) ?></dd></div>
                     <div><dt>Special power</dt><dd class="<?= $s['power']['draft'] ? 'is-draft' : '' ?>"><?= esc($s['power']['value']) ?></dd></div>
-                    <div><dt>Status</dt><dd><?= $page->isCurrent()->toBool() ? 'Active duty' : 'Emeritus' ?></dd></div>
+                    <div><dt>Status</dt><dd><?= esc(rmbStatusLabel($page)) ?></dd></div>
                 </dl>
                 <?php if (in_array(true, array_column($s, 'draft'), true)): ?>
                     <p class="draft-note">Stats marked “Awaiting confession” fill in once the dancer owns up (or a reliable witness dobs him in).</p>
+                <?php endif ?>
+                <?php if ($page->customLink()->isNotEmpty()): ?>
+                    <p class="person__extlink">
+                        <a class="btn btn--gold" href="<?= $page->customLink()->url() ?>" rel="noopener noreferrer">
+                            <?= $page->customLinkLabel()->or('Find out more')->escape() ?>
+                        </a>
+                    </p>
                 <?php endif ?>
             </div>
         </div>

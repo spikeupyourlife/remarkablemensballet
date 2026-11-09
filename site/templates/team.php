@@ -10,10 +10,12 @@
 
 <?php
 $all = $page->children()->listed()->filterBy('showInList', true);
-$perf = $all->filter(fn($p) => $p->personType()->value() === 'performer');
+$honorary = $all->filter(fn($p) => rmbIsHonorary($p));
+$perf = $all->filter(fn($p) => $p->personType()->value() === 'performer' && !rmbIsHonorary($p));
 $sections = [
     ['current', 'The current company', 'Active duty. Tutus pressed. Dignity on leave.', $perf->filter(fn($p) => $p->isCurrent()->toBool())],
-    ['choreo', 'Choreographers and crew', 'The people who make it look (almost) intentional.', $all->filter(fn($p) => $p->personType()->value() !== 'performer')],
+    ['choreo', 'Choreographers and crew', 'The people who make it look (almost) intentional.', $all->filter(fn($p) => $p->personType()->value() !== 'performer' && !rmbIsHonorary($p))],
+    ['honorary', 'Honorary members', 'Not on the roster. Entirely on the record. One of them still has our flowers.', $honorary],
     ['alumni', 'Alumni', 'Retired from the stage. Never from our hearts. Some of them still have the tutu.', $perf->filter(fn($p) => !$p->isCurrent()->toBool())],
 ];
 ?>

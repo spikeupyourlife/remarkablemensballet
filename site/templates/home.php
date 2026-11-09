@@ -3,8 +3,8 @@
 $heroImage = $page->images()->first();
 $team = page('hall-of-fame');
 $story = page('our-story');
-$members = $team ? $team->children()->listed() : null;
-$withPhoto = $members ? $members->filter(fn($p) => $p->images()->count() > 0)->sortBy('isCurrent', 'desc', 'num', 'asc') : null;
+$members = $team ? $team->children()->listed()->filterBy('showInList', true) : null;
+$company = $members ? $members->filter(fn($p) => $p->isCurrent()->toBool()) : null;
 $nextShow = page('performances')?->children()->listed()
     ->filter(fn($p) => $p->showDate()->toDate() >= time())->sortBy('showDate', 'asc')->first();
 $press = page('press')?->children()->listed()->limit(10);
@@ -69,18 +69,18 @@ $press = page('press')?->children()->listed()->limit(10);
 
 <?php snippet('stats', ['story' => $story]) ?>
 
-<?php if ($withPhoto && $withPhoto->count()): ?>
-<section class="hof-strip">
+<?php if ($company && $company->count()): ?>
+<section class="hof-strip" id="this-years-company">
     <div class="hof-strip__inner">
         <header class="section-head">
-            <p class="eyebrow">Hall of Fame</p>
-            <h2 class="display">Legends of the tulle</h2>
-            <p class="section-head__blurb">Collect them all. Trade them at the bar. Do not, under any circumstances, get them laminated.</p>
+            <p class="eyebrow">Year twenty · 2026</p>
+            <h2 class="display">This year's company</h2>
+            <p class="section-head__blurb">The current line-up, including the person who has to teach them. Cards without a portrait still count: the butterfly is standing in until a photo arrives.</p>
         </header>
-        <div class="tgrid tgrid--fan">
-            <?php foreach ($withPhoto->limit(4) as $person): ?><?php snippet('person-card', ['person' => $person]) ?><?php endforeach ?>
+        <div class="tgrid">
+            <?php foreach ($company as $person): ?><?php snippet('person-card', ['person' => $person]) ?><?php endforeach ?>
         </div>
-        <p class="section-cta"><a href="/hall-of-fame" class="btn btn--outline">See all <?= $members->count() ?> cards</a></p>
+        <p class="section-cta"><a href="/hall-of-fame" class="btn btn--outline">The full Hall of Fame (<?= $members->count() ?> cards)</a></p>
     </div>
 </section>
 <?php endif ?>

@@ -2,13 +2,14 @@
 /** Hall of Fame trading card, flips on hover/focus/tap to reveal stats. Expects: $person */
 $photo = $person->images()->template('image')->first() ?? $person->images()->first();
 $s = rmbStats($person);
-$type = $person->personType()->or('performer')->value();
+$type = rmbCardType($person);
+$typeLabel = rmbTypeLabel($person);
 $d = fn($k) => $s[$k]['draft'] ? ' class="is-draft"' : '';
 ?>
 <div class="flip reveal" data-tilt>
   <div class="flip__inner">
     <a class="tcard tcard--<?= esc($type, 'attr') ?> flip__face flip__front" href="<?= $person->url() ?>">
-        <div class="tcard__top"><span class="tcard__no">No. <?= $s['number'] ?></span><span class="tcard__type"><?= esc(ucfirst($type)) ?></span></div>
+        <div class="tcard__top"><span class="tcard__no">No. <?= $s['number'] ?></span><span class="tcard__type"><?= esc($typeLabel) ?></span></div>
         <div class="tcard__photo">
             <?php if ($photo): ?>
                 <img src="<?= $photo->crop(480, 560)->url() ?>" alt="<?= $photo->alt()->or($person->title())->escape() ?>" loading="lazy">
