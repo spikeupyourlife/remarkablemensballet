@@ -1,7 +1,14 @@
 </main>
 
 <footer class="site-footer">
-    <div class="site-footer__inner">
+    <?php
+    $hasSocial = $site->facebook()->isNotEmpty()
+        || $site->instagram()->isNotEmpty()
+        || $site->youtube()->isNotEmpty()
+        || $site->tiktok()->isNotEmpty()
+        || $site->contactEmail()->isNotEmpty();
+    ?>
+    <div class="site-footer__inner<?= $hasSocial ? ' site-footer__inner--social' : '' ?>">
         <div class="site-footer__col">
             <img class="site-footer__crest" src="<?= av('assets/images/crest-shield-dark-a.svg') ?>" alt="" width="520" height="720">
             <p class="site-footer__brand">
@@ -28,6 +35,7 @@
             </ul>
         </div>
 
+        <?php if ($hasSocial): ?>
         <div class="site-footer__col">
             <h3 class="site-footer__heading">Find us</h3>
             <ul class="site-footer__social">
@@ -48,6 +56,7 @@
                 <?php endif ?>
             </ul>
         </div>
+        <?php endif ?>
     </div>
 
     <div class="site-footer__legal">
