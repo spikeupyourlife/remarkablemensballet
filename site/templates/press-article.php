@@ -25,7 +25,8 @@
         </figure>
     <?php else: ?>
         <figure class="press-article__image press-fallback press-fallback--wide" aria-hidden="true">
-            <img src="<?= av('assets/images/crest-shield-dark-a.svg') ?>" alt="">
+            <img class="press-fallback__mark" src="<?= av('assets/images/crest-shield-a.svg') ?>" alt="">
+            <span class="press-fallback__brand">Remarkable Men's Ballet</span>
             <span class="press-fallback__src"><?= $page->sourceName()->escape() ?></span>
             <span class="press-fallback__year"><?= $page->publishedDate()->toDate('Y') ?></span>
         </figure>

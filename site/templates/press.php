@@ -20,7 +20,8 @@
                             </div>
                         <?php else: ?>
                             <div class="press-card__thumb press-fallback" aria-hidden="true">
-                                <img src="<?= av('assets/images/crest-shield-dark-a.svg') ?>" alt="" loading="lazy">
+                                <img class="press-fallback__mark" src="<?= av('assets/images/crest-shield-a.svg') ?>" alt="" loading="lazy">
+                                <span class="press-fallback__brand">Remarkable Men's Ballet</span>
                                 <span class="press-fallback__src"><?= $article->sourceName()->escape() ?></span>
                                 <span class="press-fallback__year"><?= $article->publishedDate()->toDate('Y') ?></span>
                             </div>
