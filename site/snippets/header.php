@@ -4,21 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $page->isHomePage() ? $site->title() . ' · 20 years of tutus' : $page->title() . ' · ' . $site->title() ?></title>
-    <meta name="description" content="<?= $page->metaDescription()->or($site->metaDescription())->escape() ?>">
+    <?php $meta = rmbMetaDescription($page); $canonical = rmbCanonical($page); ?>
+    <meta name="description" content="<?= $meta->escape() ?>">
 
     <meta property="og:title" content="<?= $page->title()->escape() ?>">
-    <meta property="og:description" content="<?= $page->metaDescription()->or($site->metaDescription())->escape() ?>">
+    <meta property="og:description" content="<?= $meta->escape() ?>">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="<?= $page->url() ?>">
+    <meta property="og:url" content="<?= htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:site_name" content="<?= $site->title()->escape() ?>">
     <meta property="og:locale" content="en_NZ">
     <?php $ogImage = $site->ogImage()->toFile() ?? $page->images()->first() ?? page('home')?->images()->first(); ?>
     <?php if ($ogImage): ?>
-        <meta property="og:image" content="<?= $ogImage->crop(1200, 630)->url() ?>">
+        <meta property="og:image" content="<?= htmlspecialchars(rmbAbsoluteUrl($ogImage->crop(1200, 630)->url()), ENT_QUOTES, 'UTF-8') ?>">
         <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
         <meta name="twitter:card" content="summary_large_image">
     <?php endif ?>
-    <link rel="canonical" href="<?= $page->url() ?>">
+    <link rel="canonical" href="<?= htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="icon" href="<?= url('favicon.ico') ?>" sizes="48x48">
     <link rel="icon" href="<?= av('assets/images/favicon-a.svg') ?>" type="image/svg+xml">
     <link rel="icon" href="<?= av('assets/images/icon-512-a.png') ?>" type="image/png" sizes="512x512">
     <link rel="apple-touch-icon" href="<?= av('assets/images/apple-touch-icon-a.png') ?>">

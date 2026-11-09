@@ -7,6 +7,16 @@ RewriteEngine on
 
 # RewriteBase /
 
+# Force HTTPS and the bare domain (one hop).
+# Leave Let's Encrypt challenges on HTTP so the certificate can renew.
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://remarkablemensballet.com%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{HTTP_HOST} ^www\.remarkablemensballet\.com$ [NC]
+RewriteRule ^ https://remarkablemensballet.com%{REQUEST_URI} [L,R=301]
+
 # Block all files in the content folder from being accessed directly
 RewriteRule ^content/(.*?\.(txt|md|mdown))$ index.php [L]
 

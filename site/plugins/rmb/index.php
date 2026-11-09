@@ -6,6 +6,25 @@
 
 Kirby::plugin('rmb/site', [
 
+    'routes' => [
+        [
+            'pattern' => 'robots.txt',
+            'method'  => 'GET',
+            'action'  => function () {
+                $origin = rmbPublicOrigin();
+                $body = "User-agent: *\nAllow: /\n\nSitemap: {$origin}/sitemap.xml\n";
+                return new Kirby\Cms\Response($body, 'text/plain');
+            },
+        ],
+        [
+            'pattern' => 'sitemap.xml',
+            'method'  => 'GET',
+            'action'  => function () {
+                return new Kirby\Cms\Response(rmbSitemapXml(), 'application/xml');
+            },
+        ],
+    ],
+
     'pageMethods' => [
         // True if the page (or any ancestor) is the team / gallery / etc.
         'inSection' => function (string $slug): bool {
@@ -125,4 +144,108 @@ if (!function_exists('rmbFormValues')) {
             return false;
         }
     }
+}
+
+/**
+ * Public origin for canonical / Open Graph / sitemap URLs.
+ * Internal page links stay root-relative because production sets `'url' => '/'`.
+ */
+function rmbPublicOrigin(): string
+{
+    return rtrim((string) option('rmb.publicUrl', 'https://remarkablemensballet.com'), '/');
+}
+
+/** Turn a root-relative or local absolute URL into the public https:// URL. */
+function rmbAbsoluteUrl(string $url): string
+{
+    $origin = rmbPublicOrigin();
+    if (preg_match('~^https?://~i', $url)) {
+        $parts = parse_url($url);
+        $path  = $parts['path'] ?? '/';
+        $query = isset($parts['query']) ? '?' . $parts['query'] : '';
+        return $origin . $path . $query;
+    }
+    if ($url === '' || $url === '/') {
+        return $origin . '/';
+    }
+    return $origin . '/' . ltrim($url, '/');
+}
+
+function rmbCanonical($page): string
+{
+    if ($page->isHomePage()) {
+        return rmbPublicOrigin() . '/';
+    }
+    return rmbPublicOrigin() . '/' . $page->uri();
+}
+
+function rmbMetaDescription($page)
+{
+    $content = $page->content();
+    foreach (['metaDescription', 'blurb', 'excerpt', 'description'] as $key) {
+        $field = $content->get($key);
+        if ($field->isNotEmpty()) {
+            return $field;
+        }
+    }
+    return site()->metaDescription();
+}
+
+function rmbIsHonorary($page): bool
+{
+    if (strtolower((string) $page->personType()->value()) === 'fan') {
+        return true;
+    }
+    return str_contains(mb_strtolower((string) $page->role()->value()), 'honorary');
+}
+
+function rmbStatusLabel($page): string
+{
+    if (rmbIsHonorary($page)) {
+        return 'Honorary';
+    }
+    return $page->isCurrent()->toBool() ? 'Active duty' : 'Alumni';
+}
+
+function rmbTypeLabel($page): string
+{
+    if (rmbIsHonorary($page)) {
+        return 'Honorary';
+    }
+    $type = $page->personType()->or('performer')->value();
+    return $type === '' ? 'Performer' : ucfirst($type);
+}
+
+function rmbCardType($page): string
+{
+    if (rmbIsHonorary($page)) {
+        return 'honorary';
+    }
+    $type = $page->personType()->or('performer')->value();
+    return $type === '' ? 'performer' : $type;
+}
+
+function rmbSitemapXml(): string
+{
+    $pages = site()->index()->published()->filter(function ($page) {
+        $tpl = $page->intendedTemplate()->name();
+        return !in_array($tpl, ['error', 'photo'], true);
+    });
+
+    $lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ];
+    foreach ($pages as $page) {
+        $loc  = htmlspecialchars(rmbCanonical($page), ENT_XML1 | ENT_QUOTES, 'UTF-8');
+        $mod  = $page->modified('Y-m-d');
+        $lines[] = '  <url>';
+        $lines[] = '    <loc>' . $loc . '</loc>';
+        if ($mod) {
+            $lines[] = '    <lastmod>' . htmlspecialchars((string) $mod, ENT_XML1 | ENT_QUOTES, 'UTF-8') . '</lastmod>';
+        }
+        $lines[] = '  </url>';
+    }
+    $lines[] = '</urlset>';
+    return implode("\n", $lines) . "\n";
 }

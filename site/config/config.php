@@ -67,6 +67,9 @@ return [
 
     // Brand-specific globals
     'rmb' => [
+        // Public origin for canonical tags, Open Graph URLs, robots and the sitemap.
+        // Internal links stay root-relative via the production `'url' => '/'` cache fix.
+        'publicUrl' => 'https://remarkablemensballet.com',
         'show_year' => 20, // 20th anniversary
         // Every site form emails here (never shown on the site)
         'forms' => [
