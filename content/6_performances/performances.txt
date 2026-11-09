@@ -13,6 +13,10 @@ Blurb: Where to see us next, and proof of everywhere we've been. Mostly the Quee
 Pastshows:
 
 -
+  year: "2026"
+  show: Arrowtown Autumn Festival
+  note: They had us back. Mid-April mischief. Our touring radius is still roughly 20 kilometres.
+-
   year: "2025"
   show: Queenstown Christmas Show, plus Arrowtown Autumn Festival
   note: First time off the Christmas Show reservation. Vivaldi's Autumn in Arrowtown, then 2,700+ in December.
@@ -24,6 +28,10 @@ Pastshows:
   year: "2023"
   show: "Not a Creature was Stirring"
   note: Listed among the community acts. Not a mouse was harmed.
+-
+  year: "2022"
+  show: Queenstown Christmas Show
+  note: The 16th annual show, back at the Queenstown Events Centre after going online in 2021. About 2,400 people across two sessions.
 -
   year: "2021"
   show: Queenstown Christmas Show (online)
@@ -52,6 +60,10 @@ Pastshows:
   year: "2009"
   show: Shotover Jet Remarkable Christmas Spectacular
   note: Thirty men, Beethoven's Fifth (rock version), one mayor.
+
+----
+
+Metadescription: Where to see the Remarkable Men's Ballet next, and a back catalogue of everywhere we've been. Mostly the Queenstown Christmas Show, occasionally Arrowtown, never Paris.
 
 ----
 

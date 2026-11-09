@@ -38,4 +38,8 @@ Donationcta: Donate
 
 ----
 
+Metadescription: How the Remarkable Men's Ballet is backed, and where every cent the Queenstown Christmas Show raises goes: Salvation Army, Happiness House, Baskets of Blessings and the Buddy Programme.
+
+----
+
 Uuid: c3DOUFZSFqmRWzDO

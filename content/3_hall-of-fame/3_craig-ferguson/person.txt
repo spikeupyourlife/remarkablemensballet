@@ -52,12 +52,12 @@ Instagram:
 
 ----
 
-Customlink: 
+Customlink: https://www.queenstown.com/org/fergcast
 
 ----
 
-Customlinklabel: 
+Customlinklabel: Listen to FergCast
 
 ----
 
-Metadescription: Craig "Ferg" Ferguson, The G of the Remarkable Men's Ballet, Queenstown radio host and councillor.
+Metadescription: Craig "Ferg" Ferguson, The G of the Remarkable Men's Ballet, host of FergCast and veteran of Queenstown radio and council.

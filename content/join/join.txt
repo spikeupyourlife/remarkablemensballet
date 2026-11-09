@@ -72,3 +72,7 @@ Ctalabel: Put my name down
 ----
 
 Ctaemail: 
+
+----
+
+Metadescription: Auditions are (technically) open. The Remarkable Men's Ballet is looking for men of Queenstown Lakes with courage, questionable flexibility and a robust sense of humour.

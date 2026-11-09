@@ -10,4 +10,8 @@ Blurb: Photos from rehearsals, dressing rooms, backstage chaos, and (occasionall
 
 ----
 
+Metadescription: Photos from rehearsals, dressing rooms, backstage chaos and, occasionally, the actual stage. Twenty years of the Remarkable Men's Ballet on the record.
+
+----
+
 Uuid: 3MwEtkXdDgLB2QwB

@@ -107,4 +107,8 @@ Shame:
 
 ----
 
+Metadescription: It started in a pub. Twenty years of the Remarkable Men's Ballet, from the first Queenstown Christmas Show to Arrowtown and a twentieth anniversary.
+
+----
+
 Uuid: Z3yW9WzVOHbZhjMp

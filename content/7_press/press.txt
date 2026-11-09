@@ -10,4 +10,8 @@ Blurb: A small archive of newspaper write-ups, the occasional radio mention, and
 
 ----
 
+Metadescription: Newspaper write-ups and photographic evidence of the Remarkable Men's Ballet, filed away before the original links wander off.
+
+----
+
 Uuid: XPs2jSdTcKziCMYm

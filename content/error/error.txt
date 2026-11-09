@@ -7,3 +7,7 @@ Headline: This page has left the stage
 ----
 
 Blurb: We looked everywhere: the wings, the dressing room, under the spare tutus. Whatever you were after has missed its cue.
+
+----
+
+Metadescription: This page has left the stage. The Remarkable Men's Ballet looked in the wings, the dressing room and under the spare tutus.
