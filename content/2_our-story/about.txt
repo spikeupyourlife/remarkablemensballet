@@ -47,7 +47,7 @@ Milestones:
 -
   year: "2019"
   title: The Lion King, midwinter
-  text: A Bathhouse-stage cameo at the Queenstown Winter Festival, in onesies, to *Circle of Life*. Proof we do leave the Christmas Show.
+  text: A Bathhouse-stage cameo at the Queenstown Winter Festival, in onesies, to Circle of Life. Proof we do leave the Christmas Show.
 -
   year: "2019"
   title: Sugar versus Plum
@@ -63,7 +63,7 @@ Milestones:
 -
   year: "2025"
   title: On tour (Arrowtown)
-  text: Arrowtown Autumn Festival debut, Vivaldi's *Autumn*, then a December crowd of more than 2,700.
+  text: Arrowtown Autumn Festival debut, Vivaldi's Autumn, then a December crowd of more than 2,700.
 -
   year: "2026"
   title: Year twenty
