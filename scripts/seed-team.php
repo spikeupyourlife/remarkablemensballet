@@ -188,23 +188,22 @@ MD,
     [
         'slug' => 'uan-spijkerbosch',
         'title' => 'Uan Spijkerbosch',
-        'stageName' => 'Balletman',
+        'stageName' => 'Spike Up Your Life',
         'personType' => 'performer',
-        'role' => 'Performer · "Balletman"',
+        'role' => 'Performer · Acting G, 2025',
+        'signatureMove' => 'Pirouette',
         'bio' => <<<MD
-Stage name: **Balletman**.
+Spike joined the troupe around 2016 and has missed exactly one Christmas show since. He has also danced at the Winter Festival and the Autumn Festival, and, yes, there was belly dancing. His signature move is the pirouette. His proudest moment was the first-night flutters, and making it happen anyway. His worst: popping a calf mid-show. The show went on.
 
-Quoted in the ODT in April 2025 ahead of the troupe's appearance at the Arrowtown Autumn Festival, the first time the RMB had performed outside the Christmas Show, sounding very ready for it: *"We think we've got it. It's solid, it's dynamic, and we've nailed it."*
+Off stage he's an IT guy, stuck at a desk wiring up the world. His mum loves it. Her review: "Typical. Knuckle head."
 
-The 2025 Arrowtown routine was choreographed by Claire Hazledine and set to Vivaldi's *Autumn*.
-
-Also, purely coincidentally, the person who decided to build this website.
+His advice to new recruits is "Just turning up is enough." His motto is "Spike up your life", and his only limit is limits.
 MD,
-        'performingSince' => '',
+        'performingSince' => '2016-12-01',
         'performingUntil' => '',
         'isCurrent' => true,
         'featured' => true,
-        'metaDescription' => 'Uan "Balletman" Spijkerbosch, Remarkable Men\'s Ballet performer.',
+        'metaDescription' => 'Uan "Spike" Spijkerbosch, Remarkable Men\'s Ballet performer, acting G for the 2025 Christmas Show and builder of this website.',
     ],
 
     [
