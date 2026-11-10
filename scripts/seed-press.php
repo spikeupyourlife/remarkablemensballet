@@ -72,7 +72,7 @@ MD,
     [
         'slug' => 'festival-head-turners',
         'title' => 'Festival head-turners',
-        'excerpt' => 'An Arrowtown Autumn Festival first — the Remarkable Men\'s Ballet take the stage outside the Christmas Show for the first time, performing Vivaldi\'s Autumn at the 39th festival.',
+        'excerpt' => 'The ODT previews the troupe\'s 2025 Arrowtown Autumn Festival appearances, including Super Seniors High Tea, Buckingham Green and the street parade, with a routine to Vivaldi\'s Autumn choreographed by Claire Hazledine.',
         'body' => <<<MD
 It's an Arrowtown Autumn Festival first. Now in its 39th year, this year's festival — which starts today — will feature six highly-skilled (according to them) local dancers who are hell-bent on bringing the entertainment value.
 

@@ -109,8 +109,8 @@ Run with Laragon's PHP: `D:\laragon\bin\php\php-8.3.16-Win32-vs16-x64\php.exe sc
 
 Event-grouped (not date-grouped). Christmas Show years: 2019, 2020, 2021, 2023, 2024, 2025. Arrowtown Autumn Festival: 2025, 2026. Plus Spike-uploaded materials.
 
-- **2020 was the troupe's only known Queenstown Winter Festival** appearance (video exists, no photos we have access to)
-- **April 2025 Arrowtown** was the troupe's **first ever appearance outside the Christmas Show**
+- **2019 was the confirmed Queenstown Winter Festival** appearance (Bathhouse stage, *The Lion King*; video `W8spc9iwMcE`, no photos we have access to). No public evidence of other Winter Festival years has been found.
+- **April 2025 Arrowtown** was the troupe's **Arrowtown Autumn Festival debut**, not the first outing outside the Christmas Show (that was the 2019 Winter Festival). The ODT preview wrongly framed it as the first time off the Christmas Show.
 - **Bee Sadalah** (pioneer of Queenstown belly dance, Te Atamira resident) collaborated with RMB — year TBC
 
 ### Press (16 articles)
@@ -119,7 +119,7 @@ Full-text stored locally (survives dead links). Mostly ODT + Lakes Weekly Bullet
 
 ### Videos (3 YouTube embeds)
 
-- 2020 Queenstown Winter Festival (`W8spc9iwMcE`)
+- 2019 Queenstown Winter Festival (`W8spc9iwMcE`)
 - 2019 "An intimate look at..." (`CAT6IHf7Sig`)
 - 2014 Troupe footage (`Vj-OTNszxr0`)
 
@@ -206,7 +206,7 @@ Grokbot likely won't have those files, so this handover doc is the equivalent co
 
 ## What's immediately useful to do next
 
-1. **Pick up Spike's open questions** — Bee Sadalah year, Winter Festival year, the 2012–2023 lineup gap
+1. **Pick up Spike's open questions** — Bee Sadalah year/event still TBC, the 2012–2023 lineup gap. Winter Festival year is now confirmed as 2019.
 2. **Chase bio photos** for the 25 profiles still without one
 3. **Write the About page** — now have enough history for a real narrative
 4. **Draft contact emails** to Doug Kamo + Ferg + Janey Rae asking for cast/photo contributions

@@ -19,7 +19,7 @@ Pastshows:
 -
   year: "2025"
   show: Queenstown Christmas Show, plus Arrowtown Autumn Festival
-  note: First time off the Christmas Show reservation. Vivaldi's Autumn in Arrowtown, then 2,700+ in December.
+  note: Arrowtown Autumn Festival debut. Vivaldi's Autumn, then 2,700+ in December.
 -
   year: "2024"
   show: Queenstown Christmas Show
@@ -39,11 +39,11 @@ Pastshows:
 -
   year: "2020"
   show: Queenstown Christmas Show
-  note: Shared the stage with Aroha, Olaf and Father Christmas. Also a winter cameo at the Queenstown Winter Festival.
+  note: Shared the stage with Aroha, Olaf and Father Christmas.
 -
   year: "2019"
-  show: Queenstown Christmas Show
-  note: Sugar Fairies versus Plum Fairies, a fundraising dance-off for Queenstown Lakes Baby Box.
+  show: Queenstown Christmas Show, plus Queenstown Winter Festival
+  note: Sugar Fairies versus Plum Fairies, a fundraising dance-off for Queenstown Lakes Baby Box. In June, a Lion King cameo on the Winter Festival Bathhouse stage.
 -
   year: "2018"
   show: Shotover Jet Christmas Show

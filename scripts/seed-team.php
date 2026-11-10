@@ -213,7 +213,7 @@ MD,
         'personType' => 'performer',
         'role' => 'Performer',
         'bio' => <<<MD
-Performed at the 2025 Arrowtown Autumn Festival, the troupe's first appearance outside the Christmas Show. Choreography by Claire Hazledine, set to Vivaldi's *Autumn*.
+Performed at the troupe's 2025 Arrowtown Autumn Festival debut. Choreography by Claire Hazledine, set to Vivaldi's *Autumn*.
 
 Full bio coming.
 MD,
@@ -622,7 +622,7 @@ MD,
         'personType' => 'choreographer',
         'role' => 'Choreographer',
         'bio' => <<<MD
-Choreographer for the Remarkable Men's Ballet. Choreographed the troupe's 2025 Arrowtown Autumn Festival routine, set to Vivaldi's *Autumn*, for the troupe's first ever appearance outside the Christmas Show.
+Choreographer for the Remarkable Men's Ballet. Choreographed the troupe's 2025 Arrowtown Autumn Festival routine, set to Vivaldi's *Autumn*, the first time the men had danced at Arrowtown.
 
 Full bio coming.
 MD,
@@ -697,19 +697,27 @@ The ODT\'s preview of the 2010 show remembered it too: *"...the Remarkables Chri
         'customLinkLabel' => '',
     ],
     'irik-anderson' => [
-        'bio' => 'One of the longest-serving men on the books. Irik was in the Class of 2011 (ODT, *Meet the lords of the dance*), and was back in a tutu for the troupe\'s first ever outside gig, the 2025 Arrowtown Autumn Festival, dancing Claire Hazledine\'s routine to Vivaldi\'s *Autumn*. Fourteen years between press mentions and not a step forgotten. Allegedly.',
+        'bio' => '**The Viking**, and one of the longest-serving men on the books. Irik was in the Class of 2011 (ODT, *Meet the lords of the dance*), was back in a tutu for the troupe\'s 2025 Arrowtown Autumn Festival debut, dancing Claire Hazledine\'s routine to Vivaldi\'s *Autumn*, and then danced the black swans at Christmas 2025.
+
+Keeper of troupe lore, sailor when he isn\'t dancing, and inventor of the emergency paper-cone swan beak. His philosophy, roughly: the hairline may say polish, but the attitude says glitter. Fourteen years between press mentions and not a step forgotten. Allegedly.',
         'metaDescription' => 'Irik Anderson, Remarkable Men\'s Ballet performer since 2011.',
     ],
     'steve-kay' => [
-        'bio' => 'Current member of the company, and part of the six-man line-up that took the troupe beyond the Christmas Show for the first time, at the 2025 Arrowtown Autumn Festival (choreography by Claire Hazledine, music by Vivaldi, nerves by Steve). Full dossier coming soon.',
+        'bio' => 'Stage name **Betty Swollocks**, and please don\'t call him Steve while he\'s in character. Ferg calls him **Yelly**.
+
+Steve is the troupe\'s hype man, archivist and fixer: he finds the costume references, the school hall and the speakers, and he even dug up video of the troupe\'s circa-1990 autumn festival forerunners. Part of the six-man line-up for the troupe\'s 2025 Arrowtown Autumn Festival debut (choreography by Claire Hazledine, music by Vivaldi, nerves by Steve), and a black swan at Christmas 2025, having cut short a work trip to Te Anau rather than miss the flash mob.',
         'metaDescription' => 'Steve Kay, Remarkable Men\'s Ballet performer.',
     ],
     'jim-curry' => [
-        'bio' => 'Part of the six-man line-up for the troupe\'s first ever appearance outside the Christmas Show, at the 2025 Arrowtown Autumn Festival, dancing Claire Hazledine\'s routine to Vivaldi\'s *Autumn*. A short career, but a historic one.',
+        'bio' => 'Known to the troupe as **CCJ**, and also as the Rabbit Man. The Arrowtown arm of the company: Jim was part of the six-man line-up for the troupe\'s Arrowtown Autumn Festival debut in 2025, dancing Claire Hazledine\'s routine to Vivaldi\'s *Autumn*.
+
+A few weeks out from the 2025 Christmas Show he lost an argument with a rabbit hole (fairy down!), and he danced the black swans anyway. Through his Arrowtown connections he also found the troupe a pair of ex-ballerina choreographers for Autumn Fest 2026. Please don\'t ask him what CCJ stands for.',
         'metaDescription' => 'Jim Curry, Remarkable Men\'s Ballet performer (Arrowtown 2025).',
     ],
     'claire-hazledine' => [
-        'bio' => 'The choreographer who took the Remarkable Men\'s Ballet on tour. Claire created the troupe\'s 2025 Arrowtown Autumn Festival routine, set to Vivaldi\'s *Autumn*, for the first time the men had ever performed outside the Christmas Show. Arrowtown invited them back in 2026, which we choose to read as a review of her work rather than ours. Full bio coming soon.',
+        'bio' => 'The choreographer who took the Remarkable Men\'s Ballet on tour. Claire created the troupe\'s 2025 Arrowtown Autumn Festival routine, set to Vivaldi\'s *Autumn*, the first time the men had danced at Arrowtown. Arrowtown invited them back in 2026, which we choose to read as a review of her work rather than ours.
+
+For Christmas 2025 she ran the weeknight rehearsals, made heaps of changes, promised the audience a wow, and taught a dozen grown men how to be swans. She also teaches community dance at Te Atamira. Her parting notes to the men before curtain: sparkle, and shine.',
         'metaDescription' => 'Claire Hazledine, Remarkable Men\'s Ballet choreographer.',
     ],
     'anna-stuart' => [

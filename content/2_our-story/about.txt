@@ -18,7 +18,7 @@ Our members are tradies, professionals, a councillor, a police constable, a volu
 
 By 2009 we were 30 strong, and Mayor Clive Geddes stepped in as an eleventh-hour replacement ballerina to a rock version of Beethoven's Fifth. In 2011 Mayor Vanessa van Uden stole our flowers, and was wrapped in tinsel and carried offstage for her trouble. In 2013 we took the show outdoors at the Queenstown Recreation Ground with red lipstick, hairy legs and a rugby ball, and the paper said we stole the show. We have not given it back.
 
-In 2025 we left the Christmas Show for the first time, crossing the frontier to the Arrowtown Autumn Festival with a routine to Vivaldi's *Autumn*. They had us back in 2026. Our touring radius is now roughly 20 kilometres.
+We have also been known to escape the Christmas Show. In June 2019 we took *The Lion King* to the Queenstown Winter Festival Bathhouse stage, in onesies, which is not a sentence we expected to write. In 2025 we crossed the frontier to the Arrowtown Autumn Festival with a routine to Vivaldi's *Autumn*. They had us back in 2026. Our touring radius is now roughly 20 kilometres.
 
 This December is our twentieth year. We take it very seriously. Mostly.
 
@@ -46,6 +46,10 @@ Milestones:
   text: The Christmas Cracker moves to the Queenstown Recreation Ground. We bring a rugby ball. The ODT says we steal the show.
 -
   year: "2019"
+  title: The Lion King, midwinter
+  text: A Bathhouse-stage cameo at the Queenstown Winter Festival, in onesies, to *Circle of Life*. Proof we do leave the Christmas Show.
+-
+  year: "2019"
   title: Sugar versus Plum
   text: The troupe splits into rival Sugar and Plum Fairies for a fundraising dance-off for Queenstown Lakes Baby Box.
 -
@@ -59,7 +63,7 @@ Milestones:
 -
   year: "2025"
   title: On tour (Arrowtown)
-  text: First appearance outside the Christmas Show, then a December crowd of more than 2,700.
+  text: Arrowtown Autumn Festival debut, Vivaldi's *Autumn*, then a December crowd of more than 2,700.
 -
   year: "2026"
   title: Year twenty

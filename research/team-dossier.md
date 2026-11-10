@@ -11,9 +11,9 @@
 | Event | Year(s) | Notes |
 |------|---------|-------|
 | Queenstown Christmas Show | 2006 → present | The original. 20-year run by Christmas 2026. |
-| Queenstown Winter Festival | Pre-2023 (year TBC) | Per Spike. **Winter Festival ran 1975–2023 then cancelled**, so this would be a historic appearance. |
+| Queenstown Winter Festival | 2019 | Confirmed: Bathhouse stage during the 20–23 Jun 2019 festival, *The Lion King* / *Circle of Life*, onesies. Source: Lakes Weekly Bulletin / Queenstown TV video (https://www.youtube.com/watch?v=W8spc9iwMcE), uploaded 24 Jun 2019 NZST. Festival ran 1975–2023 then cancelled. No public evidence of other Winter Festival years found. |
 | Belly-dance crossover with **Bee Sadalah** | TBC | Per Spike — RMB shared a stage with [Bee Sadalah](https://www.teatamira.nz/artist/bee-sadalah), pioneer of belly dance in Queenstown (based at Tea Tamira / Te Atamira). Year + event need confirming. Bee is a guest/collaborator — not a member, no profile. |
-| Arrowtown Autumn Festival | 2025 (first), 2026 (second) | 2025 was the troupe's first appearance outside the Christmas Show per ODT. 2026 confirmed by our gallery photos (16 April 2026 album). |
+| Arrowtown Autumn Festival | 2025 (Arrowtown debut), 2026 (second) | 2025 was the troupe's Arrowtown debut, not their first outing outside the Christmas Show (that was the 2019 Winter Festival). The ODT preview wrongly framed it as the first time off the Christmas Show. 2026 confirmed by our gallery photos (16 April 2026 album). |
 
 ## ✨ Big additions this round (from Spike's research bundle)
 
@@ -28,7 +28,8 @@
 
 ### Milestones now confirmed
 
-- **April 2025 — first appearance outside the Christmas Show**: Arrowtown Autumn Festival, 6-performer lineup (Irik, Steve K, Jim Curry, Spike, Jake, +1?). Choreography by Claire Hazledine. Routine set to Vivaldi's *Autumn*. (Source: ODT 2025-04-24 "Festival head-turners")
+- **June 2019 — Queenstown Winter Festival**: Bathhouse stage, *The Lion King* / *Circle of Life*, onesies. (Source: Lakes Weekly Bulletin / Queenstown TV, https://www.youtube.com/watch?v=W8spc9iwMcE)
+- **April 2025 — Arrowtown Autumn Festival debut**: 6-performer lineup (Irik, Steve K, Jim Curry, Spike, Jake, +1?). Choreography by Claire Hazledine. Routine set to Vivaldi's *Autumn*. Not the first outing outside the Christmas Show (see 2019 Winter Festival). (Source: ODT 2025-04-24 "Festival head-turners")
 - **2013** — Christmas Cracker was outdoors at Queenstown Recreation Ground with fireworks; 7th year of the event. Sam Maxwell sang during the RMB act. (Source: ODT 2013-12-17 "Remarkable ballet steals the show")
 - **2011** — Vanessa van Uden cameo (mayoral flower-theft / tinsel-wrap). Anna Stuart in her 2nd year as RMB instructor. James Beech volunteered into the show by Tracey Roxburgh (then ballerina). (Sources: ODT 2011-11-29 "Meet the lords of the dance" + 2011-12-12 "Amazing grace")
 - **2020** — RMB appeared in the Aroha+Olaf show. Marc Hamilton as Father Christmas. (Source: ODT 2020-12-14)

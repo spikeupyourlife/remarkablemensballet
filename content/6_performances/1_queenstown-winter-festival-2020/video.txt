@@ -1,10 +1,10 @@
-Title: Queenstown Winter Festival 2020
+Title: Queenstown Winter Festival 2019
 
 ----
 
 Description:
 
-The Remarkable Men's Ballet at the 2020 Queenstown Winter Festival, the troupe's only known Winter Festival appearance. (Winter Festival ran annually 1975 → 2023.)
+The Remarkable Men's Ballet on the Bathhouse stage at the 2019 Queenstown Winter Festival, performing *The Lion King*. (Winter Festival ran annually 1975 to 2023.)
 
 ----
 
@@ -24,7 +24,7 @@ Endtime:
 
 ----
 
-Showyear: 2020
+Showyear: 2019
 
 ----
 
