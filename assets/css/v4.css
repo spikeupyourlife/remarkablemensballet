@@ -86,3 +86,6 @@
     line-height: 1;
 }
 .press-fallback--wide .press-fallback__mark { width: 10%; }
+
+/* Headline aside: a trailing (bracketed) bit drops to its own smaller line */
+.page-head__aside { display: block; font-size: .45em; font-weight: 600; letter-spacing: 0; line-height: 1.2; margin-top: .35em; opacity: .85; }

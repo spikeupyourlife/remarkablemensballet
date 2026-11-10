@@ -2,7 +2,12 @@
 
 <header class="page-head">
     <div class="page-head__inner">
-        <h1 class="page-head__title"><?= $page->headline()->or($page->title())->escape() ?></h1>
+        <?php $headline = $page->headline()->or($page->title())->value(); ?>
+        <?php if (preg_match('/^(.*\S)\s*(\([^()]*\))$/u', $headline, $parts)): ?>
+        <h1 class="page-head__title"><?= esc($parts[1]) ?><span class="page-head__aside"><?= esc($parts[2]) ?></span></h1>
+        <?php else: ?>
+        <h1 class="page-head__title"><?= esc($headline) ?></h1>
+        <?php endif ?>
         <p class="page-head__blurb"><?= $page->blurb()->escape() ?></p>
     </div>
 </header>
