@@ -1,0 +1,53 @@
+Title: Feleki Uhrle
+
+----
+
+Stagename: 
+
+----
+
+Persontype: performer
+
+----
+
+Role: Performer
+
+----
+
+Bio: New for the twentieth, and technically a substitute: someone asked him to sub in, so here he is. The big dog who recruited him has, at time of writing, not turned up himself. A Queenstown real estate agent by day, Feleki admits to some nerves, given the amount of talent on the screen. Stage name pending: the troupe will assign one, which is rarely a kindness. Currently working on the butterfly, which is very important, and Blue Steel, which is more important still. Portrait pending, until we catch him in full make-up.
+
+----
+
+Performingsince: 2026-12-01
+
+----
+
+Performinguntil: 
+
+----
+
+Iscurrent: true
+
+----
+
+Showinlist: true
+
+----
+
+Featured: false
+
+----
+
+Instagram: 
+
+----
+
+Customlink: 
+
+----
+
+Customlinklabel: 
+
+----
+
+Metadescription: Feleki Uhrle, new recruit to the Remarkable Men's Ballet for its twentieth year.
